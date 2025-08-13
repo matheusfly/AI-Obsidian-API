@@ -1,0 +1,61 @@
+{
+    "folders": [
+        {
+            "name": "Master Code",
+            "path": "."
+        },
+        {
+            "name": "Data Projects", 
+            "path": "./data-projects"
+        },
+        {
+            "name": "Web Projects",
+            "path": "./web-projects"
+        },
+        {
+            "name": "AI Projects",
+            "path": "./ai-projects"
+        },
+        {
+            "name": "Data Master",
+            "path": "../datamaster"
+        }
+    ],
+    "settings": {
+        "python.defaultInterpreterPath": "C:\\Users\\mathe\\miniconda3\\python.exe",
+        "python.terminal.activateEnvironment": true,
+        "python.linting.enabled": true,
+        "python.linting.pylintEnabled": true,
+        "python.formatting.provider": "black",
+        "python.linting.flake8Enabled": true,
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+        },
+        "files.associations": {
+            "*.env": "plaintext"
+        },
+        "terminal.integrated.defaultProfile.windows": "PowerShell",
+        "git.enableSmartCommit": true,
+        "git.confirmSync": false,
+        "jupyter.askForKernelRestart": false,
+        "notebook.cellToolbarLocation": {
+            "default": "right",
+            "jupyter-notebook": "left"
+        }
+    },
+    "extensions": {
+        "recommendations": [
+            "ms-python.python",
+            "ms-python.black-formatter",
+            "ms-python.flake8",
+            "ms-toolsai.jupyter",
+            "ms-vscode.powershell",
+            "eamodio.gitlens",
+            "ms-python.pylint",
+            "formulahendry.auto-rename-tag",
+            "bradlc.vscode-tailwindcss",
+            "esbenp.prettier-vscode"
+        ]
+    }
+}
