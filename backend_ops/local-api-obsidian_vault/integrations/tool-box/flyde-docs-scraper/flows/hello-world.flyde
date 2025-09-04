@@ -1,0 +1,137 @@
+{
+  "id": "hello-world",
+  "nodes": [
+    {
+      "id": "start",
+      "type": "trigger",
+      "position": { "x": 100, "y": 100 },
+      "data": {
+        "label": "Start",
+        "description": "Trigger the hello world scraping example"
+      }
+    },
+    {
+      "id": "target-url",
+      "type": "value",
+      "position": { "x": 300, "y": 100 },
+      "data": {
+        "label": "Target URL",
+        "value": "https://flyde.dev/playground/blog-generator",
+        "description": "The URL to scrape for hello world example"
+      }
+    },
+    {
+      "id": "scraper-selector",
+      "type": "value",
+      "position": { "x": 500, "y": 100 },
+      "data": {
+        "label": "Scraper",
+        "value": "scrapfly",
+        "description": "Which scraper to use (scrapfly, playwright, scrapy)"
+      }
+    },
+    {
+      "id": "scrape-url",
+      "type": "code",
+      "position": { "x": 700, "y": 100 },
+      "data": {
+        "label": "Scrape URL",
+        "description": "Scrape the target URL using the selected scraper",
+        "code": "async function run({ url, scraper }, { result, error }) {\n  try {\n    // Import scrapers\n    const { ScrapflyScraper, PlaywrightScraper, ScrapyScraper } = require('../scrapers');\n    \n    // Select scraper\n    let scraperInstance;\n    switch(scraper) {\n      case 'scrapfly':\n        scraperInstance = new ScrapflyScraper();\n        break;\n      case 'playwright':\n        scraperInstance = new PlaywrightScraper();\n        break;\n      case 'scrapy':\n        scraperInstance = new ScrapyScraper();\n        break;\n      default:\n        throw new Error(`Unknown scraper: ${scraper}`);\n    }\n    \n    // Scrape URL\n    const scrapingResult = await scraperInstance.scrape_url(url);\n    \n    if (scrapingResult.is_success()) {\n      result.next({\n        url: scrapingResult.url,\n        content: scrapingResult.content,\n        status_code: scrapingResult.status_code,\n        metadata: scrapingResult.metadata,\n        scraper: scraper,\n        timestamp: new Date().toISOString()\n      });\n    } else {\n      error.next({\n        url: url,\n        error: scrapingResult.error,\n        status_code: scrapingResult.status_code,\n        scraper: scraper\n      });\n    }\n  } catch (e) {\n    error.next({\n      url: url,\n      error: e.message,\n      scraper: scraper\n    });\n  }\n}"
+      }
+    },
+    {
+      "id": "extract-text",
+      "type": "code",
+      "position": { "x": 900, "y": 100 },
+      "data": {
+        "label": "Extract Text",
+        "description": "Extract clean text from HTML content",
+        "code": "function run({ content }, { text, error }) {\n  try {\n    // Simple HTML to text extraction\n    let cleanText = content;\n    \n    // Remove HTML tags\n    cleanText = cleanText.replace(/<[^>]*>/g, '');\n    \n    // Remove extra whitespace\n    cleanText = cleanText.replace(/\\s+/g, ' ').trim();\n    \n    // Remove special characters\n    cleanText = cleanText.replace(/[\\r\\n\\t]/g, ' ');\n    \n    text.next(cleanText);\n  } catch (e) {\n    error.next({\n      error: e.message,\n      original_content: content\n    });\n  }\n}"
+      }
+    },
+    {
+      "id": "extract-links",
+      "type": "code",
+      "position": { "x": 1100, "y": 100 },
+      "data": {
+        "label": "Extract Links",
+        "description": "Extract links from HTML content",
+        "code": "function run({ content, base_url }, { links, error }) {\n  try {\n    // Simple link extraction using regex\n    const linkRegex = /<a[^>]+href=[\"']([^\"']+)[\"'][^>]*>/gi;\n    const extractedLinks = [];\n    let match;\n    \n    while ((match = linkRegex.exec(content)) !== null) {\n      const href = match[1];\n      \n      // Convert relative URLs to absolute\n      if (href.startsWith('/')) {\n        const url = new URL(href, base_url);\n        extractedLinks.push(url.href);\n      } else if (href.startsWith('http')) {\n        extractedLinks.push(href);\n      }\n    }\n    \n    // Remove duplicates\n    const uniqueLinks = [...new Set(extractedLinks)];\n    \n    links.next(uniqueLinks);\n  } catch (e) {\n    error.next({\n      error: e.message,\n      original_content: content\n    });\n  }\n}"
+      }
+    },
+    {
+      "id": "save-result",
+      "type": "code",
+      "position": { "x": 1300, "y": 100 },
+      "data": {
+        "label": "Save Result",
+        "description": "Save the scraping result to a file",
+        "code": "const fs = require('fs');\nconst path = require('path');\n\nfunction run({ result, text, links }, { saved, error }) {\n  try {\n    const timestamp = new Date().toISOString().replace(/[:.]/g, '-');\n    const filename = `hello-world-result-${timestamp}.json`;\n    \n    const dataToSave = {\n      metadata: {\n        timestamp: timestamp,\n        scraper: result.scraper,\n        url: result.url,\n        status_code: result.status_code\n      },\n      content: {\n        html: result.content,\n        text: text,\n        links: links\n      },\n      statistics: {\n        content_length: result.content.length,\n        text_length: text.length,\n        links_count: links.length\n      }\n    };\n    \n    // Ensure data directory exists\n    const dataDir = path.join(__dirname, '../data');\n    if (!fs.existsSync(dataDir)) {\n      fs.mkdirSync(dataDir, { recursive: true });\n    }\n    \n    const filepath = path.join(dataDir, filename);\n    fs.writeFileSync(filepath, JSON.stringify(dataToSave, null, 2));\n    \n    saved.next({\n      filename: filename,\n      filepath: filepath,\n      data: dataToSave\n    });\n  } catch (e) {\n    error.next({\n      error: e.message,\n      result: result\n    });\n  }\n}"
+      }
+    },
+    {
+      "id": "display-result",
+      "type": "code",
+      "position": { "x": 1500, "y": 100 },
+      "data": {
+        "label": "Display Result",
+        "description": "Display the final result",
+        "code": "function run({ saved }, { output, error }) {\n  try {\n    const summary = {\n      message: '🎉 Hello World Scraping Completed!',\n      filename: saved.filename,\n      url: saved.data.metadata.url,\n      scraper: saved.data.metadata.scraper,\n      statistics: {\n        content_length: saved.data.statistics.content_length,\n        text_length: saved.data.statistics.text_length,\n        links_found: saved.data.statistics.links_count\n      },\n      preview: {\n        text_preview: saved.data.content.text.substring(0, 200) + '...',\n        first_links: saved.data.content.links.slice(0, 5)\n      }\n    };\n    \n    output.next(summary);\n  } catch (e) {\n    error.next({\n      error: e.message,\n      saved: saved\n    });\n  }\n}"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": { "nodeId": "start", "portId": "trigger" },
+      "to": { "nodeId": "target-url", "portId": "value" }
+    },
+    {
+      "from": { "nodeId": "start", "portId": "trigger" },
+      "to": { "nodeId": "scraper-selector", "portId": "value" }
+    },
+    {
+      "from": { "nodeId": "target-url", "portId": "value" },
+      "to": { "nodeId": "scrape-url", "portId": "url" }
+    },
+    {
+      "from": { "nodeId": "scraper-selector", "portId": "value" },
+      "to": { "nodeId": "scrape-url", "portId": "scraper" }
+    },
+    {
+      "from": { "nodeId": "scrape-url", "portId": "result" },
+      "to": { "nodeId": "extract-text", "portId": "content" }
+    },
+    {
+      "from": { "nodeId": "scrape-url", "portId": "result" },
+      "to": { "nodeId": "extract-links", "portId": "content" }
+    },
+    {
+      "from": { "nodeId": "scrape-url", "portId": "result" },
+      "to": { "nodeId": "extract-links", "portId": "base_url" }
+    },
+    {
+      "from": { "nodeId": "extract-text", "portId": "text" },
+      "to": { "nodeId": "save-result", "portId": "text" }
+    },
+    {
+      "from": { "nodeId": "extract-links", "portId": "links" },
+      "to": { "nodeId": "save-result", "portId": "links" }
+    },
+    {
+      "from": { "nodeId": "scrape-url", "portId": "result" },
+      "to": { "nodeId": "save-result", "portId": "result" }
+    },
+    {
+      "from": { "nodeId": "save-result", "portId": "saved" },
+      "to": { "nodeId": "display-result", "portId": "saved" }
+    }
+  ],
+  "metadata": {
+    "name": "Hello World Scraping Flow",
+    "description": "A visual flow that demonstrates web scraping of Flyde's blog generator playground",
+    "version": "1.0.0",
+    "author": "Flyde Docs Scraper",
+    "tags": ["scraping", "hello-world", "flyde", "web"]
+  }
+}

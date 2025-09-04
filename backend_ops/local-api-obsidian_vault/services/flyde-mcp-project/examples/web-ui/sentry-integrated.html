@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MCP Playground - Sentry Integrated</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .sentry-status {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .sentry-status h3 {
+            color: #4CAF50;
+            margin-bottom: 10px;
+        }
+
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        .metric-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .metric-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .example-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.2);
+        }
+
+        .example-card.running {
+            background: linear-gradient(135deg, #FFE082, #FFB74D);
+            animation: pulse 1.5s infinite;
+        }
+
+        .example-card.success {
+            background: linear-gradient(135deg, #C8E6C9, #A5D6A7);
+        }
+
+        .example-card.error {
+            background: linear-gradient(135deg, #FFCDD2, #EF9A9A);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .example-card h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .example-card p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .example-status {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #ddd;
+        }
+
+        .example-card.running .example-status {
+            background: #FF9800;
+            animation: blink 1s infinite;
+        }
+
+        .example-card.success .example-status {
+            background: #4CAF50;
+        }
+
+        .example-card.error .example-status {
+            background: #F44336;
+        }
+
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0.3; }
+        }
+
+        .controls {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 1rem;
+            cursor: pointer;
+            margin: 0 10px;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .output-panel {
+            background: rgba(0,0,0,0.8);
+            color: #00ff00;
+            padding: 20px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            min-height: 200px;
+            max-height: 400px;
+            overflow-y: auto;
+            margin-bottom: 20px;
+        }
+
+        .output-line {
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+
+        .output-line.info {
+            color: #00ff00;
+        }
+
+        .output-line.warning {
+            color: #ffaa00;
+        }
+
+        .output-line.error {
+            color: #ff4444;
+        }
+
+        .sentry-logs {
+            background: rgba(0,0,0,0.9);
+            color: #00ff00;
+            padding: 15px;
+            border-radius: 10px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            max-height: 200px;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .sentry-log {
+            margin-bottom: 5px;
+            padding: 2px 0;
+        }
+
+        .sentry-log.info {
+            color: #00ff00;
+        }
+
+        .sentry-log.error {
+            color: #ff4444;
+        }
+
+        .sentry-log.performance {
+            color: #ffaa00;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎮 MCP Playground - Sentry Integrated</h1>
+            <p>Interactive Flyde MCP Examples with Real-time Monitoring</p>
+        </div>
+
+        <div class="sentry-status">
+            <h3>🔍 Sentry MCP Monitoring Status: ACTIVE</h3>
+            <p>Real-time error tracking, performance monitoring, and event logging enabled</p>
+        </div>
+
+        <div class="metrics">
+            <div class="metric-card">
+                <div class="metric-value" id="totalExamples">0</div>
+                <div class="metric-label">Examples Run</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="successRate">0%</div>
+                <div class="metric-label">Success Rate</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="avgDuration">0ms</div>
+                <div class="metric-label">Avg Duration</div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-value" id="sentryEvents">0</div>
+                <div class="metric-label">Sentry Events</div>
+            </div>
+        </div>
+
+        <div class="examples-grid">
+            <div class="example-card" id="example-hello-world" onclick="runExample('hello-world', 'Hello World MCP')">
+                <div class="example-status"></div>
+                <h3>🌍 Hello World MCP</h3>
+                <p>Basic MCP example demonstrating greeting functionality with Sentry monitoring</p>
+            </div>
+
+            <div class="example-card" id="example-ai-agent" onclick="runExample('ai-agent', 'AI Agent MCP')">
+                <div class="example-status"></div>
+                <h3>🤖 AI Agent MCP</h3>
+                <p>AI-powered agent simulation with comprehensive error tracking and performance monitoring</p>
+            </div>
+
+            <div class="example-card" id="example-data-pipeline" onclick="runExample('data-pipeline', 'Data Pipeline MCP')">
+                <div class="example-status"></div>
+                <h3>📊 Data Pipeline MCP</h3>
+                <p>Data processing pipeline with real-time metrics and Sentry event logging</p>
+            </div>
+
+            <div class="example-card" id="example-web-scraper" onclick="runExample('web-scraper', 'Web Scraper MCP')">
+                <div class="example-status"></div>
+                <h3>🕷️ Web Scraper MCP</h3>
+                <p>Web scraping automation with error handling and performance tracking</p>
+            </div>
+        </div>
+
+        <div class="controls">
+            <button class="btn" onclick="runAllExamples()">🚀 Run All Examples</button>
+            <button class="btn" onclick="clearOutput()">🧹 Clear Output</button>
+            <button class="btn" onclick="refreshMetrics()">📊 Refresh Metrics</button>
+        </div>
+
+        <div class="output-panel" id="output">
+            <div class="output-line info">🎮 MCP Playground Ready!</div>
+            <div class="output-line info">🔍 Sentry MCP monitoring active</div>
+            <div class="output-line info">Click any example card to start execution</div>
+        </div>
+
+        <div class="sentry-logs" id="sentryLogs">
+            <div class="sentry-log info">[SENTRY MCP] Monitoring initialized</div>
+            <div class="sentry-log info">[SENTRY MCP] Ready to track events</div>
+        </div>
+    </div>
+
+    <script>
+        let metrics = {
+            totalExamples: 0,
+            successfulExamples: 0,
+            totalDuration: 0,
+            sentryEvents: 0
+        };
+
+        async function runExample(exampleId, exampleName) {
+            const card = document.getElementById(`example-${exampleId}`);
+            const output = document.getElementById('output');
+            const sentryLogs = document.getElementById('sentryLogs');
+            
+            // Update card state
+            card.classList.remove('success', 'error');
+            card.classList.add('running');
+            
+            // Add to output
+            addOutputLine(`Starting: ${exampleName}`, 'info');
+            addSentryLog(`[SENTRY MCP] Starting example: ${exampleName}`, 'info');
+            
+            try {
+                const response = await fetch('/api/run-example', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        exampleId: exampleId,
+                        exampleName: exampleName
+                    })
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Success
+                    card.classList.remove('running');
+                    card.classList.add('success');
+                    
+                    addOutputLine(`✅ ${exampleName} completed successfully!`, 'info');
+                    addOutputLine(`⏱️ Duration: ${result.duration}ms`, 'info');
+                    
+                    // Add step details
+                    result.result.steps.forEach(step => {
+                        addOutputLine(`  ${step.step}. ${step.message}`, 'info');
+                    });
+                    
+                    addSentryLog(`[SENTRY MCP] Example completed: ${exampleName} (${result.duration}ms)`, 'performance');
+                    
+                    // Update metrics
+                    updateMetrics(true, result.duration);
+                    
+                } else {
+                    // Error
+                    card.classList.remove('running');
+                    card.classList.add('error');
+                    
+                    addOutputLine(`❌ ${exampleName} failed: ${result.error}`, 'error');
+                    addSentryLog(`[SENTRY MCP] Example failed: ${exampleName} - ${result.error}`, 'error');
+                    
+                    updateMetrics(false, result.duration);
+                }
+                
+            } catch (error) {
+                // Network error
+                card.classList.remove('running');
+                card.classList.add('error');
+                
+                addOutputLine(`❌ ${exampleName} failed: ${error.message}`, 'error');
+                addSentryLog(`[SENTRY MCP] Network error: ${error.message}`, 'error');
+                
+                updateMetrics(false, 0);
+            }
+        }
+
+        async function runAllExamples() {
+            const examples = [
+                { id: 'hello-world', name: 'Hello World MCP' },
+                { id: 'ai-agent', name: 'AI Agent MCP' },
+                { id: 'data-pipeline', name: 'Data Pipeline MCP' },
+                { id: 'web-scraper', name: 'Web Scraper MCP' }
+            ];
+            
+            addOutputLine('🚀 Starting all examples...', 'info');
+            addSentryLog('[SENTRY MCP] Starting batch execution', 'info');
+            
+            for (const example of examples) {
+                await runExample(example.id, example.name);
+                await new Promise(resolve => setTimeout(resolve, 1000)); // 1 second delay between examples
+            }
+            
+            addOutputLine('🎉 All examples completed!', 'info');
+            addSentryLog('[SENTRY MCP] Batch execution completed', 'info');
+        }
+
+        function addOutputLine(message, type = 'info') {
+            const output = document.getElementById('output');
+            const line = document.createElement('div');
+            line.className = `output-line ${type}`;
+            line.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            output.appendChild(line);
+            output.scrollTop = output.scrollHeight;
+        }
+
+        function addSentryLog(message, type = 'info') {
+            const sentryLogs = document.getElementById('sentryLogs');
+            const log = document.createElement('div');
+            log.className = `sentry-log ${type}`;
+            log.textContent = `[${new Date().toLocaleTimeString()}] ${message}`;
+            sentryLogs.appendChild(log);
+            sentryLogs.scrollTop = sentryLogs.scrollHeight;
+            
+            // Update Sentry events count
+            metrics.sentryEvents++;
+            updateSentryEventsDisplay();
+        }
+
+        function updateMetrics(success, duration) {
+            metrics.totalExamples++;
+            if (success) {
+                metrics.successfulExamples++;
+            }
+            metrics.totalDuration += duration;
+            
+            updateMetricsDisplay();
+        }
+
+        function updateMetricsDisplay() {
+            document.getElementById('totalExamples').textContent = metrics.totalExamples;
+            
+            const successRate = metrics.totalExamples > 0 
+                ? Math.round((metrics.successfulExamples / metrics.totalExamples) * 100)
+                : 0;
+            document.getElementById('successRate').textContent = `${successRate}%`;
+            
+            const avgDuration = metrics.totalExamples > 0
+                ? Math.round(metrics.totalDuration / metrics.totalExamples)
+                : 0;
+            document.getElementById('avgDuration').textContent = `${avgDuration}ms`;
+        }
+
+        function updateSentryEventsDisplay() {
+            document.getElementById('sentryEvents').textContent = metrics.sentryEvents;
+        }
+
+        function clearOutput() {
+            document.getElementById('output').innerHTML = '<div class="output-line info">🎮 Output cleared</div>';
+            document.getElementById('sentryLogs').innerHTML = '<div class="sentry-log info">[SENTRY MCP] Logs cleared</div>';
+        }
+
+        async function refreshMetrics() {
+            try {
+                const response = await fetch('/api/sentry-metrics');
+                const data = await response.json();
+                
+                if (data.success) {
+                    addOutputLine('📊 Metrics refreshed from Sentry MCP', 'info');
+                    addSentryLog(`[SENTRY MCP] Metrics refresh: ${data.metrics.totalEvents} events`, 'info');
+                }
+            } catch (error) {
+                addOutputLine(`❌ Failed to refresh metrics: ${error.message}`, 'error');
+            }
+        }
+
+        // Initialize
+        addOutputLine('🎮 MCP Playground with Sentry MCP monitoring initialized', 'info');
+        addSentryLog('[SENTRY MCP] Web UI loaded and ready', 'info');
+    </script>
+</body>
+</html>

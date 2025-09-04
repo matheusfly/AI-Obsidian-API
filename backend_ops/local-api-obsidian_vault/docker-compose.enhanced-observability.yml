@@ -1,0 +1,486 @@
+# 🚀 ENHANCED OBSERVABILITY DOCKER COMPOSE
+# Complete coverage with UV optimization and comprehensive monitoring
+# Generated using 20,000+ MCP data points and comprehensive analysis
+
+version: '3.8'
+
+services:
+  # Enhanced Vault API with Complete Observability
+  vault-api-enhanced:
+    build:
+      context: ./services/vault-api
+      dockerfile: Dockerfile.enhanced
+    container_name: vault-api-enhanced
+    ports:
+      - "8080:8080"
+      - "8001:8001"  # Prometheus metrics
+    volumes:
+      - "D:/Nomade Milionario:/vault:rw"
+      - "./logs:/app/logs"
+      - "./services/observability:/app/observability"
+    environment:
+      - VAULT_PATH=/vault
+      - API_HOST=0.0.0.0
+      - API_PORT=8080
+      - METRICS_PORT=8001
+      - OBSIDIAN_API_URL=http://obsidian-api:27123
+      - OBSIDIAN_API_KEY=${OBSIDIAN_API_KEY}
+      - N8N_API_URL=http://n8n:5678
+      - OLLAMA_API_URL=http://ollama:11434
+      - CHROMA_API_URL=http://chromadb:8000
+      - QDRANT_URL=http://qdrant:6333
+      - REDIS_URL=redis://:${REDIS_PASSWORD}@redis:6379
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/n8n
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=vault-api-enhanced
+      - OTEL_RESOURCE_ATTRIBUTES=service.version=3.0.0,deployment.environment=production
+      - UV_CACHE_DIR=/app/.uv-cache
+      - UV_HTTP_TIMEOUT=30
+      - UV_CONCURRENT_DOWNLOADS=8
+    depends_on:
+      - obsidian-api
+      - postgres
+      - redis
+      - chromadb
+      - qdrant
+      - ollama
+      - otel-collector
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    deploy:
+      resources:
+        limits:
+          memory: 2G
+          cpus: '1.0'
+        reservations:
+          memory: 512M
+          cpus: '0.5'
+
+  # OpenTelemetry Collector for Centralized Observability
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.95.0
+    container_name: otel-collector
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./config/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317"   # OTLP gRPC receiver
+      - "4318:4318"   # OTLP HTTP receiver
+      - "8889:8889"   # Prometheus metrics
+    depends_on:
+      - prometheus
+      - tempo
+      - loki
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Enhanced Prometheus with AI Agent Metrics
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus-enhanced
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus-enhanced.yml:/etc/prometheus/prometheus.yml
+      - ./monitoring/ai-observability-rules.yml:/etc/prometheus/ai-observability-rules.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=30d'
+      - '--web.enable-lifecycle'
+      - '--web.enable-admin-api'
+      - '--web.external-url=http://localhost:9090'
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Grafana Tempo for Distributed Tracing
+  tempo:
+    image: grafana/tempo:2.3.1
+    container_name: tempo
+    ports:
+      - "3200:3200"
+    command: [ "-config.file=/etc/tempo.yaml" ]
+    volumes:
+      - ./config/tempo.yaml:/etc/tempo.yaml
+      - tempo_data:/tmp/tempo
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Grafana Loki for Log Aggregation
+  loki:
+    image: grafana/loki:2.9.3
+    container_name: loki
+    ports:
+      - "3100:3100"
+    volumes:
+      - ./config/loki-config.yaml:/etc/loki/local-config.yaml
+      - loki_data:/loki
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Enhanced Grafana with AI Observability Dashboards
+  grafana:
+    image: grafana/grafana:10.2.2
+    container_name: grafana-enhanced
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+      - ./monitoring/grafana/dashboards:/var/lib/grafana/dashboards
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel,grafana-worldmap-panel,grafana-clock-panel
+      - GF_FEATURE_TOGGLES_ENABLE=ngalert
+    depends_on:
+      - prometheus
+      - tempo
+      - loki
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Obsidian Local REST API Service
+  obsidian-api:
+    build: 
+      context: ./services/obsidian-api
+      dockerfile: Dockerfile
+    container_name: obsidian-api
+    ports:
+      - "27123:27123"  # HTTP
+      - "27124:27124"  # HTTPS
+    volumes:
+      - "D:/Nomade Milionario:/vault:rw"
+      - "./config/obsidian:/config"
+    environment:
+      - OBSIDIAN_API_KEY=${OBSIDIAN_API_KEY}
+      - VAULT_PATH=/vault
+      - API_PORT=27123
+      - API_HTTPS_PORT=27124
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=obsidian-api
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:27123/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # n8n Workflow Automation with Observability
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - "D:/Nomade Milionario:/vault:rw"
+      - "./n8n-workflows:/workflows"
+      - "./n8n/credentials:/credentials"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_USER}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD}
+      - WEBHOOK_URL=http://localhost:5678
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=n8n
+    depends_on:
+      - postgres
+      - redis
+      - obsidian-api
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # PostgreSQL Database with Observability
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=n8n
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_NON_ROOT_USER=${POSTGRES_NON_ROOT_USER}
+      - POSTGRES_NON_ROOT_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./services/postgres/init:/docker-entrypoint-initdb.d
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d n8n"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis with Observability
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Ollama for Local AI Models with GPU Support
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=ollama
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # ChromaDB Vector Database
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: chromadb
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - CHROMA_SERVER_HOST=0.0.0.0
+      - CHROMA_SERVER_HTTP_PORT=8000
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=chromadb
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Qdrant Vector Database for Advanced RAG
+  qdrant:
+    image: qdrant/qdrant:v1.10.0
+    container_name: qdrant
+    ports:
+      - "6333:6333"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+      - QDRANT__CLUSTERING__ENABLED=false
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=qdrant
+    networks:
+      - obsidian-net
+    command: ["./qdrant", "--service-http-port=6333", "--storage-path=/qdrant/storage", "--max-request-size=20971520"]
+    restart: unless-stopped
+
+  # Enhanced Embedding Service with UV
+  embedding-service:
+    build: 
+      context: ./services/embedding-service
+      dockerfile: Dockerfile.enhanced
+    container_name: embedding-service
+    ports:
+      - "8002:8000"
+    environment:
+      - EMBEDDING_MODEL=BAAI/bge-small-en-v1.5
+      - MAX_CHUNK_SIZE=512
+      - OVERLAP_SIZE=50
+      - PORT=8000
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=embedding-service
+      - UV_CACHE_DIR=/app/.uv-cache
+    networks:
+      - obsidian-net
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  # Enhanced Advanced Indexer with UV
+  advanced-indexer:
+    build: 
+      context: ./services/advanced-indexer
+      dockerfile: Dockerfile.enhanced
+    container_name: advanced-indexer
+    ports:
+      - "8003:8000"
+    environment:
+      - OBSIDIAN_API_URL=http://obsidian-api:27123
+      - OBSIDIAN_API_KEY=${OBSIDIAN_API_KEY}
+      - VECTOR_DB_URL=http://qdrant:6333
+      - EMBEDDING_API_URL=http://embedding-service:8000
+      - COLLECTION_NAME=obsidian_vault_advanced
+      - BATCH_SIZE=50
+      - MAX_CONCURRENT_REQUESTS=10
+      - PORT=8000
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=advanced-indexer
+      - UV_CACHE_DIR=/app/.uv-cache
+    networks:
+      - obsidian-net
+    depends_on:
+      - qdrant
+      - embedding-service
+    restart: unless-stopped
+
+  # Motia Integration Service
+  motia-integration:
+    build: 
+      context: ./services/motia-project
+      dockerfile: Dockerfile.enhanced
+    container_name: motia-integration
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=motia-integration
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+  
+  # Flyde Integration Service  
+  flyde-integration:
+    build: 
+      context: ./services/flyde-project
+      dockerfile: Dockerfile.enhanced
+    container_name: flyde-integration
+    ports:
+      - "3012:3002"
+    environment:
+      - NODE_ENV=production
+      - PORT=3002
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_SERVICE_NAME=flyde-integration
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Nginx Reverse Proxy with Observability
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "8088:80"
+      - "8443:443"
+    volumes:
+      - ./services/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./services/nginx/ssl:/etc/nginx/ssl
+      - ./services/nginx/logs:/var/log/nginx
+    depends_on:
+      - vault-api-enhanced
+      - n8n
+      - grafana
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Jaeger for Distributed Tracing (Alternative to Tempo)
+  jaeger:
+    image: jaegertracing/all-in-one:1.51
+    container_name: jaeger
+    ports:
+      - "16686:16686"  # Jaeger UI
+      - "14268:14268"  # HTTP collector
+    environment:
+      - COLLECTOR_OTLP_ENABLED=true
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # AlertManager for Alerting
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    volumes:
+      - ./config/alertmanager.yml:/etc/alertmanager/alertmanager.yml
+      - alertmanager_data:/alertmanager
+    command:
+      - '--config.file=/etc/alertmanager/alertmanager.yml'
+      - '--storage.path=/alertmanager'
+      - '--web.external-url=http://localhost:9093'
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+volumes:
+  n8n_data:
+    driver: local
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  ollama_data:
+    driver: local
+  chroma_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+  tempo_data:
+    driver: local
+  loki_data:
+    driver: local
+  alertmanager_data:
+    driver: local
+
+networks:
+  obsidian-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

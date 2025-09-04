@@ -1,0 +1,28 @@
+{
+  "node": {
+    "id": "HelloWorld",
+    "name": "Hello World Flow",
+    "description": "A simple hello world example demonstrating basic Flyde concepts",
+    "instances": [
+      {
+        "id": "greeting-node",
+        "nodeId": "Code",
+        "type": "code",
+        "x": 300,
+        "y": 100,
+        "data": {
+          "code": "// Simple greeting processor\nconst greeting = inputs.message + ' Welcome to visual programming!';\noutputs.result.next(greeting);"
+        }
+      }
+    ],
+    "connections": [],
+    "inputs": {
+      "message": "required"
+    },
+    "outputs": {
+      "result": {
+        "mode": "required"
+      }
+    }
+  }
+}

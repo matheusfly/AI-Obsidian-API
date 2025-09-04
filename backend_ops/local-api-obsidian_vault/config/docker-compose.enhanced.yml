@@ -1,0 +1,412 @@
+services:
+  # Obsidian Local REST API Service
+  obsidian-api:
+    build: 
+      context: ./obsidian-api
+      dockerfile: Dockerfile
+    container_name: obsidian-api
+    ports:
+      - "27123:27123"  # HTTP
+      - "27124:27124"  # HTTPS
+    volumes:
+      # Mount your Windows Obsidian vault to the container
+      - "D:/Nomade Milionario:/vault:rw"
+      - "./config/obsidian:/config"
+    environment:
+      - OBSIDIAN_API_KEY=${OBSIDIAN_API_KEY}
+      - VAULT_PATH=/vault
+      - API_PORT=27123
+      - API_HTTPS_PORT=27124
+      - REDIS_URL=redis://redis:6379
+      - CACHE_TTL=3600
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:27123/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - redis
+
+  # Flyde Visual Programming Service
+  flyde-studio:
+    build:
+      context: ./flyde-project
+      dockerfile: Dockerfile
+    container_name: flyde-studio
+    ports:
+      - "3001:3001"
+    volumes:
+      - ./flyde-project/flows:/app/flows
+      - ./flyde-project/nodes:/app/nodes
+      - ./flyde-project/dist:/app/dist
+    environment:
+      - FLYDE_PORT=3001
+      - FLYDE_HOST=0.0.0.0
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+      - OBSIDIAN_API_URL=http://obsidian-api:27123
+      - N8N_API_URL=http://n8n:5678
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - redis
+      - obsidian-api
+
+  # Motia Workflow Automation Service
+  motia-dev:
+    build:
+      context: ./motia-project
+      dockerfile: Dockerfile
+    container_name: motia-dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./motia-project/steps:/app/steps
+      - ./motia-project/workflows:/app/workflows
+      - ./motia-project/dist:/app/dist
+    environment:
+      - MOTIA_PORT=3000
+      - MOTIA_HOST=0.0.0.0
+      - NODE_ENV=production
+      - REDIS_URL=redis://redis:6379
+      - OBSIDIAN_API_URL=http://obsidian-api:27123
+      - N8N_API_URL=http://n8n:5678
+      - POSTGRES_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/n8n
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    depends_on:
+      - redis
+      - postgres
+      - obsidian-api
+
+  # n8n Workflow Automation
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: n8n
+    ports:
+      - "5678:5678"
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - "D:/Nomade Milionario:/vault:rw"
+      - "./n8n/workflows:/workflows"
+      - "./n8n/credentials:/credentials"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=${N8N_USER}
+      - N8N_BASIC_AUTH_PASSWORD=${N8N_PASSWORD}
+      - WEBHOOK_URL=http://localhost:5678
+      - N8N_HOST=0.0.0.0
+      - N8N_PORT=5678
+      - N8N_PROTOCOL=http
+      - NODE_ENV=production
+      - DB_TYPE=postgresdb
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_PORT=5432
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_USER=${POSTGRES_USER}
+      - DB_POSTGRESDB_PASSWORD=${POSTGRES_PASSWORD}
+      - N8N_ENCRYPTION_KEY=${N8N_ENCRYPTION_KEY}
+      - REDIS_URL=redis://redis:6379
+      - FLYDE_API_URL=http://flyde-studio:3001
+      - MOTIA_API_URL=http://motia-dev:3000
+    depends_on:
+      - postgres
+      - redis
+      - obsidian-api
+      - flyde-studio
+      - motia-dev
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # PostgreSQL Database for n8n
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres
+    environment:
+      - POSTGRES_DB=n8n
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_NON_ROOT_USER=${POSTGRES_NON_ROOT_USER}
+      - POSTGRES_NON_ROOT_PASSWORD=${POSTGRES_NON_ROOT_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./postgres/init:/docker-entrypoint-initdb.d
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d n8n"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Redis for caching and session management
+  redis:
+    image: redis:7-alpine
+    container_name: redis
+    command: redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}
+    volumes:
+      - redis_data:/data
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "--raw", "incr", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  # Ollama for local AI models
+  ollama:
+    image: ollama/ollama:latest
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  # Vector Database (ChromaDB)
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: chromadb
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma_data:/chroma/chroma
+    environment:
+      - CHROMA_SERVER_HOST=0.0.0.0
+      - CHROMA_SERVER_HTTP_PORT=8000
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # FastAPI Backend Service
+  vault-api:
+    build:
+      context: ./vault-api
+      dockerfile: Dockerfile
+    container_name: vault-api
+    ports:
+      - "8080:8080"
+    volumes:
+      - "/mnt/d/Nomade Milionario:/vault:rw"
+      - "./logs:/app/logs"
+    environment:
+      - VAULT_PATH=/vault
+      - API_HOST=0.0.0.0
+      - API_PORT=8080
+      - OBSIDIAN_API_URL=http://obsidian-api:27123
+      - OBSIDIAN_API_KEY=${OBSIDIAN_API_KEY}
+      - N8N_API_URL=http://n8n:5678
+      - OLLAMA_API_URL=http://ollama:11434
+      - CHROMA_API_URL=http://chromadb:8000
+      - REDIS_URL=redis://redis:6379
+      - DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/n8n
+      - FLYDE_API_URL=http://flyde-studio:3001
+      - MOTIA_API_URL=http://motia-dev:3000
+    depends_on:
+      - obsidian-api
+      - postgres
+      - redis
+      - chromadb
+      - ollama
+      - flyde-studio
+      - motia-dev
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Prometheus for monitoring
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Grafana for dashboards
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./monitoring/grafana/provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=${GRAFANA_USER}
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD}
+      - GF_USERS_ALLOW_SIGN_UP=false
+    depends_on:
+      - prometheus
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Nginx reverse proxy
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./nginx/logs:/var/log/nginx
+    depends_on:
+      - vault-api
+      - n8n
+      - grafana
+      - flyde-studio
+      - motia-dev
+    networks:
+      - obsidian-net
+    restart: unless-stopped
+
+  # Advanced embedding service for complex file processing
+  embedding-service:
+    build: ./embedding-service
+    ports:
+      - "8002:8000"
+    environment:
+      - EMBEDDING_MODEL=BAAI/bge-small-en-v1.5
+      - MAX_CHUNK_SIZE=512
+      - OVERLAP_SIZE=50
+      - PORT=8000
+    networks:
+      - obsidian-net
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  # Advanced indexer for complex file indexing
+  advanced-indexer:
+    build: ./advanced-indexer
+    ports:
+      - "8003:8000"
+    environment:
+      - OBSIDIAN_API_URL=http://host.docker.internal:27123
+      - OBSIDIAN_API_KEY=b26efa44ceb0bd4e1fae338cede5384237bbab8624c61927986aa3f06c2f5a70
+      - VECTOR_DB_URL=http://qdrant:6333
+      - EMBEDDING_API_URL=http://embedding-service:8000
+      - COLLECTION_NAME=obsidian_vault_advanced
+      - BATCH_SIZE=50
+      - MAX_CONCURRENT_REQUESTS=10
+      - PORT=8000
+    networks:
+      - obsidian-net
+    depends_on:
+      - qdrant
+      - embedding-service
+
+  # Qdrant vector database for advanced RAG
+  qdrant:
+    image: qdrant/qdrant:v1.10.0
+    ports:
+      - "6333:6333"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+    environment:
+      - QDRANT__SERVICE__GRPC_PORT=6334
+      - QDRANT__CLUSTERING__ENABLED=false
+    networks:
+      - obsidian-net
+    command: >
+      --service-http-port=6333
+      --storage-path=/qdrant/storage
+      --max-request-size=20971520
+
+  # Integration Test Runner
+  integration-tester:
+    build:
+      context: .
+      dockerfile: Dockerfile.test
+    container_name: integration-tester
+    volumes:
+      - ./test-results:/app/test-results
+    environment:
+      - OBSIDIAN_API_URL=http://obsidian-api:27123
+      - N8N_API_URL=http://n8n:5678
+      - FLYDE_API_URL=http://flyde-studio:3001
+      - MOTIA_API_URL=http://motia-dev:3000
+      - REDIS_URL=redis://redis:6379
+      - POSTGRES_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/n8n
+    depends_on:
+      - obsidian-api
+      - n8n
+      - flyde-studio
+      - motia-dev
+      - redis
+      - postgres
+    networks:
+      - obsidian-net
+    profiles:
+      - testing
+
+volumes:
+  n8n_data:
+    driver: local
+  postgres_data:
+    driver: local
+  redis_data:
+    driver: local
+  ollama_data:
+    driver: local
+  chroma_data:
+    driver: local
+  prometheus_data:
+    driver: local
+  grafana_data:
+    driver: local
+
+networks:
+  obsidian-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16

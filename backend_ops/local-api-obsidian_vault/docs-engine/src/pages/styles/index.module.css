@@ -1,0 +1,319 @@
+/**
+ * CSS modules are used to style the homepage
+ */
+
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
+  border-bottom: 1px solid #404040;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+@media screen and (max-width: 768px) {
+  .buttons {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}
+
+.hero__title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  background: linear-gradient(135deg, #25c2a0 0%, #29d5b0 50%, #4fddbf 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  line-height: 1.2;
+}
+
+@media screen and (max-width: 996px) {
+  .hero__title {
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero__title {
+    font-size: 2rem;
+  }
+}
+
+.hero__subtitle {
+  font-size: 1.25rem;
+  color: var(--ifm-font-color-secondary);
+  margin-bottom: 2rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+@media screen and (max-width: 768px) {
+  .hero__subtitle {
+    font-size: 1.1rem;
+  }
+}
+
+/* Button Styles */
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  font-size: 1rem;
+  min-width: 140px;
+}
+
+.button--secondary {
+  background-color: var(--ifm-color-primary);
+  color: #ffffff;
+  border-color: var(--ifm-color-primary);
+}
+
+.button--secondary:hover {
+  background-color: var(--ifm-color-primary-dark);
+  border-color: var(--ifm-color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 194, 160, 0.3);
+}
+
+.button--outline {
+  background-color: transparent;
+  color: var(--ifm-color-primary);
+  border-color: var(--ifm-color-primary);
+}
+
+.button--outline:hover {
+  background-color: var(--ifm-color-primary);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(37, 194, 160, 0.3);
+}
+
+.button--lg {
+  padding: 1rem 2rem;
+  font-size: 1.1rem;
+  min-width: 160px;
+}
+
+/* Feature Cards */
+.featureCard {
+  background-color: var(--ifm-card-background-color);
+  border: 1px solid #404040;
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1rem 0;
+  transition: all 0.3s ease;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.featureCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  border-color: var(--ifm-color-primary);
+}
+
+.featureCard__icon {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: var(--ifm-color-primary);
+}
+
+.featureCard__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--ifm-heading-color);
+}
+
+.featureCard__description {
+  color: var(--ifm-font-color-secondary);
+  line-height: 1.6;
+  flex-grow: 1;
+}
+
+/* Stats Section */
+.statsSection {
+  background-color: var(--ifm-background-surface-color);
+  padding: 4rem 0;
+  border-top: 1px solid #404040;
+  border-bottom: 1px solid #404040;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.statCard {
+  text-align: center;
+  padding: 2rem;
+  background-color: var(--ifm-card-background-color);
+  border: 1px solid #404040;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+}
+
+.statCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--ifm-color-primary);
+}
+
+.statNumber {
+  font-size: 3rem;
+  font-weight: 700;
+  color: var(--ifm-color-primary);
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
+.statLabel {
+  font-size: 1.1rem;
+  color: var(--ifm-font-color-secondary);
+  font-weight: 500;
+}
+
+/* Architecture Section */
+.architectureSection {
+  padding: 4rem 0;
+  background-color: var(--ifm-background-color);
+}
+
+.architectureGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.architectureCard {
+  background-color: var(--ifm-card-background-color);
+  border: 1px solid #404040;
+  border-radius: 12px;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.architectureCard:hover {
+  transform: translateY(-2px);
+  border-color: var(--ifm-color-primary);
+}
+
+.architectureCard__title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--ifm-heading-color);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.architectureCard__icon {
+  font-size: 1.5rem;
+  color: var(--ifm-color-primary);
+}
+
+.architectureCard__description {
+  color: var(--ifm-font-color-secondary);
+  line-height: 1.6;
+  margin-bottom: 1rem;
+}
+
+.architectureCard__tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.techTag {
+  background-color: rgba(37, 194, 160, 0.1);
+  color: var(--ifm-color-primary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  border: 1px solid rgba(37, 194, 160, 0.3);
+}
+
+/* Features Section */
+.features {
+  padding: 4rem 0;
+  background-color: var(--ifm-background-color);
+}
+
+/* Responsive Design */
+@media screen and (max-width: 996px) {
+  .statsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .architectureGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .statNumber {
+    font-size: 2.5rem;
+  }
+  
+  .features .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .heroBanner {
+    padding: 2rem 1rem;
+  }
+  
+  .statsSection,
+  .architectureSection,
+  .features {
+    padding: 2rem 0;
+  }
+  
+  .featureCard,
+  .statCard,
+  .architectureCard {
+    padding: 1.5rem;
+  }
+  
+  .statNumber {
+    font-size: 2rem;
+  }
+  
+  .features .row {
+    grid-template-columns: 1fr;
+  }
+}

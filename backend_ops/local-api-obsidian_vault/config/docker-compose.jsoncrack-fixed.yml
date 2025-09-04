@@ -1,0 +1,125 @@
+version: '3.8'
+
+services:
+  # JSON Crack Service (Self-hosted)
+  jsoncrack:
+    image: node:18-alpine
+    container_name: obsidian-jsoncrack
+    ports:
+      - "3001:3000"
+    working_dir: /app
+    command: >
+      sh -c "
+        apk add --no-cache git &&
+        git clone https://github.com/AykutSarac/jsoncrack.com.git . &&
+        npm install &&
+        npm run build &&
+        npm start
+      "
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - NEXT_PUBLIC_NODE_LIMIT=10000
+    volumes:
+      - ./jsoncrack/data:/app/data
+      - ./jsoncrack/config:/app/config
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Alternative: Simple JSON Viewer Service
+  json-viewer:
+    image: nginx:alpine
+    container_name: obsidian-json-viewer
+    ports:
+      - "3003:80"
+    volumes:
+      - ./jsoncrack/web:/usr/share/nginx/html
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+
+  # Enhanced Vault API with Visualization
+  vault-api-visual:
+    build: 
+      context: ./vault-api
+      dockerfile: Dockerfile.visual
+    container_name: obsidian-vault-api-visual
+    ports:
+      - "8081:8080"
+    environment:
+      - JSONCRACK_URL=http://jsoncrack:3000
+      - JSON_VIEWER_URL=http://json-viewer:80
+      - ENABLE_VISUALIZATION=true
+      - DATABASE_URL=postgresql://postgres:password@postgres:5432/obsidian_vault
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ./vault-api:/app
+      - ./jsoncrack/visualizations:/app/visualizations
+      - ./obsidian-data:/app/vault
+    networks:
+      - obsidian-network
+    depends_on:
+      - postgres
+      - redis
+      - jsoncrack
+      - json-viewer
+    restart: unless-stopped
+
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: obsidian-postgres
+    environment:
+      - POSTGRES_DB=obsidian_vault
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+
+  # Redis Cache
+  redis:
+    image: redis:7-alpine
+    container_name: obsidian-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+
+  # n8n Workflows
+  n8n:
+    image: n8nio/n8n:latest
+    container_name: obsidian-n8n
+    ports:
+      - "5678:5678"
+    environment:
+      - N8N_BASIC_AUTH_ACTIVE=true
+      - N8N_BASIC_AUTH_USER=admin
+      - N8N_BASIC_AUTH_PASSWORD=admin123
+      - WEBHOOK_URL=http://localhost:5678
+    volumes:
+      - n8n_data:/home/node/.n8n
+      - ./n8n-workflows:/home/node/.n8n/workflows
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  redis_data:
+  n8n_data:
+
+networks:
+  obsidian-network:
+    driver: bridge

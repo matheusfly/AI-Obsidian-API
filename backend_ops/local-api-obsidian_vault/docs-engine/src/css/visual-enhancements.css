@@ -1,0 +1,287 @@
+
+/* Enhanced Visual Rendering - High Contrast Dark Theme */
+
+/* Global Visual Enhancements */
+:root {
+  --visual-primary: #25c2a0;
+  --visual-secondary: #29d5b0;
+  --visual-accent: #4fddbf;
+  --visual-bg-dark: #0a0a0a;
+  --visual-bg-medium: #1a1a1a;
+  --visual-bg-light: #2a2a2a;
+  --visual-text-primary: #ffffff;
+  --visual-text-secondary: #e0e0e0;
+  --visual-border: #404040;
+  --visual-shadow: rgba(37, 194, 160, 0.3);
+}
+
+/* Enhanced Card Components */
+.visual-card {
+  background: linear-gradient(135deg, var(--visual-bg-dark) 0%, var(--visual-bg-medium) 100%);
+  border: 2px solid var(--visual-primary);
+  border-radius: 12px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  box-shadow: 0 8px 32px var(--visual-shadow);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.visual-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--visual-primary), var(--visual-secondary), var(--visual-accent));
+  animation: shimmer 3s ease-in-out infinite;
+}
+
+.visual-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 48px var(--visual-shadow);
+  border-color: var(--visual-secondary);
+}
+
+/* Enhanced Button Components */
+.visual-button {
+  background: linear-gradient(135deg, var(--visual-primary) 0%, var(--visual-secondary) 100%);
+  color: var(--visual-text-primary);
+  border: none;
+  border-radius: 8px;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px var(--visual-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.visual-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.visual-button:hover::before {
+  left: 100%;
+}
+
+.visual-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px var(--visual-shadow);
+}
+
+/* Enhanced Code Blocks */
+.visual-code {
+  background: linear-gradient(135deg, var(--visual-bg-dark) 0%, var(--visual-bg-medium) 100%);
+  border: 2px solid var(--visual-primary);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1rem 0;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--visual-text-primary);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+}
+
+.visual-code::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--visual-primary);
+}
+
+/* Enhanced Tables */
+.visual-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--visual-bg-medium);
+  border: 2px solid var(--visual-primary);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px var(--visual-shadow);
+}
+
+.visual-table th {
+  background: linear-gradient(135deg, var(--visual-primary) 0%, var(--visual-secondary) 100%);
+  color: var(--visual-text-primary);
+  padding: 1rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid var(--visual-secondary);
+}
+
+.visual-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--visual-border);
+  color: var(--visual-text-secondary);
+  transition: all 0.3s ease;
+}
+
+.visual-table tr:hover td {
+  background: rgba(37, 194, 160, 0.1);
+  color: var(--visual-text-primary);
+}
+
+/* Enhanced Progress Bars */
+.visual-progress {
+  width: 100%;
+  height: 8px;
+  background: var(--visual-bg-medium);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid var(--visual-border);
+}
+
+.visual-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--visual-primary), var(--visual-secondary));
+  border-radius: 4px;
+  transition: width 0.3s ease;
+  position: relative;
+}
+
+.visual-progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+  animation: progress-shimmer 2s ease-in-out infinite;
+}
+
+@keyframes progress-shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Enhanced Status Indicators */
+.visual-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-size: 0.85rem;
+}
+
+.visual-status.success {
+  background: rgba(37, 194, 160, 0.2);
+  color: var(--visual-primary);
+  border: 2px solid var(--visual-primary);
+}
+
+.visual-status.warning {
+  background: rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+  border: 2px solid #ffc107;
+}
+
+.visual-status.error {
+  background: rgba(220, 53, 69, 0.2);
+  color: #dc3545;
+  border: 2px solid #dc3545;
+}
+
+.visual-status.info {
+  background: rgba(13, 202, 240, 0.2);
+  color: #0dcaf0;
+  border: 2px solid #0dcaf0;
+}
+
+/* Enhanced Loading States */
+.visual-loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid var(--visual-border);
+  border-top: 3px solid var(--visual-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Enhanced Tooltips */
+.visual-tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.visual-tooltip .tooltip-text {
+  visibility: hidden;
+  width: 200px;
+  background: var(--visual-bg-dark);
+  color: var(--visual-text-primary);
+  text-align: center;
+  border-radius: 6px;
+  padding: 0.5rem;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -100px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  border: 1px solid var(--visual-primary);
+  box-shadow: 0 4px 16px var(--visual-shadow);
+}
+
+.visual-tooltip:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* Responsive Enhancements */
+@media (max-width: 768px) {
+  .visual-card {
+    padding: 1rem;
+    margin: 1rem 0;
+  }
+  
+  .visual-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .visual-table th,
+  .visual-table td {
+    padding: 0.75rem;
+  }
+}
+
+/* Print Enhancements */
+@media print {
+  .visual-card {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .visual-button {
+    background: #000 !important;
+    color: #fff !important;
+  }
+}
