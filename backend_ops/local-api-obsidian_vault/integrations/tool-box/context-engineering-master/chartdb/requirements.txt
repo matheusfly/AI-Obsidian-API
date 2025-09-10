@@ -1,0 +1,113 @@
+# ChartDB Documentation Scraper Dependencies
+# Core scraping and web automation
+requests>=2.31.0
+httpx>=0.25.0
+aiohttp>=3.8.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+selenium>=4.15.0
+playwright>=1.40.0
+scrapfly-sdk>=1.3.0
+scrapy>=2.11.0
+
+# MCP (Model Context Protocol) integration
+mcp>=1.0.0
+mcp-server>=1.0.0
+mcp-client>=1.0.0
+
+# Context7 integration
+context7-sdk>=1.0.0
+openai>=1.0.0
+
+# Database and storage
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+psycopg2-binary>=2.9.0
+redis>=5.0.0
+yugabyte-driver>=2.0.0
+
+# Data processing and analysis
+pandas>=2.1.0
+numpy>=1.24.0
+pydantic>=2.5.0
+pydantic-settings>=2.1.0
+python-multipart>=0.0.6
+
+# Web framework and API
+fastapi>=0.104.0
+uvicorn>=0.24.0
+jinja2>=3.1.0
+python-jose>=3.3.0
+passlib>=1.7.4
+
+# Monitoring and logging
+sentry-sdk>=1.38.0
+structlog>=23.2.0
+prometheus-client>=0.19.0
+
+# Image processing and screenshots
+pillow>=10.1.0
+opencv-python>=4.8.0
+
+# Async and concurrency
+asyncio>=3.4.3
+aiofiles>=23.2.0
+asyncio-throttle>=1.0.2
+
+# Configuration and environment
+python-dotenv>=1.0.0
+pyyaml>=6.0.1
+toml>=0.10.2
+
+# Testing and development
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-cov>=4.1.0
+pytest-mock>=3.12.0
+black>=23.11.0
+isort>=5.12.0
+flake8>=6.1.0
+mypy>=1.7.0
+
+# Documentation generation
+mkdocs>=1.5.0
+mkdocs-material>=9.4.0
+mkdocs-mermaid2-plugin>=1.1.0
+
+# Performance and optimization
+orjson>=3.9.0
+ujson>=5.8.0
+msgpack>=1.0.7
+zstandard>=0.22.0
+
+# Security and authentication
+cryptography>=41.0.0
+bcrypt>=4.1.0
+python-jose[cryptography]>=3.3.0
+
+# Utilities
+click>=8.1.0
+rich>=13.7.0
+tqdm>=4.66.0
+schedule>=1.2.0
+python-dateutil>=2.8.0
+
+# ChartDB specific
+diagrams>=0.23.0
+graphviz>=0.20.0
+networkx>=3.2.0
+
+# JSON Crack specific
+json5>=0.9.0
+jsonschema>=4.20.0
+jsonpath-ng>=1.6.0
+
+# Flyde integration
+@flyde/core>=0.106.1
+@flyde/loader>=0.106.1
+@flyde/nodes>=0.106.1
+
+# Additional tools
+curl-cffi>=0.5.0
+fake-useragent>=1.4.0
+user-agents>=2.2.0

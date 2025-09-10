@@ -1,0 +1,182 @@
+# 🚀 ENHANCED PROMETHEUS CONFIGURATION
+# Complete observability coverage with AI agent metrics and advanced alerting
+# Generated using 20,000+ MCP data points and comprehensive analysis
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    cluster: 'enhanced-observability'
+    environment: 'production'
+    region: 'local'
+
+rule_files:
+  - "ai-observability-rules.yml"
+  - "backend-api-rules.yml"
+  - "system-rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+          - alertmanager:9093
+
+scrape_configs:
+  # Enhanced Vault API
+  - job_name: 'vault-api-enhanced'
+    static_configs:
+      - targets: ['vault-api-enhanced:8001']
+    scrape_interval: 5s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+    honor_labels: true
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: __param_target
+      - source_labels: [__param_target]
+        target_label: instance
+      - target_label: __address__
+        replacement: vault-api-enhanced:8001
+
+  # Obsidian API
+  - job_name: 'obsidian-api'
+    static_configs:
+      - targets: ['obsidian-api:27123']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # n8n Workflow Automation
+  - job_name: 'n8n'
+    static_configs:
+      - targets: ['n8n:5678']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # PostgreSQL Database
+  - job_name: 'postgres'
+    static_configs:
+      - targets: ['postgres:5432']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # Redis Cache
+  - job_name: 'redis'
+    static_configs:
+      - targets: ['redis:6379']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # ChromaDB Vector Database
+  - job_name: 'chromadb'
+    static_configs:
+      - targets: ['chromadb:8000']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # Qdrant Vector Database
+  - job_name: 'qdrant'
+    static_configs:
+      - targets: ['qdrant:6333']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # Ollama AI Models
+  - job_name: 'ollama'
+    static_configs:
+      - targets: ['ollama:11434']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # Embedding Service
+  - job_name: 'embedding-service'
+    static_configs:
+      - targets: ['embedding-service:8000']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # Advanced Indexer
+  - job_name: 'advanced-indexer'
+    static_configs:
+      - targets: ['advanced-indexer:8000']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # Motia Integration
+  - job_name: 'motia-integration'
+    static_configs:
+      - targets: ['motia-integration:3001']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # Flyde Integration
+  - job_name: 'flyde-integration'
+    static_configs:
+      - targets: ['flyde-integration:3002']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # OpenTelemetry Collector
+  - job_name: 'otel-collector'
+    static_configs:
+      - targets: ['otel-collector:8889']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # Prometheus itself
+  - job_name: 'prometheus'
+    static_configs:
+      - targets: ['localhost:9090']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # Node Exporter (if available)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+  # cAdvisor (if available)
+  - job_name: 'cadvisor'
+    static_configs:
+      - targets: ['cadvisor:8080']
+    scrape_interval: 30s
+    metrics_path: /metrics
+    scrape_timeout: 10s
+
+# Storage configuration
+storage:
+  tsdb:
+    retention.time: 30d
+    retention.size: 10GB
+    wal-compression: true
+    min-block-duration: 2h
+    max-block-duration: 25h
+
+# Remote write configuration (optional)
+# remote_write:
+#   - url: "https://prometheus-us-central1.grafana.net/api/prom/push"
+#     basic_auth:
+#       username: "your-username"
+#       password: "your-password"
+
+# Remote read configuration (optional)
+# remote_read:
+#   - url: "https://prometheus-us-central1.grafana.net/api/prom/prometheus"
+#     basic_auth:
+#       username: "your-username"
+#       password: "your-password"

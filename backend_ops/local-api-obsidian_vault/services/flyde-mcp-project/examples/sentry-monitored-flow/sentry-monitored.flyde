@@ -1,0 +1,137 @@
+{
+  "id": "SentryMonitoredFlow",
+  "name": "Sentry Monitored Flow",
+  "description": "Flyde flow with integrated Sentry MCP monitoring for error tracking and performance analysis",
+  "nodes": [
+    {
+      "id": "flow-starter",
+      "type": "Code",
+      "x": 100,
+      "y": 100,
+      "data": {
+        "code": "// Start flow with Sentry monitoring\nconst flowData = {\n  flowName: 'SentryMonitoredFlow',\n  startTime: Date.now(),\n  input: inputs.message,\n  sessionId: `session_${Date.now()}`,\n  environment: 'development'\n};\n\nconsole.log('🔍 [SENTRY] Flow started:', flowData);\noutputs.flowData.next(flowData);"
+      }
+    },
+    {
+      "id": "data-processor",
+      "type": "Code",
+      "x": 300,
+      "y": 100,
+      "data": {
+        "code": "// Process data with error handling\nconst flowData = inputs.flowData;\nconst input = flowData.input;\n\nconsole.log('🔍 [SENTRY] Processing data:', { input, timestamp: new Date().toISOString() });\n\n// Simulate processing with potential errors\nlet processedData;\ntry {\n  if (!input || input.length === 0) {\n    throw new Error('Input cannot be empty');\n  }\n  \n  processedData = {\n    original: input,\n    processed: input.toUpperCase(),\n    length: input.length,\n    words: input.split(' ').length,\n    timestamp: new Date().toISOString(),\n    processingTime: Date.now() - flowData.startTime\n  };\n  \n  console.log('✅ [SENTRY] Data processed successfully:', processedData);\n  outputs.processed.next(processedData);\n  \n} catch (error) {\n  console.error('❌ [SENTRY] Processing error:', error);\n  outputs.error.next({\n    error: error.message,\n    flowName: flowData.flowName,\n    timestamp: new Date().toISOString(),\n    context: { input, flowData }\n  });\n}"
+      }
+    },
+    {
+      "id": "performance-monitor",
+      "type": "Code",
+      "x": 500,
+      "y": 100,
+      "data": {
+        "code": "// Monitor performance metrics\nconst { flowData, processedData } = inputs;\nconst endTime = Date.now();\nconst totalDuration = endTime - flowData.startTime;\n\nconst performanceMetrics = {\n  flowName: flowData.flowName,\n  totalDuration: totalDuration,\n  processingDuration: processedData.processingTime,\n  startTime: new Date(flowData.startTime).toISOString(),\n  endTime: new Date(endTime).toISOString(),\n  inputLength: processedData.length,\n  wordCount: processedData.words,\n  timestamp: new Date().toISOString()\n};\n\n// Performance thresholds\nconst thresholds = {\n  warning: 1000,  // 1 second\n  error: 5000     // 5 seconds\n};\n\nconsole.log('📊 [SENTRY] Performance metrics:', performanceMetrics);\n\nif (totalDuration > thresholds.error) {\n  console.error(`🚨 [SENTRY] PERFORMANCE ERROR: Flow took ${totalDuration}ms (exceeds ${thresholds.error}ms threshold)`);\n} else if (totalDuration > thresholds.warning) {\n  console.warn(`⚠️ [SENTRY] PERFORMANCE WARNING: Flow took ${totalDuration}ms (exceeds ${thresholds.warning}ms threshold)`);\n} else {\n  console.log(`✅ [SENTRY] Performance OK: ${totalDuration}ms`);\n}\n\noutputs.metrics.next(performanceMetrics);"
+      }
+    },
+    {
+      "id": "result-aggregator",
+      "type": "Code",
+      "x": 700,
+      "y": 100,
+      "data": {
+        "code": "// Aggregate results with Sentry monitoring\nconst { flowData, processedData, metrics } = inputs;\n\nconst finalResult = {\n  success: true,\n  flowName: flowData.flowName,\n  sessionId: flowData.sessionId,\n  input: flowData.input,\n  output: processedData.processed,\n  metrics: metrics,\n  timestamp: new Date().toISOString(),\n  sentryEventId: `event_${Date.now()}`,\n  monitoring: {\n    enabled: true,\n    provider: 'Sentry MCP',\n    version: '1.0.0'\n  }\n};\n\nconsole.log('🎉 [SENTRY] Flow completed successfully:', finalResult);\nconsole.log('📊 Final metrics:', {\n  duration: metrics.totalDuration,\n  inputLength: metrics.inputLength,\n  wordCount: metrics.wordCount,\n  sentryEventId: finalResult.sentryEventId\n});\n\noutputs.result.next(finalResult);"
+      }
+    },
+    {
+      "id": "error-handler",
+      "type": "Code",
+      "x": 500,
+      "y": 300,
+      "data": {
+        "code": "// Handle errors with Sentry reporting\nconst errorData = inputs.error;\n\nconst errorReport = {\n  sentryEventId: `error_${Date.now()}`,\n  error: errorData.error,\n  flowName: errorData.flowName,\n  context: errorData.context,\n  timestamp: errorData.timestamp,\n  severity: 'error',\n  environment: 'development',\n  stack: new Error().stack\n};\n\nconsole.error('🚨 [SENTRY] Error reported:', errorReport);\nconsole.error('📋 Error details:', {\n  message: errorData.error,\n  flow: errorData.flowName,\n  context: errorData.context,\n  eventId: errorReport.sentryEventId\n});\n\noutputs.errorReport.next(errorReport);"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": {
+        "nodeId": "flow-starter",
+        "pinId": "flowData"
+      },
+      "to": {
+        "nodeId": "data-processor",
+        "pinId": "flowData"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "data-processor",
+        "pinId": "processed"
+      },
+      "to": {
+        "nodeId": "performance-monitor",
+        "pinId": "processedData"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "flow-starter",
+        "pinId": "flowData"
+      },
+      "to": {
+        "nodeId": "performance-monitor",
+        "pinId": "flowData"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "performance-monitor",
+        "pinId": "metrics"
+      },
+      "to": {
+        "nodeId": "result-aggregator",
+        "pinId": "metrics"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "data-processor",
+        "pinId": "processed"
+      },
+      "to": {
+        "nodeId": "result-aggregator",
+        "pinId": "processedData"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "flow-starter",
+        "pinId": "flowData"
+      },
+      "to": {
+        "nodeId": "result-aggregator",
+        "pinId": "flowData"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "data-processor",
+        "pinId": "error"
+      },
+      "to": {
+        "nodeId": "error-handler",
+        "pinId": "error"
+      }
+    }
+  ],
+  "inputs": {
+    "message": {
+      "description": "Input message to process with Sentry monitoring"
+    }
+  },
+  "outputs": {
+    "result": {
+      "description": "Final result with Sentry monitoring data"
+    },
+    "errorReport": {
+      "description": "Error report if processing fails"
+    }
+  }
+}

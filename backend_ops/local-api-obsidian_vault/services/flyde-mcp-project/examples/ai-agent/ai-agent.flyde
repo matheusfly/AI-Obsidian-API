@@ -1,0 +1,95 @@
+{
+  "id": "AIAgent",
+  "name": "AI Agent Workflow",
+  "description": "Complete AI agent implementation with input processing, AI integration, and response formatting",
+  "nodes": [
+    {
+      "id": "input-processor",
+      "type": "Code",
+      "x": 100,
+      "y": 100,
+      "data": {
+        "code": "// Process and validate user input\nconst userInput = inputs.message;\nconst processedInput = {\n  original: userInput,\n  timestamp: new Date().toISOString(),\n  length: userInput.length,\n  words: userInput.split(' ').length\n};\n\nconsole.log('📝 Processing input:', processedInput);\noutputs.processed.next(processedInput);"
+      }
+    },
+    {
+      "id": "ai-analyzer",
+      "type": "Code",
+      "x": 300,
+      "y": 100,
+      "data": {
+        "code": "// AI-powered analysis (mock implementation)\nconst input = inputs.data;\n\n// Simulate AI analysis\nconst analysis = {\n  sentiment: input.words > 10 ? 'positive' : 'neutral',\n  complexity: input.length > 50 ? 'high' : 'low',\n  topics: input.original.toLowerCase().includes('ai') ? ['artificial-intelligence'] : ['general'],\n  confidence: 0.85\n};\n\nconsole.log('🤖 AI Analysis:', analysis);\noutputs.analysis.next(analysis);"
+      }
+    },
+    {
+      "id": "response-generator",
+      "type": "Code",
+      "x": 500,
+      "y": 100,
+      "data": {
+        "code": "// Generate AI response based on analysis\nconst { data, analysis } = inputs;\n\nconst response = {\n  message: `I analyzed your message: \"${data.original}\"`,\n  insights: {\n    sentiment: analysis.sentiment,\n    complexity: analysis.complexity,\n    topics: analysis.topics.join(', ')\n  },\n  recommendations: analysis.complexity === 'high' ? \n    'Consider breaking this into smaller parts' : \n    'Your message is clear and concise',\n  timestamp: new Date().toISOString()\n};\n\nconsole.log('💬 Generated response:', response);\noutputs.response.next(response);"
+      }
+    },
+    {
+      "id": "output-formatter",
+      "type": "Code",
+      "x": 700,
+      "y": 100,
+      "data": {
+        "code": "// Format final output\nconst response = inputs.response;\n\nconst formattedOutput = {\n  success: true,\n  data: response,\n  metadata: {\n    processingTime: Date.now() - new Date(response.timestamp).getTime(),\n    version: '1.0.0'\n  }\n};\n\nconsole.log('📋 Formatted output:', formattedOutput);\noutputs.result.next(formattedOutput);"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": {
+        "nodeId": "input-processor",
+        "pinId": "processed"
+      },
+      "to": {
+        "nodeId": "ai-analyzer",
+        "pinId": "data"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "ai-analyzer",
+        "pinId": "analysis"
+      },
+      "to": {
+        "nodeId": "response-generator",
+        "pinId": "analysis"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "input-processor",
+        "pinId": "processed"
+      },
+      "to": {
+        "nodeId": "response-generator",
+        "pinId": "data"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "response-generator",
+        "pinId": "response"
+      },
+      "to": {
+        "nodeId": "output-formatter",
+        "pinId": "response"
+      }
+    }
+  ],
+  "inputs": {
+    "message": {
+      "description": "User input message to process"
+    }
+  },
+  "outputs": {
+    "result": {
+      "description": "AI agent response with analysis"
+    }
+  }
+}

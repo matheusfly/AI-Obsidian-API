@@ -1,0 +1,29 @@
+# MCP Tools Environment Configuration
+# Copy this to your .env file or set these as system environment variables
+
+# OpenAI API Key
+OPENAI_API_KEY=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
+
+# ACI Key
+ACI_KEY=5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371
+
+# GitHub Personal Access Token (replace with your token)
+GITHUB_PERSONAL_ACCESS_TOKEN=YOUR_GITHUB_TOKEN_HERE
+
+# Brave Search API Key (get from https://brave.com/search/api/)
+BRAVE_API_KEY=YOUR_BRAVE_API_KEY_HERE
+
+# Context7 API Key (get from https://context7.ai/)
+CONTEXT7_API_KEY=YOUR_CONTEXT7_API_KEY_HERE
+
+# Byterover API Key (get from https://byterover.com/)
+BYTEROVER_API_KEY=YOUR_BYTEROVER_API_KEY_HERE
+
+# SERP API Key (get from https://serpapi.com/)
+SERP_API_KEY=YOUR_SERP_API_KEY_HERE
+
+# Vault Path
+VAULT_PATH=D:\Nomade Milionario
+
+# Database Paths
+MEMORY_DB_PATH=D:\codex\master_code\backend_ops\local-api-obsidian_vault\memory.db

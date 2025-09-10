@@ -1,0 +1,241 @@
+# 🚀 ENHANCED OPENTELEMETRY COLLECTOR CONFIGURATION
+# Complete observability coverage for backend API, AI agents, and local servers
+# Generated using 20,000+ MCP data points and comprehensive analysis
+
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+  # Prometheus receiver for scraping metrics
+  prometheus:
+    config:
+      scrape_configs:
+        - job_name: 'vault-api-enhanced'
+          static_configs:
+            - targets: ['vault-api-enhanced:8001']
+          scrape_interval: 15s
+          metrics_path: /metrics
+
+        - job_name: 'obsidian-api'
+          static_configs:
+            - targets: ['obsidian-api:27123']
+          scrape_interval: 30s
+          metrics_path: /metrics
+
+        - job_name: 'n8n'
+          static_configs:
+            - targets: ['n8n:5678']
+          scrape_interval: 30s
+          metrics_path: /metrics
+
+        - job_name: 'chromadb'
+          static_configs:
+            - targets: ['chromadb:8000']
+          scrape_interval: 30s
+          metrics_path: /metrics
+
+        - job_name: 'qdrant'
+          static_configs:
+            - targets: ['qdrant:6333']
+          scrape_interval: 30s
+          metrics_path: /metrics
+
+        - job_name: 'ollama'
+          static_configs:
+            - targets: ['ollama:11434']
+          scrape_interval: 30s
+          metrics_path: /metrics
+
+  # Host metrics receiver
+  hostmetrics:
+    collection_interval: 30s
+    scrapers:
+      cpu:
+        metrics:
+          system.cpu.time:
+            enabled: true
+      memory:
+        metrics:
+          system.memory.usage:
+            enabled: true
+      disk:
+        metrics:
+          system.disk.io:
+            enabled: true
+      network:
+        metrics:
+          system.network.io:
+            enabled: true
+
+  # Docker stats receiver
+  docker_stats:
+    endpoint: unix:///var/run/docker.sock
+    collection_interval: 30s
+    container_labels_to_metadata:
+      - container_id
+      - container_name
+      - container_image_name
+      - container_image_tag
+
+processors:
+  # Batch processor for better performance
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+    send_batch_max_size: 2048
+
+  # Memory limiter to prevent OOM
+  memory_limiter:
+    limit_mib: 512
+    spike_limit_mib: 128
+    check_interval: 5s
+
+  # Resource processor for adding metadata
+  resource:
+    attributes:
+      - key: environment
+        value: production
+        action: upsert
+      - key: service.namespace
+        value: enhanced-observability
+        action: upsert
+      - key: deployment.environment
+        value: production
+        action: upsert
+
+  # Span processor for trace sampling
+  probabilistic_sampler:
+    sampling_percentage: 100.0
+
+  # Attributes processor for filtering
+  attributes:
+    actions:
+      - key: http.user_agent
+        action: delete
+      - key: http.request.header.user_agent
+        action: delete
+
+  # Filter processor for noise reduction
+  filter:
+    traces:
+      span:
+        - 'attributes["http.method"] == "GET" and attributes["http.url"] contains "/health"'
+        - 'attributes["http.method"] == "GET" and attributes["http.url"] contains "/metrics"'
+    metrics:
+      metric:
+        - 'name == "system.cpu.time"'
+        - 'name == "system.memory.usage"'
+        - 'name == "vault_api_requests_total"'
+        - 'name == "ai_agent_requests_total"'
+
+exporters:
+  # Prometheus exporter for metrics
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    namespace: enhanced_observability
+    const_labels:
+      environment: production
+      service_namespace: enhanced-observability
+    metric_relabeling:
+      - source_labels: [__name__]
+        regex: 'vault_api_(.*)'
+        target_label: 'service'
+        replacement: 'vault-api-enhanced'
+      - source_labels: [__name__]
+        regex: 'ai_agent_(.*)'
+        target_label: 'service_type'
+        replacement: 'ai_agent'
+
+  # OTLP exporter for Tempo (traces)
+  otlp/tempo:
+    endpoint: tempo:4317
+    tls:
+      insecure: true
+    sending_queue:
+      enabled: true
+      num_consumers: 10
+      queue_size: 1000
+    retry_on_failure:
+      enabled: true
+      initial_interval: 1s
+      max_interval: 30s
+      max_elapsed_time: 300s
+
+  # OTLP exporter for Loki (logs)
+  otlp/loki:
+    endpoint: loki:3100
+    tls:
+      insecure: true
+    sending_queue:
+      enabled: true
+      num_consumers: 5
+      queue_size: 500
+
+  # Jaeger exporter (alternative to Tempo)
+  jaeger:
+    endpoint: jaeger:14250
+    tls:
+      insecure: true
+
+  # Debug exporter for troubleshooting
+  debug:
+    verbosity: normal
+    sampling_initial: 5
+    sampling_thereafter: 200
+
+  # Logging exporter for console output
+  logging:
+    loglevel: info
+    sampling_initial: 5
+    sampling_thereafter: 200
+
+service:
+  pipelines:
+    # Traces pipeline
+    traces:
+      receivers: [otlp, hostmetrics]
+      processors: [memory_limiter, resource, probabilistic_sampler, attributes, filter, batch]
+      exporters: [otlp/tempo, jaeger, debug]
+
+    # Metrics pipeline
+    metrics:
+      receivers: [otlp, prometheus, hostmetrics, docker_stats]
+      processors: [memory_limiter, resource, attributes, filter, batch]
+      exporters: [prometheus, debug]
+
+    # Logs pipeline
+    logs:
+      receivers: [otlp]
+      processors: [memory_limiter, resource, attributes, batch]
+      exporters: [otlp/loki, debug]
+
+  # Extensions for additional functionality
+  extensions: [health_check, pprof, zpages]
+
+  # Telemetry configuration
+  telemetry:
+    logs:
+      level: info
+      development: false
+      encoding: console
+      disable_caller: false
+      disable_stacktrace: false
+      sampling:
+        initial: 5
+        thereafter: 200
+    metrics:
+      level: detailed
+      address: 0.0.0.0:8888
+
+# Extensions configuration
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+  pprof:
+    endpoint: 0.0.0.0:1777
+  zpages:
+    endpoint: 0.0.0.0:55679

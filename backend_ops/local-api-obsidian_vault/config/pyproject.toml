@@ -1,0 +1,25 @@
+[project]
+name = "local-api-obsidian-vault"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "cyber-math",email = "fligthmedia@gmail.com"}
+]
+readme = "README.md"
+requires-python = "^3.13"
+dependencies = [
+    "fastapi (>=0.116.1,<0.117.0)",
+    "uvicorn (>=0.35.0,<0.36.0)",
+    "httpx (>=0.28.1,<0.29.0)",
+    "pydantic (>=2.11.7,<3.0.0)",
+    "python-multipart (>=0.0.20,<0.0.21)",
+    "aiofiles (>=23.2,<24.0)"
+]
+
+
+[tool.poetry]
+package-mode = false
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

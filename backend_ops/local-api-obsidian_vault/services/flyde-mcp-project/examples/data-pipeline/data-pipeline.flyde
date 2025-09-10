@@ -1,0 +1,110 @@
+{
+  "id": "DataPipeline",
+  "name": "ETL Data Pipeline",
+  "description": "Complete ETL pipeline with data transformation, validation, and processing",
+  "nodes": [
+    {
+      "id": "data-source",
+      "type": "Code",
+      "x": 100,
+      "y": 100,
+      "data": {
+        "code": "// Simulate data source (e.g., API, database, file)\nconst rawData = [\n  { id: 1, name: 'John Doe', email: 'john@example.com', age: 30 },\n  { id: 2, name: 'Jane Smith', email: 'jane@example.com', age: 25 },\n  { id: 3, name: 'Bob Johnson', email: 'bob@example.com', age: 35 },\n  { id: 4, name: 'Alice Brown', email: 'alice@example.com', age: 28 }\n];\n\nconsole.log('📊 Raw data loaded:', rawData.length, 'records');\noutputs.data.next(rawData);"
+      }
+    },
+    {
+      "id": "data-validator",
+      "type": "Code",
+      "x": 300,
+      "y": 100,
+      "data": {
+        "code": "// Validate data structure and content\nconst data = inputs.data;\nconst validatedData = [];\nconst errors = [];\n\nfor (const record of data) {\n  const validation = {\n    hasId: typeof record.id === 'number',\n    hasName: typeof record.name === 'string' && record.name.length > 0,\n    hasEmail: typeof record.email === 'string' && record.email.includes('@'),\n    hasAge: typeof record.age === 'number' && record.age > 0\n  };\n  \n  if (Object.values(validation).every(v => v)) {\n    validatedData.push(record);\n  } else {\n    errors.push({ record, validation });\n  }\n}\n\nconsole.log('✅ Validation complete:', validatedData.length, 'valid records');\nif (errors.length > 0) {\n  console.log('❌ Validation errors:', errors.length);\n}\n\noutputs.validData.next(validatedData);\noutputs.errors.next(errors);"
+      }
+    },
+    {
+      "id": "data-transformer",
+      "type": "Code",
+      "x": 500,
+      "y": 100,
+      "data": {
+        "code": "// Transform data (normalize, enrich, calculate)\nconst data = inputs.data;\n\nconst transformedData = data.map(record => ({\n  ...record,\n  name: record.name.trim().toLowerCase(),\n  email: record.email.toLowerCase(),\n  ageGroup: record.age < 30 ? 'young' : record.age < 50 ? 'middle' : 'senior',\n  fullName: record.name,\n  initials: record.name.split(' ').map(n => n[0]).join(''),\n  processedAt: new Date().toISOString()\n}));\n\nconsole.log('🔄 Data transformation complete:', transformedData.length, 'records');\noutputs.transformed.next(transformedData);"
+      }
+    },
+    {
+      "id": "data-aggregator",
+      "type": "Code",
+      "x": 700,
+      "y": 100,
+      "data": {
+        "code": "// Aggregate and summarize data\nconst data = inputs.data;\n\nconst summary = {\n  totalRecords: data.length,\n  ageGroups: data.reduce((acc, record) => {\n    acc[record.ageGroup] = (acc[record.ageGroup] || 0) + 1;\n    return acc;\n  }, {}),\n  averageAge: data.reduce((sum, record) => sum + record.age, 0) / data.length,\n  domains: [...new Set(data.map(record => record.email.split('@')[1]))],\n  processedAt: new Date().toISOString()\n};\n\nconsole.log('📈 Data aggregation complete');\nconsole.log('Summary:', summary);\n\noutputs.summary.next(summary);\noutputs.data.next(data);"
+      }
+    },
+    {
+      "id": "data-exporter",
+      "type": "Code",
+      "x": 900,
+      "y": 100,
+      "data": {
+        "code": "// Export processed data\nconst { data, summary } = inputs;\n\nconst exportResult = {\n  success: true,\n  exportedAt: new Date().toISOString(),\n  recordCount: data.length,\n  summary: summary,\n  data: data,\n  format: 'JSON',\n  destination: 'processed-data.json'\n};\n\nconsole.log('💾 Data export complete');\nconsole.log('Export result:', {\n  success: exportResult.success,\n  recordCount: exportResult.recordCount,\n  destination: exportResult.destination\n});\n\noutputs.result.next(exportResult);"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": {
+        "nodeId": "data-source",
+        "pinId": "data"
+      },
+      "to": {
+        "nodeId": "data-validator",
+        "pinId": "data"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "data-validator",
+        "pinId": "validData"
+      },
+      "to": {
+        "nodeId": "data-transformer",
+        "pinId": "data"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "data-transformer",
+        "pinId": "transformed"
+      },
+      "to": {
+        "nodeId": "data-aggregator",
+        "pinId": "data"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "data-aggregator",
+        "pinId": "data"
+      },
+      "to": {
+        "nodeId": "data-exporter",
+        "pinId": "data"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "data-aggregator",
+        "pinId": "summary"
+      },
+      "to": {
+        "nodeId": "data-exporter",
+        "pinId": "summary"
+      }
+    }
+  ],
+  "inputs": {},
+  "outputs": {
+    "result": {
+      "description": "Final processed data export result"
+    }
+  }
+}

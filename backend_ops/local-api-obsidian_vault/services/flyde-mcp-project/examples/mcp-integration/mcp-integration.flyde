@@ -1,0 +1,116 @@
+{
+  "id": "MCPIntegration",
+  "name": "MCP Integration Flow",
+  "description": "Complete MCP integration example with web crawling, data processing, and file operations",
+  "nodes": [
+    {
+      "id": "web-crawler",
+      "type": "MCPWebCrawler",
+      "x": 100,
+      "y": 100,
+      "data": {
+        "url": "https://flyde.dev/docs",
+        "selector": "article, .content, main"
+      }
+    },
+    {
+      "id": "data-processor",
+      "type": "MCPDataProcessor",
+      "x": 300,
+      "y": 100,
+      "data": {
+        "operation": "analyze",
+        "context": "Extract key information about Flyde visual programming"
+      }
+    },
+    {
+      "id": "browser-automation",
+      "type": "MCPBrowserAutomation",
+      "x": 500,
+      "y": 100,
+      "data": {
+        "action": "navigate",
+        "target": "https://flyde.dev/playground",
+        "value": ""
+      }
+    },
+    {
+      "id": "file-operations",
+      "type": "MCPFileOperations",
+      "x": 700,
+      "y": 100,
+      "data": {
+        "operation": "write",
+        "path": "./mcp-results.json",
+        "content": ""
+      }
+    },
+    {
+      "id": "result-aggregator",
+      "type": "Code",
+      "x": 900,
+      "y": 100,
+      "data": {
+        "code": "// Aggregate all MCP results\nconst results = {\n  webCrawl: inputs.webData,\n  dataAnalysis: inputs.processedData,\n  browserAction: inputs.browserResult,\n  fileOperation: inputs.fileResult,\n  timestamp: new Date().toISOString(),\n  summary: {\n    totalOperations: 4,\n    successCount: 4,\n    errors: []\n  }\n};\n\nconsole.log('🔗 MCP Integration Results:', results);\noutputs.results.next(results);"
+      }
+    }
+  ],
+  "connections": [
+    {
+      "from": {
+        "nodeId": "web-crawler",
+        "pinId": "content"
+      },
+      "to": {
+        "nodeId": "data-processor",
+        "pinId": "data"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "data-processor",
+        "pinId": "processed"
+      },
+      "to": {
+        "nodeId": "result-aggregator",
+        "pinId": "processedData"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "web-crawler",
+        "pinId": "content"
+      },
+      "to": {
+        "nodeId": "result-aggregator",
+        "pinId": "webData"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "browser-automation",
+        "pinId": "result"
+      },
+      "to": {
+        "nodeId": "result-aggregator",
+        "pinId": "browserResult"
+      }
+    },
+    {
+      "from": {
+        "nodeId": "file-operations",
+        "pinId": "result"
+      },
+      "to": {
+        "nodeId": "result-aggregator",
+        "pinId": "fileResult"
+      }
+    }
+  ],
+  "inputs": {},
+  "outputs": {
+    "results": {
+      "description": "Complete MCP integration results"
+    }
+  }
+}

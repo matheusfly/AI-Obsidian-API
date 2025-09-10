@@ -1,0 +1,459 @@
+name: 🚀 Obsidian Vault AI - CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop, feature/* ]
+  pull_request:
+    branches: [ main, develop ]
+  schedule:
+    # Run daily at 2 AM UTC for reliability testing
+    - cron: '0 2 * * *'
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Deployment environment'
+        required: true
+        default: 'staging'
+        type: choice
+        options:
+        - staging
+        - production
+      run_tests:
+        description: 'Run full test suite'
+        required: true
+        default: true
+        type: boolean
+
+env:
+  PYTHON_VERSION: '3.11'
+  NODE_VERSION: '18'
+  DOCKER_BUILDKIT: 1
+  COMPOSE_DOCKER_CLI_BUILD: 1
+
+jobs:
+  # Job 1: Code Quality and Security
+  code-quality:
+    name: 🔍 Code Quality & Security
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: 📦 Install UV Package Manager
+      run: |
+        pip install uv
+        uv --version
+    
+    - name: 📦 Install Dependencies
+      run: |
+        uv pip install --system -r requirements.txt
+        uv pip install --system -r requirements-dev.txt || echo "No dev requirements found"
+    
+    - name: 🔍 Lint Code
+      run: |
+        echo "🔍 Running code linting..."
+        black --check --diff .
+        isort --check-only --diff .
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    
+    - name: 🔒 Security Scan
+      run: |
+        echo "🔒 Running security scans..."
+        pip install safety bandit
+        safety check --json --output safety-report.json || true
+        bandit -r . -f json -o bandit-report.json || true
+    
+    - name: 📊 Upload Security Reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: security-reports
+        path: |
+          safety-report.json
+          bandit-report.json
+
+  # Job 2: Unit and Integration Tests
+  unit-tests:
+    name: 🧪 Unit & Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: code-quality
+    
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_vault_db
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      
+      redis:
+        image: redis:7
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: 📦 Install UV and Dependencies
+      run: |
+        pip install uv
+        uv pip install --system -r requirements.txt
+        uv pip install --system pytest pytest-asyncio pytest-cov httpx
+    
+    - name: 🧪 Run Unit Tests
+      run: |
+        echo "🧪 Running unit tests..."
+        pytest tests/ -v --cov=services/vault-api --cov-report=xml --cov-report=html --junitxml=test-results.xml
+      env:
+        TESTING: true
+        POSTGRES_URL: postgresql://postgres:postgres@localhost:5432/test_vault_db
+        REDIS_URL: redis://localhost:6379/0
+        OBSIDIAN_VAULT_PATH: ./test-vault
+    
+    - name: 📊 Upload Test Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: test-results
+        path: |
+          test-results.xml
+          coverage.xml
+          htmlcov/
+
+  # Job 3: End-to-End Testing
+  e2e-tests:
+    name: 🚀 End-to-End Testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    needs: unit-tests
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: 📦 Install Dependencies
+      run: |
+        pip install uv
+        uv pip install --system -r requirements.txt
+        uv pip install --system pytest pytest-asyncio httpx
+    
+    - name: 🐳 Setup Docker
+      run: |
+        echo "🐳 Setting up Docker..."
+        sudo apt-get update
+        sudo apt-get install -y docker.io docker-compose
+        sudo systemctl start docker
+        sudo usermod -aG docker $USER
+    
+    - name: 🏗️ Build and Start Services
+      run: |
+        echo "🏗️ Building and starting services..."
+        # Create test vault
+        mkdir -p test-vault
+        echo "# Test Vault" > test-vault/README.md
+        echo "This is a test vault for E2E testing." >> test-vault/README.md
+        
+        # Start services with Docker Compose
+        docker-compose -f docker-compose.prod.yml up -d --build
+        
+        # Wait for services to be ready
+        echo "⏳ Waiting for services to be ready..."
+        timeout 300 bash -c 'until curl -f http://localhost:8080/health; do sleep 5; done'
+        timeout 300 bash -c 'until curl -f http://localhost:27123/health; do sleep 5; done'
+    
+    - name: 🧪 Run E2E Tests
+      run: |
+        echo "🧪 Running comprehensive E2E tests..."
+        python tests/test_complete_e2e_suite.py
+      env:
+        BASE_URL: http://localhost:8080
+        OBSIDIAN_API_URL: http://localhost:27123
+        TEST_VAULT_PATH: ./test-vault
+    
+    - name: 📊 Upload E2E Test Reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: e2e-test-reports
+        path: |
+          e2e_test_report_*.json
+          test-vault/
+    
+    - name: 🧹 Cleanup
+      if: always()
+      run: |
+        echo "🧹 Cleaning up services..."
+        docker-compose -f docker-compose.prod.yml down -v
+        docker system prune -f
+
+  # Job 4: Performance Testing
+  performance-tests:
+    name: ⚡ Performance Testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: unit-tests
+    if: github.event_name == 'push' || github.event.inputs.run_tests == 'true'
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: 📦 Install Dependencies
+      run: |
+        pip install uv
+        uv pip install --system -r requirements.txt
+        uv pip install --system locust pytest-benchmark
+    
+    - name: 🐳 Setup Docker
+      run: |
+        echo "🐳 Setting up Docker..."
+        sudo apt-get update
+        sudo apt-get install -y docker.io docker-compose
+        sudo systemctl start docker
+        sudo usermod -aG docker $USER
+    
+    - name: 🏗️ Start Services
+      run: |
+        echo "🏗️ Starting services for performance testing..."
+        mkdir -p test-vault
+        echo "# Performance Test Vault" > test-vault/README.md
+        
+        docker-compose -f docker-compose.prod.yml up -d --build
+        
+        # Wait for services
+        timeout 300 bash -c 'until curl -f http://localhost:8080/health; do sleep 5; done'
+    
+    - name: ⚡ Run Performance Tests
+      run: |
+        echo "⚡ Running performance tests..."
+        python -m pytest tests/test_performance.py -v --benchmark-only --benchmark-save=performance
+      env:
+        BASE_URL: http://localhost:8080
+        TEST_VAULT_PATH: ./test-vault
+    
+    - name: 📊 Upload Performance Results
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: performance-results
+        path: |
+          .benchmarks/
+          performance.json
+    
+    - name: 🧹 Cleanup
+      if: always()
+      run: |
+        docker-compose -f docker-compose.prod.yml down -v
+        docker system prune -f
+
+  # Job 5: Security Scanning
+  security-scan:
+    name: 🔒 Security Scanning
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    needs: code-quality
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: 🐳 Run Trivy Vulnerability Scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+    
+    - name: 📊 Upload Trivy Results
+      uses: github/codeql-action/upload-sarif@v2
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+    
+    - name: 🔍 Run Snyk Security Scan
+      uses: snyk/actions/python@master
+      env:
+        SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+      with:
+        args: --severity-threshold=high
+
+  # Job 6: Build and Push Docker Images
+  build-images:
+    name: 🐳 Build & Push Docker Images
+    runs-on: ubuntu-latest
+    needs: [unit-tests, e2e-tests]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: 🐳 Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+    
+    - name: 🔐 Login to Docker Hub
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+    
+    - name: 🏗️ Build and Push Images
+      run: |
+        echo "🏗️ Building and pushing Docker images..."
+        
+        # Build vault-api image
+        docker buildx build \
+          --platform linux/amd64,linux/arm64 \
+          --tag ${{ secrets.DOCKER_USERNAME }}/obsidian-vault-api:latest \
+          --tag ${{ secrets.DOCKER_USERNAME }}/obsidian-vault-api:${{ github.sha }} \
+          --push \
+          ./services/vault-api
+        
+        # Build obsidian-api image
+        docker buildx build \
+          --platform linux/amd64,linux/arm64 \
+          --tag ${{ secrets.DOCKER_USERNAME }}/obsidian-api:latest \
+          --tag ${{ secrets.DOCKER_USERNAME }}/obsidian-api:${{ github.sha }} \
+          --push \
+          ./services/obsidian-api
+
+  # Job 7: Deployment
+  deploy:
+    name: 🚀 Deploy to Environment
+    runs-on: ubuntu-latest
+    needs: [build-images, security-scan]
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    environment: ${{ github.event.inputs.environment || 'staging' }}
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: 🚀 Deploy to Staging
+      if: github.event.inputs.environment == 'staging' || github.ref == 'refs/heads/main'
+      run: |
+        echo "🚀 Deploying to staging environment..."
+        # Add your staging deployment commands here
+        # Example: kubectl apply -f k8s/staging/
+        # Example: helm upgrade --install obsidian-vault ./helm-chart --namespace staging
+    
+    - name: 🚀 Deploy to Production
+      if: github.event.inputs.environment == 'production'
+      run: |
+        echo "🚀 Deploying to production environment..."
+        # Add your production deployment commands here
+        # Example: kubectl apply -f k8s/production/
+        # Example: helm upgrade --install obsidian-vault ./helm-chart --namespace production
+
+  # Job 8: Reliability Testing
+  reliability-tests:
+    name: 🔄 Reliability Testing
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    needs: [unit-tests, e2e-tests]
+    if: github.event_name == 'schedule' || github.event.inputs.run_tests == 'true'
+    
+    steps:
+    - name: 📥 Checkout Code
+      uses: actions/checkout@v4
+    
+    - name: 🐍 Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ env.PYTHON_VERSION }}
+        cache: 'pip'
+    
+    - name: 📦 Install Dependencies
+      run: |
+        pip install uv
+        uv pip install --system -r requirements.txt
+        uv pip install --system pytest pytest-asyncio httpx
+    
+    - name: 🐳 Setup Docker
+      run: |
+        echo "🐳 Setting up Docker..."
+        sudo apt-get update
+        sudo apt-get install -y docker.io docker-compose
+        sudo systemctl start docker
+        sudo usermod -aG docker $USER
+    
+    - name: 🔄 Run Reliability Tests
+      run: |
+        echo "🔄 Running reliability tests..."
+        python tests/test_reliability.py --duration=300 --concurrent=10
+      env:
+        BASE_URL: http://localhost:8080
+        TEST_VAULT_PATH: ./test-vault
+    
+    - name: 📊 Upload Reliability Reports
+      uses: actions/upload-artifact@v3
+      if: always()
+      with:
+        name: reliability-reports
+        path: |
+          reliability_test_report_*.json
+          reliability_logs/
+
+  # Job 9: Notification
+  notify:
+    name: 📢 Notify Results
+    runs-on: ubuntu-latest
+    needs: [code-quality, unit-tests, e2e-tests, performance-tests, security-scan, build-images, deploy]
+    if: always()
+    
+    steps:
+    - name: 📢 Notify Success
+      if: needs.deploy.result == 'success'
+      run: |
+        echo "✅ All tests passed and deployment successful!"
+        # Add notification logic here (Slack, Discord, email, etc.)
+    
+    - name: 📢 Notify Failure
+      if: needs.deploy.result == 'failure'
+      run: |
+        echo "❌ Tests failed or deployment unsuccessful!"
+        # Add failure notification logic here
+

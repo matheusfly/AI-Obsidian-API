@@ -1,0 +1,332 @@
+groups:
+  - name: ai_observability_rules
+    rules:
+      # System Health Rules
+      - alert: SystemUnhealthy
+        expr: system_health == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: system
+        annotations:
+          summary: "System is unhealthy"
+          description: "Overall system health is down for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/system-unhealthy"
+
+      - alert: HighErrorRate
+        expr: rate(errors_total[5m]) / rate(requests_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+          service: api
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }} for more than 2 minutes"
+          runbook_url: "https://docs.example.com/runbooks/high-error-rate"
+
+      # Performance Rules
+      - alert: SlowResponseTime
+        expr: histogram_quantile(0.95, rate(trace_duration_seconds_bucket[5m])) > 5
+        for: 3m
+        labels:
+          severity: warning
+          service: langgraph
+        annotations:
+          summary: "Slow trace execution"
+          description: "95th percentile trace duration is {{ $value }}s for more than 3 minutes"
+          runbook_url: "https://docs.example.com/runbooks/slow-response-time"
+
+      - alert: SlowMessageResponse
+        expr: histogram_quantile(0.95, rate(message_response_time_seconds_bucket[5m])) > 2
+        for: 2m
+        labels:
+          severity: warning
+          service: chat
+        annotations:
+          summary: "Slow message response"
+          description: "95th percentile message response time is {{ $value }}s for more than 2 minutes"
+          runbook_url: "https://docs.example.com/runbooks/slow-message-response"
+
+      # AI/ML Rules
+      - alert: LowAIConfidence
+        expr: avg(ai_confidence_score) < 0.7
+        for: 5m
+        labels:
+          severity: warning
+          service: ai
+        annotations:
+          summary: "Low AI confidence score"
+          description: "Average AI confidence score is {{ $value }} for more than 5 minutes"
+          runbook_url: "https://docs.example.com/runbooks/low-ai-confidence"
+
+      - alert: HighTokenUsage
+        expr: rate(ai_tokens_used_total[5m]) > 1000
+        for: 2m
+        labels:
+          severity: warning
+          service: ai
+        annotations:
+          summary: "High AI token usage"
+          description: "AI token usage rate is {{ $value }} tokens/sec for more than 2 minutes"
+          runbook_url: "https://docs.example.com/runbooks/high-token-usage"
+
+      - alert: AIHallucinationDetected
+        expr: rate(ai_hallucinations_total[5m]) > 0.05
+        for: 1m
+        labels:
+          severity: critical
+          service: ai
+        annotations:
+          summary: "AI hallucination detected"
+          description: "AI hallucination rate is {{ $value | humanizePercentage }} for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/ai-hallucination"
+
+      # Workflow Rules
+      - alert: WorkflowExecutionFailed
+        expr: rate(executions_completed_total{status="failed"}[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+          service: workflow
+        annotations:
+          summary: "High workflow failure rate"
+          description: "Workflow failure rate is {{ $value | humanizePercentage }} for more than 2 minutes"
+          runbook_url: "https://docs.example.com/runbooks/workflow-failure"
+
+      - alert: WorkflowStepTimeout
+        expr: rate(workflow_step_timeouts_total[5m]) > 0.05
+        for: 1m
+        labels:
+          severity: warning
+          service: workflow
+        annotations:
+          summary: "Workflow step timeouts"
+          description: "Workflow step timeout rate is {{ $value | humanizePercentage }} for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/workflow-timeout"
+
+      - alert: PendingCheckpointsHigh
+        expr: active_checkpoints > 10
+        for: 5m
+        labels:
+          severity: warning
+          service: workflow
+        annotations:
+          summary: "High number of pending checkpoints"
+          description: "{{ $value }} checkpoints are pending for more than 5 minutes"
+          runbook_url: "https://docs.example.com/runbooks/pending-checkpoints"
+
+      - alert: CheckpointTimeout
+        expr: time() - checkpoint_created_timestamp > 3600
+        for: 0m
+        labels:
+          severity: critical
+          service: workflow
+        annotations:
+          summary: "Checkpoint timeout"
+          description: "Checkpoint {{ $labels.checkpoint_id }} has been pending for more than 1 hour"
+          runbook_url: "https://docs.example.com/runbooks/checkpoint-timeout"
+
+      # Human-in-the-Loop Rules
+      - alert: HumanInteractionTimeout
+        expr: time() - human_interaction_requested_timestamp > 1800
+        for: 0m
+        labels:
+          severity: warning
+          service: chat
+        annotations:
+          summary: "Human interaction timeout"
+          description: "Human interaction {{ $labels.interaction_id }} has been pending for more than 30 minutes"
+          runbook_url: "https://docs.example.com/runbooks/human-interaction-timeout"
+
+      - alert: HighHumanInteractionRate
+        expr: rate(human_interactions_total[5m]) > 0.1
+        for: 3m
+        labels:
+          severity: info
+          service: chat
+        annotations:
+          summary: "High human interaction rate"
+          description: "Human interaction rate is {{ $value }} interactions/sec for more than 3 minutes"
+          runbook_url: "https://docs.example.com/runbooks/high-human-interaction-rate"
+
+      - alert: HumanApprovalBacklog
+        expr: pending_human_approvals > 5
+        for: 10m
+        labels:
+          severity: warning
+          service: workflow
+        annotations:
+          summary: "Human approval backlog"
+          description: "{{ $value }} human approvals are pending for more than 10 minutes"
+          runbook_url: "https://docs.example.com/runbooks/human-approval-backlog"
+
+      # Resource Rules
+      - alert: HighMemoryUsage
+        expr: container_memory_usage_bytes / container_spec_memory_limit_bytes > 0.8
+        for: 2m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "High memory usage"
+          description: "Memory usage is {{ $value | humanizePercentage }} for more than 2 minutes"
+          runbook_url: "https://docs.example.com/runbooks/high-memory-usage"
+
+      - alert: HighCPUUsage
+        expr: rate(container_cpu_usage_seconds_total[5m]) > 0.8
+        for: 2m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "High CPU usage"
+          description: "CPU usage is {{ $value | humanizePercentage }} for more than 2 minutes"
+          runbook_url: "https://docs.example.com/runbooks/high-cpu-usage"
+
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+        for: 1m
+        labels:
+          severity: critical
+          service: system
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space is {{ $value | humanizePercentage }} available for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/low-disk-space"
+
+      # Chat Rules
+      - alert: ChatThreadStuck
+        expr: time() - chat_thread_last_activity_timestamp > 300
+        for: 0m
+        labels:
+          severity: warning
+          service: chat
+        annotations:
+          summary: "Chat thread stuck"
+          description: "Chat thread {{ $labels.thread_id }} has been inactive for more than 5 minutes"
+          runbook_url: "https://docs.example.com/runbooks/chat-thread-stuck"
+
+      - alert: HighChatErrorRate
+        expr: rate(chat_errors_total[5m]) / rate(chat_messages_total[5m]) > 0.05
+        for: 2m
+        labels:
+          severity: warning
+          service: chat
+        annotations:
+          summary: "High chat error rate"
+          description: "Chat error rate is {{ $value | humanizePercentage }} for more than 2 minutes"
+          runbook_url: "https://docs.example.com/runbooks/high-chat-error-rate"
+
+      - alert: ChatSentimentLow
+        expr: avg(chat_sentiment_score) < -0.5
+        for: 5m
+        labels:
+          severity: info
+          service: chat
+        annotations:
+          summary: "Low chat sentiment"
+          description: "Average chat sentiment score is {{ $value }} for more than 5 minutes"
+          runbook_url: "https://docs.example.com/runbooks/low-chat-sentiment"
+
+      # External Service Rules
+      - alert: LangSmithUnavailable
+        expr: up{job="langsmith"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: langsmith
+        annotations:
+          summary: "LangSmith service unavailable"
+          description: "LangSmith service has been down for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/langsmith-unavailable"
+
+      - alert: ElasticsearchUnavailable
+        expr: up{job="elasticsearch"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: elasticsearch
+        annotations:
+          summary: "Elasticsearch service unavailable"
+          description: "Elasticsearch service has been down for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/elasticsearch-unavailable"
+
+      - alert: RedisUnavailable
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: redis
+        annotations:
+          summary: "Redis service unavailable"
+          description: "Redis service has been down for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/redis-unavailable"
+
+      # Business Logic Rules
+      - alert: WorkflowSuccessRateLow
+        expr: rate(executions_completed_total{status="completed"}[5m]) / rate(executions_completed_total[5m]) < 0.9
+        for: 5m
+        labels:
+          severity: warning
+          service: workflow
+        annotations:
+          summary: "Low workflow success rate"
+          description: "Workflow success rate is {{ $value | humanizePercentage }} for more than 5 minutes"
+          runbook_url: "https://docs.example.com/runbooks/low-workflow-success-rate"
+
+      - alert: AIAccuracyLow
+        expr: avg(ai_accuracy_score) < 0.85
+        for: 10m
+        labels:
+          severity: warning
+          service: ai
+        annotations:
+          summary: "Low AI accuracy"
+          description: "Average AI accuracy is {{ $value | humanizePercentage }} for more than 10 minutes"
+          runbook_url: "https://docs.example.com/runbooks/low-ai-accuracy"
+
+      - alert: UserSatisfactionLow
+        expr: avg(user_satisfaction_score) < 3.0
+        for: 15m
+        labels:
+          severity: info
+          service: chat
+        annotations:
+          summary: "Low user satisfaction"
+          description: "Average user satisfaction is {{ $value }}/5 for more than 15 minutes"
+          runbook_url: "https://docs.example.com/runbooks/low-user-satisfaction"
+
+      # Security Rules
+      - alert: UnauthorizedAccess
+        expr: rate(unauthorized_requests_total[5m]) > 0
+        for: 0m
+        labels:
+          severity: critical
+          service: security
+        annotations:
+          summary: "Unauthorized access detected"
+          description: "{{ $value }} unauthorized requests detected"
+          runbook_url: "https://docs.example.com/runbooks/unauthorized-access"
+
+      - alert: HighFailedAuthRate
+        expr: rate(failed_auth_requests_total[5m]) / rate(auth_requests_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: warning
+          service: security
+        annotations:
+          summary: "High failed authentication rate"
+          description: "Failed authentication rate is {{ $value | humanizePercentage }} for more than 2 minutes"
+          runbook_url: "https://docs.example.com/runbooks/high-failed-auth-rate"
+
+      - alert: SuspiciousActivity
+        expr: rate(suspicious_requests_total[5m]) > 0.01
+        for: 1m
+        labels:
+          severity: critical
+          service: security
+        annotations:
+          summary: "Suspicious activity detected"
+          description: "Suspicious activity rate is {{ $value }} requests/sec for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/suspicious-activity"
+    ]

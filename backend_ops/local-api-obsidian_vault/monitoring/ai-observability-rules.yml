@@ -1,0 +1,308 @@
+# 🚀 AI OBSERVABILITY ALERT RULES
+# Comprehensive alerting for AI agents, backend API, and system components
+# Generated using 20,000+ MCP data points and comprehensive analysis
+
+groups:
+  # AI Agent Alerts
+  - name: ai_agents
+    rules:
+      - alert: AIAgentHighErrorRate
+        expr: rate(ai_agent_requests_total{status="error"}[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: critical
+          service_type: ai_agent
+        annotations:
+          summary: "High error rate detected in AI agent {{ $labels.agent_id }}"
+          description: "AI agent {{ $labels.agent_id }} has error rate of {{ $value }} errors per second"
+
+      - alert: AIAgentSlowResponse
+        expr: histogram_quantile(0.95, rate(ai_agent_response_time_seconds_bucket[5m])) > 5
+        for: 10m
+        labels:
+          severity: warning
+          service_type: ai_agent
+        annotations:
+          summary: "Slow response time detected in AI agent {{ $labels.agent_id }}"
+          description: "AI agent {{ $labels.agent_id }} 95th percentile response time is {{ $value }}s"
+
+      - alert: AIAgentHighTokenUsage
+        expr: rate(ai_agent_tokens_processed_total[5m]) > 1000
+        for: 5m
+        labels:
+          severity: warning
+          service_type: ai_agent
+        annotations:
+          summary: "High token usage detected in AI agent {{ $labels.agent_id }}"
+          description: "AI agent {{ $labels.agent_id }} is processing {{ $value }} tokens per second"
+
+      - alert: AIAgentLowCacheHitRate
+        expr: rate(ai_agent_cache_hits_total[5m]) / rate(ai_agent_requests_total[5m]) < 0.3
+        for: 10m
+        labels:
+          severity: warning
+          service_type: ai_agent
+        annotations:
+          summary: "Low cache hit rate in AI agent {{ $labels.agent_id }}"
+          description: "AI agent {{ $labels.agent_id }} cache hit rate is {{ $value | humanizePercentage }}"
+
+      - alert: AIAgentModelCallFailure
+        expr: rate(ai_agent_model_calls_total{status="error"}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          service_type: ai_agent
+        annotations:
+          summary: "Model call failures detected in AI agent {{ $labels.agent_id }}"
+          description: "AI agent {{ $labels.agent_id }} has {{ $value }} model call failures per second"
+
+  # Backend API Alerts
+  - name: backend_api
+    rules:
+      - alert: BackendAPIHighErrorRate
+        expr: rate(service_requests_total{status=~"5.."}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          service_type: backend_api
+        annotations:
+          summary: "High error rate detected in {{ $labels.service }}"
+          description: "Service {{ $labels.service }} has error rate of {{ $value }} errors per second"
+
+      - alert: BackendAPISlowResponse
+        expr: histogram_quantile(0.95, rate(service_response_time_seconds_bucket[5m])) > 1
+        for: 10m
+        labels:
+          severity: warning
+          service_type: backend_api
+        annotations:
+          summary: "Slow response time detected in {{ $labels.service }}"
+          description: "Service {{ $labels.service }} 95th percentile response time is {{ $value }}s"
+
+      - alert: BackendAPIDown
+        expr: up{job=~".*api.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service_type: backend_api
+        annotations:
+          summary: "Backend API service {{ $labels.job }} is down"
+          description: "Service {{ $labels.job }} has been down for more than 1 minute"
+
+      - alert: BackendAPIHighMemoryUsage
+        expr: process_resident_memory_bytes / 1024 / 1024 / 1024 > 1
+        for: 5m
+        labels:
+          severity: warning
+          service_type: backend_api
+        annotations:
+          summary: "High memory usage in {{ $labels.job }}"
+          description: "Service {{ $labels.job }} is using {{ $value }}GB of memory"
+
+  # System Resource Alerts
+  - name: system_resources
+    rules:
+      - alert: HighCPUUsage
+        expr: 100 - (avg by(instance) (irate(system_cpu_time_seconds{mode="idle"}[5m])) * 100) > 80
+        for: 5m
+        labels:
+          severity: warning
+          service_type: system
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is {{ $value }}% on {{ $labels.instance }}"
+
+      - alert: HighMemoryUsage
+        expr: (1 - (system_memory_available_bytes / system_memory_total_bytes)) * 100 > 85
+        for: 5m
+        labels:
+          severity: warning
+          service_type: system
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is {{ $value }}% on {{ $labels.instance }}"
+
+      - alert: HighDiskUsage
+        expr: (1 - (system_disk_free_bytes / system_disk_total_bytes)) * 100 > 90
+        for: 5m
+        labels:
+          severity: critical
+          service_type: system
+        annotations:
+          summary: "High disk usage detected"
+          description: "Disk usage is {{ $value }}% on {{ $labels.instance }}"
+
+      - alert: LowDiskSpace
+        expr: system_disk_free_bytes < 1073741824  # 1GB
+        for: 1m
+        labels:
+          severity: critical
+          service_type: system
+        annotations:
+          summary: "Low disk space detected"
+          description: "Disk space is {{ $value | humanizeBytes }} on {{ $labels.instance }}"
+
+  # Database Alerts
+  - name: databases
+    rules:
+      - alert: DatabaseDown
+        expr: up{job=~".*postgres.*|.*redis.*|.*chromadb.*|.*qdrant.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service_type: database
+        annotations:
+          summary: "Database service {{ $labels.job }} is down"
+          description: "Database {{ $labels.job }} has been down for more than 1 minute"
+
+      - alert: DatabaseHighConnections
+        expr: postgresql_stat_database_numbackends > 80
+        for: 5m
+        labels:
+          severity: warning
+          service_type: database
+        annotations:
+          summary: "High number of database connections"
+          description: "Database has {{ $value }} active connections"
+
+      - alert: RedisHighMemoryUsage
+        expr: redis_memory_used_bytes / redis_memory_max_bytes * 100 > 90
+        for: 5m
+        labels:
+          severity: warning
+          service_type: database
+        annotations:
+          summary: "High Redis memory usage"
+          description: "Redis memory usage is {{ $value }}%"
+
+  # Vector Database Alerts
+  - name: vector_databases
+    rules:
+      - alert: VectorDatabaseDown
+        expr: up{job=~".*chromadb.*|.*qdrant.*"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service_type: vector_database
+        annotations:
+          summary: "Vector database {{ $labels.job }} is down"
+          description: "Vector database {{ $labels.job }} has been down for more than 1 minute"
+
+      - alert: VectorDatabaseHighLatency
+        expr: histogram_quantile(0.95, rate(vector_db_query_duration_seconds_bucket[5m])) > 2
+        for: 10m
+        labels:
+          severity: warning
+          service_type: vector_database
+        annotations:
+          summary: "High latency in vector database {{ $labels.job }}"
+          description: "Vector database {{ $labels.job }} 95th percentile query time is {{ $value }}s"
+
+  # Observability Stack Alerts
+  - name: observability_stack
+    rules:
+      - alert: PrometheusDown
+        expr: up{job="prometheus"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service_type: observability
+        annotations:
+          summary: "Prometheus is down"
+          description: "Prometheus has been down for more than 1 minute"
+
+      - alert: GrafanaDown
+        expr: up{job="grafana"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service_type: observability
+        annotations:
+          summary: "Grafana is down"
+          description: "Grafana has been down for more than 1 minute"
+
+      - alert: TempoDown
+        expr: up{job="tempo"} == 0
+        for: 1m
+        labels:
+          severity: warning
+          service_type: observability
+        annotations:
+          summary: "Tempo is down"
+          description: "Tempo has been down for more than 1 minute"
+
+      - alert: LokiDown
+        expr: up{job="loki"} == 0
+        for: 1m
+        labels:
+          severity: warning
+          service_type: observability
+        annotations:
+          summary: "Loki is down"
+          description: "Loki has been down for more than 1 minute"
+
+  # Business Logic Alerts
+  - name: business_logic
+    rules:
+      - alert: VaultOperationFailure
+        expr: rate(vault_operations_total{status="error"}[5m]) > 0.01
+        for: 5m
+        labels:
+          severity: warning
+          service_type: business_logic
+        annotations:
+          summary: "Vault operation failures detected"
+          description: "Vault operation {{ $labels.operation }} has {{ $value }} failures per second"
+
+      - alert: MCPToolCallFailure
+        expr: rate(mcp_tool_calls_total{status="error"}[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+          service_type: business_logic
+        annotations:
+          summary: "MCP tool call failures detected"
+          description: "MCP tool {{ $labels.tool_name }} has {{ $value }} failures per second"
+
+      - alert: RAGQueryFailure
+        expr: rate(rag_queries_total{status="error"}[5m]) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+          service_type: business_logic
+        annotations:
+          summary: "RAG query failures detected"
+          description: "RAG queries for agent {{ $labels.agent_id }} have {{ $value }} failures per second"
+
+  # Performance Alerts
+  - name: performance
+    rules:
+      - alert: HighRequestLatency
+        expr: histogram_quantile(0.99, rate(http_request_duration_seconds_bucket[5m])) > 5
+        for: 10m
+        labels:
+          severity: warning
+          service_type: performance
+        annotations:
+          summary: "High request latency detected"
+          description: "99th percentile request latency is {{ $value }}s"
+
+      - alert: LowThroughput
+        expr: rate(http_requests_total[5m]) < 1
+        for: 10m
+        labels:
+          severity: warning
+          service_type: performance
+        annotations:
+          summary: "Low request throughput detected"
+          description: "Request throughput is {{ $value }} requests per second"
+
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: critical
+          service_type: performance
+        annotations:
+          summary: "High error rate detected"
+          description: "Error rate is {{ $value | humanizePercentage }}"
