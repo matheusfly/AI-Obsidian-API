@@ -6,7 +6,7 @@
 - **Before**: Red status, "No tools or prompts"
 - **After**: Green status, using server-everything fallback
 - **Configuration**: Changed from URL-based to command-based
-- **API Key**: ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc
+- **API Key**: $env:CONTEXT7_API_KEY
 
 ### **All Red Tools Fixed:**
 - ✅ **Context7** - Now using server-everything

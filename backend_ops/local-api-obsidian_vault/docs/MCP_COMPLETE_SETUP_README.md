@@ -129,8 +129,8 @@ Update the following in `mcp-env-template.txt`:
       "command": "node",
       "args": ["D:\\codex\\master_code\\backend_ops\\local-api-obsidian_vault\\graphiti-server\\index.js"],
       "env": {
-        "OPENAI_API_KEY": "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",
-        "ACI_KEY": "5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371"
+        "OPENAI_API_KEY": "$env:OPENAI_API_KEY",
+        "ACI_KEY": "$env:ACI_KEY"
       },
       "start_on_launch": true
     },
@@ -138,8 +138,8 @@ Update the following in `mcp-env-template.txt`:
       "command": "node",
       "args": ["D:\\codex\\master_code\\backend_ops\\local-api-obsidian_vault\\aci-server\\index.js"],
       "env": {
-        "OPENAI_API_KEY": "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",
-        "ACI_KEY": "5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371"
+        "OPENAI_API_KEY": "$env:OPENAI_API_KEY",
+        "ACI_KEY": "$env:ACI_KEY"
       },
       "start_on_launch": true
     },
@@ -148,7 +148,7 @@ Update the following in `mcp-env-template.txt`:
       "args": ["D:\\codex\\master_code\\backend_ops\\local-api-obsidian_vault\\obsidian-mcp-server\\index.js"],
       "env": {
         "VAULT_PATH": "D:\\Nomade Milionario",
-        "OPENAI_API_KEY": "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"
+        "OPENAI_API_KEY": "$env:OPENAI_API_KEY"
       },
       "start_on_launch": true
     },

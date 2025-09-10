@@ -28,7 +28,7 @@ Write-Host "=================================" -ForegroundColor Yellow
 
 # Context7 Configuration
 Write-Host "`n1. Context7 MCP Server:" -ForegroundColor Cyan
-Write-Host "   Current API Key: ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc" -ForegroundColor Gray
+Write-Host "   Current API Key: $env:CONTEXT7_API_KEY" -ForegroundColor Gray
 Write-Host "   Status: ✅ API Key appears valid" -ForegroundColor Green
 Write-Host "   Note: Using @context7/mcp-server@latest package" -ForegroundColor Gray
 

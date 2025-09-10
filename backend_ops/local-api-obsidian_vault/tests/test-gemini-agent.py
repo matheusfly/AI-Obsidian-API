@@ -10,7 +10,7 @@ import time
 from datetime import datetime
 
 # Configuration
-GEMINI_API_KEY = "AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw"
+GEMINI_API_KEY = "$env:GOOGLE_API_KEY"
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-thinking-exp:generateContent"
 N8N_WEBHOOK_URL = "http://localhost:5678/webhook/advanced-rag"
 OBSIDIAN_API_URL = "http://localhost:27123"

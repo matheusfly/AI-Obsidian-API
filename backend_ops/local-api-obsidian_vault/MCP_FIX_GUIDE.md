@@ -43,7 +43,7 @@ The following changes were made to your `mcp.json`:
     "@context7/mcp-server@latest"
   ],
   "env": {
-    "CONTEXT7_API_KEY": "ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc",
+    "CONTEXT7_API_KEY": "$env:CONTEXT7_API_KEY",
     "CONTEXT7_URL": "https://mcp.context7.com/mcp"
   }
 }

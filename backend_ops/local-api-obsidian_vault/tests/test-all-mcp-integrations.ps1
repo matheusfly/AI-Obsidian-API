@@ -84,14 +84,14 @@ foreach ($configFile in $configFiles) {
 Write-Host "`n5. Testing API Keys and Environment..." -ForegroundColor Yellow
 
 $apiKeys = @{
-    "OpenAI API Key" = "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"
-    "Google API Key" = "AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw"
-    "Context7 API Key" = "ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc"
+    "OpenAI API Key" = "$env:OPENAI_API_KEY"
+    "Google API Key" = "$env:GOOGLE_API_KEY"
+    "Context7 API Key" = "$env:CONTEXT7_API_KEY"
     "Brave Search API Key" = "BSAH4z17RV9ec_bzi69xUX8ad3ZSa5t"
     "Serper API Key" = "044241d6cf64ce78b6a0006df603a4bbc8baf331"
     "Scrapfly API Key" = "scp-live-97f452246c0144db8a69e0b3f0c0e22a"
-    "Agent Ops API Key" = "d3ecf183-849a-4e3e-ba8a-53ccf3e1da84"
-    "ACI Key" = "5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371"
+    "Agent Ops API Key" = "$env:AGENT_OPS_API_KEY"
+    "ACI Key" = "$env:ACI_KEY"
     "GitHub Token" = "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E"
 }
 

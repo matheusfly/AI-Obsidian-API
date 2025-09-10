@@ -78,10 +78,10 @@ $envContent = @"
 # Copy this to your .env file or set these as system environment variables
 
 # OpenAI API Key
-OPENAI_API_KEY=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
+OPENAI_API_KEY=$env:OPENAI_API_KEY
 
 # ACI Key
-ACI_KEY=5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371
+ACI_KEY=$env:ACI_KEY
 
 # GitHub Personal Access Token (replace with your token)
 GITHUB_PERSONAL_ACCESS_TOKEN=YOUR_GITHUB_TOKEN_HERE

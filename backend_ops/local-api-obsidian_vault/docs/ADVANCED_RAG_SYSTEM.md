@@ -225,7 +225,7 @@ def expand_query(query):
 ### **API Configuration**
 ```python
 GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-thinking-exp:generateContent"
-GEMINI_API_KEY = "AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw"
+GEMINI_API_KEY = "$env:GOOGLE_API_KEY"
 
 # Request payload
 payload = {

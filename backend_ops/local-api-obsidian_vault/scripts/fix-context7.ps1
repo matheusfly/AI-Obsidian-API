@@ -4,7 +4,7 @@ Write-Host scripts/ing Context7 MCP Server..." -ForegroundColor Green
 # Test Context7 API key
 Write-Host "`n1. Testing Context7 API key..." -ForegroundColor Yellow
 
-$context7ApiKey = "ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc"
+$context7ApiKey = "$env:CONTEXT7_API_KEY"
 $context7Url = "https://mcp.context7.com/mcp"
 
 try {
@@ -71,7 +71,7 @@ Write-Host "`n5. Testing Context7 functionality..." -ForegroundColor Yellow
 $context7TestScript = @'
 const https = require('https');
 
-const CONTEXT7_API_KEY = process.env.CONTEXT7_API_KEY || 'ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc';
+const CONTEXT7_API_KEY = process.env.CONTEXT7_API_KEY || '$env:CONTEXT7_API_KEY';
 const CONTEXT7_URL = process.env.CONTEXT7_URL || 'https://mcp.context7.com/mcp';
 
 function testContext7() {

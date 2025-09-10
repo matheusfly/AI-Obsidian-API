@@ -57,7 +57,7 @@ $mcpConfig = @"
         "@modelcontextprotocol/server-everything"
       ],
       "env": {
-        "CONTEXT7_API_KEY": "ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc",
+        "CONTEXT7_API_KEY": "$env:CONTEXT7_API_KEY",
         "CONTEXT7_URL": "https://mcp.context7.com/mcp"
       }
     },
@@ -140,7 +140,7 @@ $mcpConfig = @"
         "@modelcontextprotocol/server-everything"
       ],
       "env": {
-        "AGENT_OPS_API_KEY": "d3ecf183-849a-4e3e-ba8a-53ccf3e1da84"
+        "AGENT_OPS_API_KEY": "$env:AGENT_OPS_API_KEY"
       }
     },
     "memory": {
@@ -160,8 +160,8 @@ $mcpConfig = @"
         "@modelcontextprotocol/server-everything"
       ],
       "env": {
-        "OPENAI_API_KEY": "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",
-        "ACI_KEY": "5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371"
+        "OPENAI_API_KEY": "$env:OPENAI_API_KEY",
+        "ACI_KEY": "$env:ACI_KEY"
       }
     },
     "aipotheosis-aci": {
@@ -171,8 +171,8 @@ $mcpConfig = @"
         "@modelcontextprotocol/server-everything"
       ],
       "env": {
-        "OPENAI_API_KEY": "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",
-        "ACI_KEY": "5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371"
+        "OPENAI_API_KEY": "$env:OPENAI_API_KEY",
+        "ACI_KEY": "$env:ACI_KEY"
       }
     },
     "obsidian-vault": {
@@ -183,7 +183,7 @@ $mcpConfig = @"
       ],
       "env": {
         "VAULT_PATH": "D:\\Nomade Milionario",
-        "OPENAI_API_KEY": "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"
+        "OPENAI_API_KEY": "$env:OPENAI_API_KEY"
       }
     },
     "sentry": {
@@ -208,8 +208,8 @@ $mcpConfig = @"
       ],
       "env": {
         "ANTHROPIC_API_KEY": "no api",
-        "OPENAI_API_KEY": "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",
-        "GOOGLE_API_KEY": "AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw",
+        "OPENAI_API_KEY": "$env:OPENAI_API_KEY",
+        "GOOGLE_API_KEY": "$env:GOOGLE_API_KEY",
         "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE",
         "MISTRAL_API_KEY": "YOUR_MISTRAL_KEY_HERE",
         "GROQ_API_KEY": "YOUR_GROQ_KEY_HERE",
@@ -263,21 +263,21 @@ Write-Host "`n🔧 Step 3: Creating environment file..." -ForegroundColor Yellow
 $envContent = @"
 NODE_ENV=development
 GITHUB_PERSONAL_ACCESS_TOKEN=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E
-CONTEXT7_API_KEY=ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc
+CONTEXT7_API_KEY=$env:CONTEXT7_API_KEY
 CONTEXT7_URL=https://mcp.context7.com/mcp
 BRAVE_API_KEY=BSAH4z17RV9ec_bzi69xUX8ad3ZSa5t
 POSTGRES_URL=postgresql://postgres:postgres123@localhost:5432/mydb
 REDIS_URL=redis://localhost:6379
 SERP_API_KEY=044241d6cf64ce78b6a0006df603a4bbc8baf331
 SCRAPFLY_API_KEY=scp-live-97f452246c0144db8a69e0b3f0c0e22a
-AGENT_OPS_API_KEY=d3ecf183-849a-4e3e-ba8a-53ccf3e1da84
+AGENT_OPS_API_KEY=$env:AGENT_OPS_API_KEY
 MEMORY_DB_PATH=D:\codex\master_code\backend_ops\local-api-obsidian_vault\memory.db
-OPENAI_API_KEY=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
-ACI_KEY=5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371
+OPENAI_API_KEY=$env:OPENAI_API_KEY
+ACI_KEY=$env:ACI_KEY
 VAULT_PATH=D:\Nomade Milionario
 SENTRY_AUTH_TOKEN=YOUR_SENTRY_AUTH_TOKEN_HERE
 ANTHROPIC_API_KEY=no api
-GOOGLE_API_KEY=AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw
+GOOGLE_API_KEY=$env:GOOGLE_API_KEY
 OLLAMA_API_KEY=http://localhost:11434
 OLLAMA_MODELS=deepseek-r1:8b,gemma3:latest,qwen3:latest,kirito1/qwen3-coder:latest
 OLLAMA_HOST=http://localhost:11434

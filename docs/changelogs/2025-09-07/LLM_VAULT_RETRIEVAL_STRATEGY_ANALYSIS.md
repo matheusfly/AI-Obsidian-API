@@ -123,7 +123,7 @@ graph TD
     
     subgraph "External Systems"
         H[Obsidian Vault<br/>7.25 GB, 5,508 files]
-        I[Gemini API<br/>AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw]
+        I[Gemini API<br/>$env:GOOGLE_API_KEY]
     end
     
     H --> A

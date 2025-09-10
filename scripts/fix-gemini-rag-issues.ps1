@@ -20,7 +20,7 @@ OBSIDIAN_PORT=27123
 OBSIDIAN_VAULT_PATH=/vault
 
 # Gemini API Configuration
-GEMINI_API_KEY=AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw
+GEMINI_API_KEY=$env:GOOGLE_API_KEY
 GEMINI_MODEL_NAME=gemini-1.5-flash
 
 # ChromaDB Configuration
@@ -522,7 +522,7 @@ def fix_paths_and_run_tests():
     # Set environment variables
     os.environ['VAULT_PATH'] = str(project_root / "data" / "raw" / "vault")
     os.environ['VECTOR_DB_PATH'] = str(project_root / "data" / "chroma")
-    os.environ['GEMINI_API_KEY'] = "AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw"
+    os.environ['GEMINI_API_KEY'] = "$env:GOOGLE_API_KEY"
     
     print("✅ Environment variables set")
     

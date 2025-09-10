@@ -79,7 +79,7 @@ $warpConfig = @'
       "@modelcontextprotocol/server-everything"
     ],
     "env": {
-      "CONTEXT7_API_KEY": "ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc",
+      "CONTEXT7_API_KEY": "$env:CONTEXT7_API_KEY",
       "CONTEXT7_URL": "https://mcp.context7.com/mcp"
     },
     "working_directory": null
@@ -175,7 +175,7 @@ $warpConfig = @'
       "@modelcontextprotocol/server-everything"
     ],
     "env": {
-      "AGENT_OPS_API_KEY": "d3ecf183-849a-4e3e-ba8a-53ccf3e1da84"
+      "AGENT_OPS_API_KEY": "$env:AGENT_OPS_API_KEY"
     },
     "working_directory": null
   },
@@ -197,8 +197,8 @@ $warpConfig = @'
       "@modelcontextprotocol/server-everything"
     ],
     "env": {
-      "OPENAI_API_KEY": "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",
-      "ACI_KEY": "5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371"
+      "OPENAI_API_KEY": "$env:OPENAI_API_KEY",
+      "ACI_KEY": "$env:ACI_KEY"
     },
     "working_directory": null
   },
@@ -209,8 +209,8 @@ $warpConfig = @'
       "@modelcontextprotocol/server-everything"
     ],
     "env": {
-      "OPENAI_API_KEY": "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",
-      "ACI_KEY": "5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371"
+      "OPENAI_API_KEY": "$env:OPENAI_API_KEY",
+      "ACI_KEY": "$env:ACI_KEY"
     },
     "working_directory": null
   },
@@ -222,7 +222,7 @@ $warpConfig = @'
     ],
     "env": {
       "VAULT_PATH": "D:\\Nomade Milionario",
-      "OPENAI_API_KEY": "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"
+      "OPENAI_API_KEY": "$env:OPENAI_API_KEY"
     },
     "working_directory": null
   },
@@ -248,9 +248,9 @@ $warpConfig = @'
       "task-master-ai"
     ],
     "env": {
-      "ANTHROPIC_API_KEY": "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",
-      "OPENAI_API_KEY": "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",
-      "GOOGLE_API_KEY": "AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw",
+      "ANTHROPIC_API_KEY": "$env:OPENAI_API_KEY",
+      "OPENAI_API_KEY": "$env:OPENAI_API_KEY",
+      "GOOGLE_API_KEY": "$env:GOOGLE_API_KEY",
       "PERPLEXITY_API_KEY": "YOUR_PERPLEXITY_API_KEY_HERE",
       "MISTRAL_API_KEY": "YOUR_MISTRAL_KEY_HERE",
       "GROQ_API_KEY": "YOUR_GROQ_KEY_HERE",

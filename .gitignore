@@ -1,3 +1,145 @@
+# ===========================================
+# CRITICAL SECURITY - API KEYS & SECRETS
+# ===========================================
+
+# Environment variables and secrets
+.env
+.env.*
+!.env.template
+!.env.example
+*.env
+secrets.json
+secrets.yaml
+secrets.yml
+config/secrets.*
+**/secrets/**
+
+# API Keys and Tokens
+*api_key*
+*API_KEY*
+*apikey*
+*APIKEY*
+*token*
+*TOKEN*
+*secret*
+*SECRET*
+*password*
+*PASSWORD*
+
+# Database files (may contain sensitive data)
+*.sqlite3
+*.db
+*.sqlite
+data/chroma/
+data/vector/
+data/cache/
+data/processed/
+data/raw/
+
+# ===========================================
+# DEVELOPMENT & BUILD ARTIFACTS
+# ===========================================
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+.venv/
+.env/
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# ===========================================
+# LOGS & MONITORING
+# ===========================================
+
+# Log files
+*.log
+logs/
+log/
+monitoring/logs/
+services/*/logs/
+
+# Monitoring data
+monitoring/data/
+grafana/data/
+prometheus/data/
+
+# ===========================================
+# CACHE & TEMPORARY FILES
+# ===========================================
+
+# Cache directories
+cache/
+.cache/
+__pycache__/
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/
+
+# ===========================================
+# CONFIGURATION FILES WITH SECRETS
+# ===========================================
+
+# Docker secrets
+docker-compose.override.yml
+docker-compose.local.yml
+
+# Kubernetes secrets
+k8s/secrets/
+kubernetes/secrets/
+
+# Configuration with secrets
+config/production.env
+config/local.env
+config/dev.env
+config/*.env
+!config/*.env.template
+!config/*.env.example
+
+# ===========================================
+# BYTEROVER & EDITOR RULES
+# ===========================================
 
 .clinerules/byterover-rules.md
 .kilocode/rules/byterover-rules.md
@@ -7,3 +149,71 @@
 .kiro/steering/byterover-rules.md
 .qoder/rules/byterover-rules.md
 .augment/rules/byterover-rules.md
+
+# ===========================================
+# TESTING & COVERAGE
+# ===========================================
+
+# Test outputs
+test-results/
+test_output/
+coverage.xml
+.coverage
+.pytest_cache/
+htmlcov/
+
+# ===========================================
+# DEPLOYMENT & INFRASTRUCTURE
+# ===========================================
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Docker
+.dockerignore
+docker-compose.override.yml
+
+# ===========================================
+# DOCUMENTATION BUILD
+# ===========================================
+
+# Documentation build outputs
+docs/_build/
+docs/build/
+site/
+
+# ===========================================
+# BACKUP FILES
+# ===========================================
+
+*.bak
+*.backup
+*.old
+backup/
+backups/
+
+# ===========================================
+# OS SPECIFIC
+# ===========================================
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+.Trash-*
+.nfs*

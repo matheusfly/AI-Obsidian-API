@@ -96,7 +96,7 @@ $optimizedConfig = @{
         context7 = @{
             url = "https://mcp.context7.com/mcp"
             env = @{
-                CONTEXT7_API_KEY = "ctx7sk-33afd784-9366-4ea8-acfe-4a24b11c24cc"
+                CONTEXT7_API_KEY = "$env:CONTEXT7_API_KEY"
             }
         }
         "shadcn-ui" = @{
@@ -146,9 +146,9 @@ $optimizedConfig = @{
             command = "npx"
             args = @("-y", "--package=task-master-ai", "task-master-ai")
             env = @{
-                ANTHROPIC_API_KEY = "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"
-                OPENAI_API_KEY = "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"
-                GOOGLE_API_KEY = "AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw"
+                ANTHROPIC_API_KEY = "$env:OPENAI_API_KEY"
+                OPENAI_API_KEY = "$env:OPENAI_API_KEY"
+                GOOGLE_API_KEY = "$env:GOOGLE_API_KEY"
                 PERPLEXITY_API_KEY = "YOUR_PERPLEXITY_API_KEY_HERE"
                 MISTRAL_API_KEY = "YOUR_MISTRAL_KEY_HERE"
                 GROQ_API_KEY = "YOUR_GROQ_KEY_HERE"
@@ -162,16 +162,16 @@ $optimizedConfig = @{
             command = "node"
             args = @("D:\codex\master_code\backend_ops\local-api-obsidian_vault\graphiti-server\index.js")
             env = @{
-                OPENAI_API_KEY = "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"
-                ACI_KEY = "5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371"
+                OPENAI_API_KEY = "$env:OPENAI_API_KEY"
+                ACI_KEY = "$env:ACI_KEY"
             }
         }
         aipotheosis-aci = @{
             command = "node"
             args = @("D:\codex\master_code\backend_ops\local-api-obsidian_vault\aci-server\index.js")
             env = @{
-                OPENAI_API_KEY = "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"
-                ACI_KEY = "5a90da165a9549192bd7e9275f3e59f17708664aaecb81bfb24cfe8b40263371"
+                OPENAI_API_KEY = "$env:OPENAI_API_KEY"
+                ACI_KEY = "$env:ACI_KEY"
             }
         }
         obsidian-vault = @{
@@ -179,7 +179,7 @@ $optimizedConfig = @{
             args = @("D:\codex\master_code\backend_ops\local-api-obsidian_vault\obsidian-mcp-server\index.js")
             env = @{
                 VAULT_PATH = "D:\Nomade Milionario"
-                OPENAI_API_KEY = "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"
+                OPENAI_API_KEY = "$env:OPENAI_API_KEY"
             }
         }
     }
@@ -204,9 +204,9 @@ $warpConfig = @{
             command = "npx"
             args = @("-y", "--package=task-master-ai", "task-master-ai")
             env = @{
-                ANTHROPIC_API_KEY = "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"
-                OPENAI_API_KEY = "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"
-                GOOGLE_API_KEY = "AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw"
+                ANTHROPIC_API_KEY = "$env:OPENAI_API_KEY"
+                OPENAI_API_KEY = "$env:OPENAI_API_KEY"
+                GOOGLE_API_KEY = "$env:GOOGLE_API_KEY"
             }
         }
         sentry = @{

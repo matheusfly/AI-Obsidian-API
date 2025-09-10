@@ -122,9 +122,9 @@ DATABASE_URL=postgresql://localhost:5432/context_engineering
 REDIS_URL=redis://localhost:6379
 
 # AI Providers
-OPENAI_API_KEY=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
+OPENAI_API_KEY=$env:OPENAI_API_KEY
 ANTHROPIC_API_KEY=your_anthropic_api_key_here
-GEMINI_API_KEY=AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw
+GEMINI_API_KEY=$env:GOOGLE_API_KEY
 
 # MCP Servers
 CONTEXT7_MCP_PORT=8004

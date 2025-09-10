@@ -22,10 +22,10 @@ class EnvironmentConfig:
     LANGCHAIN_PROJECT: str = os.getenv("LANGCHAIN_PROJECT", "obsidian-agents")
     
     # OpenAI Configuration
-    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "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")
+    OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY", "$env:OPENAI_API_KEY")
     
     # Gemini API Configuration
-    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "AIzaSyAA7jg9__c_YZmcspAsydTkq33MGrK4Ynw")
+    GEMINI_API_KEY: str = os.getenv("GEMINI_API_KEY", "$env:GOOGLE_API_KEY")
     
     # LangGraph Configuration
     LANGGRAPH_HOST: str = os.getenv("LANGGRAPH_HOST", "0.0.0.0")
