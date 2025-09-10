@@ -1,0 +1,22 @@
+[2025-09-06 11:27:27] [INFO] Starting Master Cleanup Script
+[2025-09-06 11:27:27] [INFO] Mode: analysis, DryRun: False, Detailed: True, Force: False
+[2025-09-06 11:27:27] [INFO] Created backup directory: temp_files\backup\master_cleanup_20250906_112727
+[2025-09-06 11:27:27] [INFO] Running analysis mode
+[2025-09-06 11:27:27] [INFO] File: aggressive_cleanup.ps1 - Normal file
+[2025-09-06 11:27:27] [INFO] File: cleanup_config.ps1 - Normal file
+[2025-09-06 11:27:28] [INFO] File: cleanup_project.ps1 - Normal file
+[2025-09-06 11:27:28] [INFO] File: comprehensive_cleanup.ps1 - Normal file
+[2025-09-06 11:27:28] [INFO] File: CURSOR_RULES_CLEANUP_SYSTEM.md - Normal file
+[2025-09-06 11:27:28] [INFO] File: FOLDER_STRUCTURE_GUIDE.md - Normal file
+[2025-09-06 11:27:28] [INFO] File: master_cleanup.ps1 - Normal file
+[2025-09-06 11:27:28] [INFO] File: README.md - Essential file
+[2025-09-06 11:27:28] [INFO] File: targeted_cleanup.ps1 - Normal file
+[2025-09-06 11:27:28] [INFO] File: usability_analysis.ps1 - Normal file
+[2025-09-06 11:27:28] [INFO] File: cleanup.log - Normal file
+[2025-09-06 11:27:28] [INFO] Cleanup completed
+[2025-09-06 11:27:28] [INFO] Files analyzed: 0
+[2025-09-06 11:27:28] [INFO] Files preserved: 0
+[2025-09-06 11:27:28] [INFO] Files removed: 0
+[2025-09-06 11:27:28] [INFO] Errors: 0
+[2025-09-06 11:27:28] [INFO] Backup location: temp_files\backup\master_cleanup_20250906_112727
+[2025-09-06 11:27:28] [INFO] Master Cleanup Script completed

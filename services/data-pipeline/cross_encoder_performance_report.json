@@ -1,0 +1,115 @@
+{
+  "timestamp": "2025-09-07 14:00:28",
+  "test_type": "cross_encoder_performance",
+  "baseline": {
+    "queries": {
+      "machine learning algorithms": {
+        "search_time": 0.07142758369445801,
+        "num_results": 5,
+        "avg_similarity": 0.32382984161376954,
+        "top_result": "Machine learning is a subset of artificial intelligence that focuses on algorithms that can learn fr..."
+      },
+      "python programming language": {
+        "search_time": 0.03147745132446289,
+        "num_results": 5,
+        "avg_similarity": 0.300289249420166,
+        "top_result": "Python is a high-level programming language known for its simplicity and readability. It's widely us..."
+      },
+      "data analysis techniques": {
+        "search_time": 0.028723716735839844,
+        "num_results": 5,
+        "avg_similarity": 0.296163284778595,
+        "top_result": "Data analysis involves examining, cleaning, and transforming data to discover useful information and..."
+      },
+      "artificial intelligence overview": {
+        "search_time": 0.03486227989196777,
+        "num_results": 5,
+        "avg_similarity": 0.33789860010147094,
+        "top_result": "Artificial intelligence encompasses machine learning, natural language processing, computer vision, ..."
+      },
+      "database optimization methods": {
+        "search_time": 0.029927492141723633,
+        "num_results": 5,
+        "avg_similarity": 0.3098322868347168,
+        "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+      }
+    },
+    "performance": {
+      "avg_search_time": 0.03928370475769043,
+      "min_search_time": 0.028723716735839844,
+      "max_search_time": 0.07142758369445801
+    },
+    "quality": {
+      "avg_similarity": 0.3136026525497437,
+      "min_similarity": 0.296163284778595,
+      "max_similarity": 0.33789860010147094
+    }
+  },
+  "reranked": {
+    "queries": {
+      "machine learning algorithms": {
+        "search_time": 1.4491488933563232,
+        "num_results": 5,
+        "avg_final_score": -3.1335072779655455,
+        "avg_cross_score": -4.6335569024086,
+        "top_result": "Machine learning is a subset of artificial intelligence that focuses on algorithms that can learn fr..."
+      },
+      "python programming language": {
+        "search_time": 0.3844599723815918,
+        "num_results": 5,
+        "avg_final_score": -4.673069418668747,
+        "avg_cross_score": -6.774653434753418,
+        "top_result": "Python is a high-level programming language known for its simplicity and readability. It's widely us..."
+      },
+      "data analysis techniques": {
+        "search_time": 0.6030113697052002,
+        "num_results": 5,
+        "avg_final_score": -1.5707447397708894,
+        "avg_cross_score": -2.3708481788635254,
+        "top_result": "Data analysis involves examining, cleaning, and transforming data to discover useful information and..."
+      },
+      "artificial intelligence overview": {
+        "search_time": 0.35898590087890625,
+        "num_results": 5,
+        "avg_final_score": -3.9977558124065395,
+        "avg_cross_score": -5.846047687530517,
+        "top_result": "Artificial intelligence encompasses machine learning, natural language processing, computer vision, ..."
+      },
+      "database optimization methods": {
+        "search_time": 0.5793874263763428,
+        "num_results": 5,
+        "avg_final_score": -3.8990285933017725,
+        "avg_cross_score": -5.687784004211426,
+        "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+      }
+    },
+    "performance": {
+      "avg_search_time": 0.6749987125396728,
+      "min_search_time": 0.35898590087890625,
+      "max_search_time": 1.4491488933563232
+    },
+    "quality": {
+      "avg_final_score": -3.454821168422699,
+      "avg_cross_score": -5.062578041553497,
+      "min_final_score": -4.673069418668747,
+      "max_final_score": -1.5707447397708894
+    }
+  },
+  "comparison": {
+    "performance": {
+      "baseline_time": 0.03928370475769043,
+      "reranked_time": 0.6749987125396728,
+      "time_difference": 0.6357150077819824,
+      "time_percent_change": 1618.2664331258898,
+      "slower": true
+    },
+    "quality": {
+      "baseline_quality": 0.3136026525497437,
+      "reranked_quality": -3.454821168422699,
+      "quality_difference": -3.7684238209724423,
+      "quality_percent_change": -1201.6555951722044,
+      "better": false
+    },
+    "recommendation": "REVIEW: Both quality and performance need improvement"
+  }
+}

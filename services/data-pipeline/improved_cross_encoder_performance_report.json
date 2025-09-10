@@ -1,0 +1,115 @@
+{
+  "timestamp": "2025-09-07 14:03:40",
+  "test_type": "improved_cross_encoder_performance",
+  "baseline": {
+    "queries": {
+      "machine learning algorithms": {
+        "search_time": 0.03274178504943848,
+        "num_results": 5,
+        "avg_similarity": 0.37822694778442384,
+        "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+      },
+      "python programming language": {
+        "search_time": 0.012814521789550781,
+        "num_results": 5,
+        "avg_similarity": 0.30699307918548585,
+        "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+      },
+      "data analysis techniques": {
+        "search_time": 0.011751413345336914,
+        "num_results": 5,
+        "avg_similarity": 0.36719071865081787,
+        "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+      },
+      "artificial intelligence overview": {
+        "search_time": 0.012447834014892578,
+        "num_results": 5,
+        "avg_similarity": 0.32163835763931276,
+        "top_result": "Artificial intelligence (AI) is a broad field of computer science focused on creating systems that c..."
+      },
+      "database optimization methods": {
+        "search_time": 0.012396812438964844,
+        "num_results": 5,
+        "avg_similarity": 0.31210252046585085,
+        "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+      }
+    },
+    "performance": {
+      "avg_search_time": 0.016430473327636717,
+      "min_search_time": 0.011751413345336914,
+      "max_search_time": 0.03274178504943848
+    },
+    "quality": {
+      "avg_similarity": 0.3372303247451782,
+      "min_similarity": 0.30699307918548585,
+      "max_similarity": 0.37822694778442384
+    }
+  },
+  "reranked": {
+    "queries": {
+      "machine learning algorithms": {
+        "search_time": 0.13692522048950195,
+        "num_results": 5,
+        "avg_final_score": 0.3811732910871506,
+        "avg_cross_score": -2.3615236639976502,
+        "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+      },
+      "python programming language": {
+        "search_time": 0.1092226505279541,
+        "num_results": 5,
+        "avg_final_score": 0.2639855184555054,
+        "avg_cross_score": -5.532102298736572,
+        "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+      },
+      "data analysis techniques": {
+        "search_time": 0.11711835861206055,
+        "num_results": 5,
+        "avg_final_score": 0.5118559086322785,
+        "avg_cross_score": 2.3403953313827515,
+        "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+      },
+      "artificial intelligence overview": {
+        "search_time": 0.11495327949523926,
+        "num_results": 5,
+        "avg_final_score": 0.23015375423431395,
+        "avg_cross_score": -7.268264961242676,
+        "top_result": "Artificial intelligence (AI) is a broad field of computer science focused on creating systems that c..."
+      },
+      "database optimization methods": {
+        "search_time": 0.11180567741394043,
+        "num_results": 5,
+        "avg_final_score": 0.3489089389443398,
+        "avg_cross_score": -2.3718063175678252,
+        "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+      }
+    },
+    "performance": {
+      "avg_search_time": 0.11800503730773926,
+      "min_search_time": 0.1092226505279541,
+      "max_search_time": 0.13692522048950195
+    },
+    "quality": {
+      "avg_final_score": 0.34721548227071763,
+      "avg_cross_score": -3.0386603820323943,
+      "min_final_score": 0.23015375423431395,
+      "max_final_score": 0.5118559086322785
+    }
+  },
+  "comparison": {
+    "performance": {
+      "baseline_time": 0.016430473327636717,
+      "reranked_time": 0.11800503730773926,
+      "time_difference": 0.10157456398010253,
+      "time_percent_change": 618.2083860557445,
+      "slower": true
+    },
+    "quality": {
+      "baseline_quality": 0.3372303247451782,
+      "reranked_quality": 0.34721548227071763,
+      "quality_difference": 0.009985157525539412,
+      "quality_percent_change": 2.9609310885919022,
+      "better": true
+    },
+    "recommendation": "ACCEPTABLE: Quality improved but significant performance cost"
+  }
+}

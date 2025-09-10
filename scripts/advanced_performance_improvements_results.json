@@ -1,0 +1,211 @@
+{
+  "results": {
+    "What are the main philosophical currents of logic and mathematics?": {
+      "expanded_queries": [
+        "What are the main philosophical currents of logic and mathematics?",
+        "What are the main philosophical currents of logic and mathematics",
+        "What is what are the main philosophical currents of logic and mathematics?",
+        "How does what are the main philosophical currents of logic and mathematics work?"
+      ],
+      "classification": {
+        "type": "question",
+        "intent": "philosophical",
+        "confidence": 1.0,
+        "keywords": [
+          "what",
+          "are",
+          "the",
+          "main",
+          "philosophical",
+          "currents",
+          "of",
+          "logic",
+          "and",
+          "mathematics?"
+        ],
+        "complexity": "medium"
+      },
+      "intent_analysis": {
+        "original_query": "What are the main philosophical currents of logic and mathematics?",
+        "modified_query": "What are the main philosophical currents of logic and mathematics?",
+        "boost_terms": [
+          "logic",
+          "reasoning",
+          "truth",
+          "knowledge",
+          "philosophy"
+        ],
+        "filter_topics": [
+          "philosophy",
+          "mathematics",
+          "logic"
+        ],
+        "confidence": 1.0
+      },
+      "topic": "mathematics",
+      "filtered_docs_count": 1,
+      "search_results_count": 3,
+      "reranked_results_count": 3,
+      "multi_hop_results_count": 3,
+      "summary_length": 571,
+      "quality_metrics": {
+        "precision_at_5": 0.3333333333333333,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.6309297535714575,
+        "response_relevance": 0.7905986703861707,
+        "response_completeness": 0.7278966747109024,
+        "response_coherence": 0.7102160135475954,
+        "citation_quality": 0.5973362516939072
+      },
+      "feedback": {
+        "query": "What are the main philosophical currents of logic and mathematics?",
+        "response": "**philosophy_of_math.md** (relevance: 0.30): Philosophy of mathematics examines the nature of mathematical objects and truth. It explores questions about the existence and nature of mathematical entities....\n\n**python_programming.md** (relevance: 0.10): Python programming involves writing code with functions and variables. It's a versatile language for software development and data analysis....\n\n**reading_techniques.md** (relevance: 0.10): Reading techniques like speed reading and comprehension strategies help improve learning efficiency and knowledge retention....",
+        "retrieved_docs_count": 3,
+        "timestamp": "2025-09-09T17:28:19.862518",
+        "feedback_type": "automatic",
+        "satisfaction_score": 0.6444264501558005,
+        "response_relevance": 0.3
+      },
+      "response_time": 0.006883144378662109
+    },
+    "How to improve reading comprehension?": {
+      "expanded_queries": [
+        "How to improve reading comprehension?",
+        "How to improve reading comprehension",
+        "What is how to improve reading comprehension?",
+        "How does how to improve reading comprehension work?",
+        "comprehension",
+        "speed",
+        "techniques",
+        "learning"
+      ],
+      "classification": {
+        "type": "procedure",
+        "intent": "educational",
+        "confidence": 1.2,
+        "keywords": [
+          "how",
+          "to",
+          "improve",
+          "reading",
+          "comprehension?"
+        ],
+        "complexity": "medium"
+      },
+      "intent_analysis": {
+        "original_query": "How to improve reading comprehension?",
+        "modified_query": "How to improve reading comprehension?",
+        "boost_terms": [
+          "learning",
+          "study",
+          "education",
+          "comprehension",
+          "reading"
+        ],
+        "filter_topics": [
+          "reading",
+          "learning",
+          "education"
+        ],
+        "confidence": 1.2
+      },
+      "topic": "reading",
+      "filtered_docs_count": 1,
+      "search_results_count": 3,
+      "reranked_results_count": 3,
+      "multi_hop_results_count": 3,
+      "summary_length": 571,
+      "quality_metrics": {
+        "precision_at_5": 0.3333333333333333,
+        "mrr": 1.0,
+        "ndcg_at_5": 1.0,
+        "response_relevance": 0.8161352368299607,
+        "response_completeness": 0.6443551275858054,
+        "response_coherence": 0.8739374058557742,
+        "citation_quality": 0.4192832139154662
+      },
+      "feedback": {
+        "query": "How to improve reading comprehension?",
+        "response": "**reading_techniques.md** (relevance: 0.40): Reading techniques like speed reading and comprehension strategies help improve learning efficiency and knowledge retention....\n\n**python_programming.md** (relevance: 0.00): Python programming involves writing code with functions and variables. It's a versatile language for software development and data analysis....\n\n**philosophy_of_math.md** (relevance: 0.00): Philosophy of mathematics examines the nature of mathematical objects and truth. It explores questions about the existence and nature of mathematical entities....",
+        "retrieved_docs_count": 3,
+        "timestamp": "2025-09-09T17:28:19.865588",
+        "feedback_type": "automatic",
+        "satisfaction_score": 0.8794556248162863,
+        "response_relevance": 0.4
+      },
+      "response_time": 0.002273082733154297
+    },
+    "Python programming best practices": {
+      "expanded_queries": [
+        "Python programming best practices",
+        "Python programming best practices?",
+        "What is Python programming best practices?",
+        "How does Python programming best practices work?"
+      ],
+      "classification": {
+        "type": "general",
+        "intent": "technical",
+        "confidence": 0.8,
+        "keywords": [
+          "python",
+          "programming",
+          "best",
+          "practices"
+        ],
+        "complexity": "low"
+      },
+      "intent_analysis": {
+        "original_query": "Python programming best practices",
+        "modified_query": "simple explanation of Python programming best practices",
+        "boost_terms": [
+          "programming",
+          "code",
+          "software",
+          "development",
+          "technology"
+        ],
+        "filter_topics": [
+          "programming",
+          "technology",
+          "software"
+        ],
+        "confidence": 0.8
+      },
+      "topic": "programming",
+      "filtered_docs_count": 1,
+      "search_results_count": 3,
+      "reranked_results_count": 3,
+      "multi_hop_results_count": 3,
+      "summary_length": 571,
+      "quality_metrics": {
+        "precision_at_5": 0.3333333333333333,
+        "mrr": 0.5,
+        "ndcg_at_5": 0.6309297535714575,
+        "response_relevance": 0.778352942766216,
+        "response_completeness": 0.7254309681612322,
+        "response_coherence": 0.859966676016915,
+        "citation_quality": 0.6278229862811211
+      },
+      "feedback": {
+        "query": "Python programming best practices",
+        "response": "**python_programming.md** (relevance: 0.50): Python programming involves writing code with functions and variables. It's a versatile language for software development and data analysis....\n\n**philosophy_of_math.md** (relevance: 0.00): Philosophy of mathematics examines the nature of mathematical objects and truth. It explores questions about the existence and nature of mathematical entities....\n\n**reading_techniques.md** (relevance: 0.00): Reading techniques like speed reading and comprehension strategies help improve learning efficiency and knowledge retention....",
+        "retrieved_docs_count": 3,
+        "timestamp": "2025-09-09T17:28:19.868354",
+        "feedback_type": "automatic",
+        "satisfaction_score": 0.6655123851014774,
+        "response_relevance": 0.5
+      },
+      "response_time": 0.002485990524291992
+    }
+  },
+  "performance": {
+    "total_queries": 3,
+    "avg_response_time_ms": 3.880739212036133,
+    "cache_hit_rate": 0.0,
+    "rerank_usage": 3,
+    "topic_detection_usage": 3,
+    "memory_usage_mb": 245,
+    "cpu_usage_percent": 12.5
+  },
+  "timestamp": "2025-09-09T17:28:19.871301"
+}

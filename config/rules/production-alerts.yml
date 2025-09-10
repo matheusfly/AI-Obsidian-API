@@ -1,0 +1,177 @@
+groups:
+  - name: production_critical
+    rules:
+      # Service Down Alerts
+      - alert: ServiceDown
+        expr: up == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "Service {{ $labels.job }} is down"
+          description: "Service {{ $labels.job }} has been down for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/service-down"
+
+      # High Error Rate
+      - alert: HighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.1
+        for: 2m
+        labels:
+          severity: critical
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "High error rate for {{ $labels.job }}"
+          description: "Error rate is {{ $value | humanizePercentage }} for {{ $labels.job }}"
+          runbook_url: "https://docs.example.com/runbooks/high-error-rate"
+
+      # High Response Time
+      - alert: HighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 3m
+        labels:
+          severity: warning
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "High response time for {{ $labels.job }}"
+          description: "95th percentile response time is {{ $value }}s for {{ $labels.job }}"
+          runbook_url: "https://docs.example.com/runbooks/high-response-time"
+
+      # Memory Usage
+      - alert: HighMemoryUsage
+        expr: (node_memory_MemTotal_bytes - node_memory_MemAvailable_bytes) / node_memory_MemTotal_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "High memory usage for {{ $labels.job }}"
+          description: "Memory usage is {{ $value | humanizePercentage }} for {{ $labels.job }}"
+          runbook_url: "https://docs.example.com/runbooks/high-memory-usage"
+
+      # Disk Space
+      - alert: LowDiskSpace
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+        for: 5m
+        labels:
+          severity: critical
+          service: "{{ $labels.job }}"
+        annotations:
+          summary: "Low disk space for {{ $labels.job }}"
+          description: "Disk space is {{ $value | humanizePercentage }} available for {{ $labels.job }}"
+          runbook_url: "https://docs.example.com/runbooks/low-disk-space"
+
+  - name: vector_database_alerts
+    rules:
+      # ChromaDB Health
+      - alert: ChromaDBDown
+        expr: up{job="chroma"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: "vector-database"
+        annotations:
+          summary: "ChromaDB is down"
+          description: "ChromaDB vector database is not responding"
+          runbook_url: "https://docs.example.com/runbooks/chromadb-down"
+
+      # High Vector Query Latency
+      - alert: HighVectorQueryLatency
+        expr: histogram_quantile(0.95, rate(chroma_query_latency_seconds_bucket[5m])) > 5
+        for: 3m
+        labels:
+          severity: warning
+          component: "vector-database"
+        annotations:
+          summary: "High vector query latency"
+          description: "95th percentile vector query latency is {{ $value }}s"
+          runbook_url: "https://docs.example.com/runbooks/high-vector-query-latency"
+
+      # Vector Database Memory Usage
+      - alert: VectorDBHighMemoryUsage
+        expr: chroma_memory_usage_bytes / chroma_memory_limit_bytes > 0.8
+        for: 5m
+        labels:
+          severity: warning
+          component: "vector-database"
+        annotations:
+          summary: "High memory usage in vector database"
+          description: "Vector database memory usage is {{ $value | humanizePercentage }}"
+          runbook_url: "https://docs.example.com/runbooks/vectordb-high-memory"
+
+  - name: data_pipeline_alerts
+    rules:
+      # Data Pipeline Health
+      - alert: DataPipelineDown
+        expr: up{job="data-pipeline"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: "data-pipeline"
+        annotations:
+          summary: "Data pipeline is down"
+          description: "Data pipeline service is not responding"
+          runbook_url: "https://docs.example.com/runbooks/data-pipeline-down"
+
+      # High Embedding Latency
+      - alert: HighEmbeddingLatency
+        expr: histogram_quantile(0.95, rate(embedding_latency_seconds_bucket[5m])) > 10
+        for: 3m
+        labels:
+          severity: warning
+          component: "data-pipeline"
+        annotations:
+          summary: "High embedding generation latency"
+          description: "95th percentile embedding latency is {{ $value }}s"
+          runbook_url: "https://docs.example.com/runbooks/high-embedding-latency"
+
+      # High Search Latency
+      - alert: HighSearchLatency
+        expr: histogram_quantile(0.95, rate(search_latency_seconds_bucket[5m])) > 3
+        for: 3m
+        labels:
+          severity: warning
+          component: "data-pipeline"
+        annotations:
+          summary: "High search latency"
+          description: "95th percentile search latency is {{ $value }}s"
+          runbook_url: "https://docs.example.com/runbooks/high-search-latency"
+
+  - name: infrastructure_alerts
+    rules:
+      # Redis Health
+      - alert: RedisDown
+        expr: up{job="redis"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: "cache"
+        annotations:
+          summary: "Redis is down"
+          description: "Redis cache is not responding"
+          runbook_url: "https://docs.example.com/runbooks/redis-down"
+
+      # Prometheus Health
+      - alert: PrometheusDown
+        expr: up{job="prometheus"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: "monitoring"
+        annotations:
+          summary: "Prometheus is down"
+          description: "Prometheus monitoring is not responding"
+          runbook_url: "https://docs.example.com/runbooks/prometheus-down"
+
+      # Grafana Health
+      - alert: GrafanaDown
+        expr: up{job="grafana"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          component: "monitoring"
+        annotations:
+          summary: "Grafana is down"
+          description: "Grafana dashboard is not responding"
+          runbook_url: "https://docs.example.com/runbooks/grafana-down"
+

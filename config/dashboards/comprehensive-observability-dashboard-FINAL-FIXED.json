@@ -1,0 +1,442 @@
+{
+  "id": null,
+  "uid": "comprehensive-observability-final-fixed",
+  "title": "Data Vault Obsidian - Comprehensive Observability (FINAL FIXED)",
+  "tags": ["data-vault", "obsidian", "observability", "comprehensive", "final-fixed"],
+  "style": "dark",
+  "timezone": "browser",
+  "refresh": "5s",
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "panels": [
+    {
+      "id": 1,
+      "title": "System Health Overview",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "up{job=\"data-pipeline\"}",
+          "legendFormat": "Data Pipeline"
+        },
+        {
+          "expr": "up{job=\"prometheus\"}",
+          "legendFormat": "Prometheus"
+        },
+        {
+          "expr": "up{job=\"otel-collector\"}",
+          "legendFormat": "OTEL Collector"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "text": "Down"
+                },
+                "1": {
+                  "color": "green",
+                  "text": "Up"
+                }
+              },
+              "type": "value"
+            }
+          ]
+        }
+      },
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 0}
+    },
+    {
+      "id": 2,
+      "title": "Total HTTP Requests",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(http_requests_total{job=\"data-pipeline\"})",
+          "legendFormat": "Total Requests"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8}
+    },
+    {
+      "id": 3,
+      "title": "HTTP Request Rate",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "rate(http_requests_total{job=\"data-pipeline\"}[5m])",
+          "legendFormat": "Requests/sec"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8}
+    },
+    {
+      "id": 4,
+      "title": "Response Time P95",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, rate(http_request_duration_seconds_bucket{job=\"data-pipeline\"}[5m]))",
+          "legendFormat": "P95 Response Time"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "unit": "s"
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16}
+    },
+    {
+      "id": 5,
+      "title": "ChromaDB Collection Size",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "chroma_collection_size{job=\"data-pipeline\"}",
+          "legendFormat": "Collection Size"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16}
+    },
+    {
+      "id": 6,
+      "title": "ChromaDB Query Rate",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "rate(chromadb_query_total{job=\"data-pipeline\"}[5m])",
+          "legendFormat": "Queries/sec"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 24}
+    },
+    {
+      "id": 7,
+      "title": "ChromaDB Query Latency",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, rate(chromadb_query_duration_seconds_bucket{job=\"data-pipeline\"}[5m]))",
+          "legendFormat": "P95 Query Latency"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "unit": "s"
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 24}
+    },
+    {
+      "id": 8,
+      "title": "ChromaDB Error Rate",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "rate(chromadb_error_total{job=\"data-pipeline\"}[5m])",
+          "legendFormat": "Errors/sec"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 32}
+    },
+    {
+      "id": 9,
+      "title": "Embedding Requests",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(embedding_requests_total{job=\"data-pipeline\"})",
+          "legendFormat": "Total Embedding Requests"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 32}
+    },
+    {
+      "id": 10,
+      "title": "Embedding Rate",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "rate(embedding_requests_total{job=\"data-pipeline\"}[5m])",
+          "legendFormat": "Embeddings/sec"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 40}
+    },
+    {
+      "id": 11,
+      "title": "Cache Hit Rate",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "rate(embedding_cache_hits_total{job=\"data-pipeline\"}[5m]) / (rate(embedding_cache_hits_total{job=\"data-pipeline\"}[5m]) + rate(embedding_cache_misses_total{job=\"data-pipeline\"}[5m])) * 100",
+          "legendFormat": "Cache Hit Rate %"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "unit": "percent"
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 40}
+    },
+    {
+      "id": 12,
+      "title": "LLM Requests",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(llm_requests_total{job=\"data-pipeline\"})",
+          "legendFormat": "Total LLM Requests"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 48}
+    },
+    {
+      "id": 13,
+      "title": "LLM Tokens",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(llm_tokens_total{job=\"data-pipeline\"})",
+          "legendFormat": "Total Tokens"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 48}
+    },
+    {
+      "id": 14,
+      "title": "LLM Cost (USD)",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(llm_cost_usd{job=\"data-pipeline\"})",
+          "legendFormat": "Total Cost"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "unit": "currencyUSD"
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 56}
+    },
+    {
+      "id": 15,
+      "title": "LangSmith Traces Exported",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(langsmith_traces_exported_total{job=\"data-pipeline\"})",
+          "legendFormat": "Total Traces Exported"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 56}
+    },
+    {
+      "id": 16,
+      "title": "Files Processed",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(files_processed_total{job=\"data-pipeline\"})",
+          "legendFormat": "Total Files Processed"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 64}
+    },
+    {
+      "id": 17,
+      "title": "Search Queries",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(search_queries_total{job=\"data-pipeline\"})",
+          "legendFormat": "Total Search Queries"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 64}
+    },
+    {
+      "id": 18,
+      "title": "Documents Indexed",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "sum(documents_indexed_total{job=\"data-pipeline\"})",
+          "legendFormat": "Total Documents Indexed"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 72}
+    },
+    {
+      "id": 19,
+      "title": "Active Connections",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "active_connections{job=\"data-pipeline\"}",
+          "legendFormat": "Active Connections"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 72}
+    },
+    {
+      "id": 20,
+      "title": "Memory Usage",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes{job=\"data-pipeline\"}",
+          "legendFormat": "Memory Usage"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "unit": "bytes"
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 80}
+    },
+    {
+      "id": 21,
+      "title": "CPU Usage",
+      "type": "stat",
+      "targets": [
+        {
+          "expr": "rate(process_cpu_seconds_total{job=\"data-pipeline\"}[5m])",
+          "legendFormat": "CPU Usage/sec"
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          }
+        }
+      },
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 80}
+    }
+  ]
+}

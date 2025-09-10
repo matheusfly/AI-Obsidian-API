@@ -1,0 +1,137 @@
+{
+  "timestamp": "2025-09-09 14:49:01",
+  "components_tested": [
+    {
+      "component": "ReRanker",
+      "status": "passed",
+      "tests_passed": 2,
+      "tests_failed": 0,
+      "total_tests": 2,
+      "errors": [],
+      "performance_time": 10.523429870605469,
+      "details": {
+        "rerank_results": 2,
+        "search_results": 2
+      },
+      "passed": true
+    },
+    {
+      "component": "TopicDetector",
+      "status": "passed",
+      "tests_passed": 1,
+      "tests_failed": 0,
+      "total_tests": 1,
+      "errors": [],
+      "performance_time": 4.259014368057251,
+      "details": {
+        "test_queries": 3,
+        "results": [
+          {
+            "query": "machine learning algorithms",
+            "topic": "technology",
+            "topics": [
+              "technology",
+              "performance",
+              "science"
+            ]
+          },
+          {
+            "query": "philosophical logic",
+            "topic": "philosophy",
+            "topics": [
+              "philosophy",
+              "science"
+            ]
+          },
+          {
+            "query": "performance optimization",
+            "topic": "performance",
+            "topics": [
+              "performance",
+              "business",
+              "technology",
+              "science"
+            ]
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "component": "SmartDocumentFilter",
+      "status": "passed",
+      "tests_passed": 2,
+      "tests_failed": 0,
+      "total_tests": 2,
+      "errors": [],
+      "performance_time": 3.8930957317352295,
+      "details": {
+        "tech_docs": 1,
+        "filtered_docs": 1
+      },
+      "passed": true
+    },
+    {
+      "component": "AdvancedContentProcessor",
+      "status": "failed",
+      "tests_passed": 0,
+      "tests_failed": 1,
+      "total_tests": 1,
+      "errors": [
+        "all-MiniLM-L6-v2 is not a local folder and is not a valid model identifier listed on 'https://huggingface.co/models'\nIf this is a private repository, make sure to pass a token having permission to this repo either by logging in with `hf auth login` or by passing `token=<your_token>`"
+      ],
+      "performance_time": 0.20428204536437988,
+      "details": {},
+      "passed": false
+    },
+    {
+      "component": "ValidationScripts",
+      "status": "failed",
+      "tests_passed": 0,
+      "tests_failed": 1,
+      "total_tests": 1,
+      "errors": [
+        "No module named 'spacy'"
+      ],
+      "performance_time": 0.017118215560913086,
+      "details": {},
+      "passed": false
+    },
+    {
+      "component": "MainCLIScripts",
+      "status": "failed",
+      "tests_passed": 0,
+      "tests_failed": 3,
+      "total_tests": 3,
+      "errors": [],
+      "performance_time": 2.5272369384765625e-05,
+      "details": {
+        "import_results": [
+          {
+            "script": "fixed-agentic-rag-cli.py",
+            "status": "error",
+            "error": "module 'importlib' has no attribute 'spec_from_file_location'"
+          },
+          {
+            "script": "enhanced_agentic_rag_cli.py",
+            "status": "error",
+            "error": "module 'importlib' has no attribute 'spec_from_file_location'"
+          },
+          {
+            "script": "final_comprehensive_rag_cli.py",
+            "status": "error",
+            "error": "module 'importlib' has no attribute 'spec_from_file_location'"
+          }
+        ]
+      },
+      "passed": false
+    }
+  ],
+  "total_tests": 10,
+  "passed_tests": 5,
+  "failed_tests": 5,
+  "errors": [],
+  "performance_metrics": {
+    "total_test_time": 18.89879322052002
+  }
+}

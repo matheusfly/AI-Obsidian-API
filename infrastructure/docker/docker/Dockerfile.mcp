@@ -1,0 +1,37 @@
+# Dockerfile for MCP Server
+FROM python:3.11-slim
+
+# Set environment variables
+ENV PYTHONUNBUFFERED=1
+ENV PYTHONDONTWRITEBYTECODE=1
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install UV
+RUN pip install uv
+
+# Set work directory
+WORKDIR /app
+
+# Copy requirements
+COPY requirements-minimal.txt requirements.txt
+
+# Install Python dependencies
+RUN uv pip install --system -r requirements.txt
+
+# Copy MCP server code
+COPY services/mcp-service/src/mcp_tools/ ./mcp_tools/
+COPY config/ ./config/
+
+# Create data directories
+RUN mkdir -p /data
+
+# Expose MCP server port
+EXPOSE 8002
+
+# Run simple MCP server
+CMD ["python", "-m", "mcp_tools.simple_obsidian_mcp_server"]

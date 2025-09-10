@@ -1,0 +1,7 @@
+🧪 Simple Validation Test
+==============================
+✅ NumPy imported successfully
+✅ NumPy norm calculation: 7.416
+✅ Cosine similarity test: 0.000
+
+🎯 All basic tests passed!

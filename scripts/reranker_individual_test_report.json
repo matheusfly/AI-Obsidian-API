@@ -1,0 +1,19 @@
+{
+  "component": "ReRanker",
+  "tests_passed": 7,
+  "tests_failed": 0,
+  "total_tests": 7,
+  "performance_metrics": {
+    "initialization_time": 2.6338460445404053,
+    "basic_rerank_time": 0.25827980041503906,
+    "search_rerank_time": 0.028244733810424805,
+    "custom_weights_time": 0.015459775924682617,
+    "batch_rerank_time": 0.0486598014831543,
+    "analysis_time": 0.015085935592651367,
+    "total_test_time": 3.0383951663970947
+  },
+  "errors": [],
+  "warnings": [
+    "Malformed candidates error: 'content'"
+  ]
+}

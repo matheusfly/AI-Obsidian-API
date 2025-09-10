@@ -1,0 +1,128 @@
+groups:
+  - name: chromadb_alerts
+    rules:
+      # ChromaDB Collection Size Alert
+      - alert: ChromaDBCollectionSizeHigh
+        expr: chroma_collection_size > 1000000
+        for: 5m
+        labels:
+          severity: warning
+          service: chromadb
+        annotations:
+          summary: "ChromaDB collection size is high"
+          description: "ChromaDB collection has {{ $value }} chunks, which is above the threshold of 1,000,000"
+          runbook_url: "https://docs.example.com/runbooks/chromadb-collection-size"
+
+      # ChromaDB Query Latency Alert
+      - alert: ChromaDBQueryLatencyHigh
+        expr: histogram_quantile(0.95, rate(chroma_query_latency_seconds_bucket[5m])) > 2.0
+        for: 2m
+        labels:
+          severity: critical
+          service: chromadb
+        annotations:
+          summary: "ChromaDB query latency is high"
+          description: "ChromaDB P95 query latency is {{ $value }}s, which is above the threshold of 2.0s"
+          runbook_url: "https://docs.example.com/runbooks/chromadb-latency"
+
+      # ChromaDB Error Rate Alert
+      - alert: ChromaDBErrorRateHigh
+        expr: rate(chroma_query_errors_total[5m]) > 0.1
+        for: 1m
+        labels:
+          severity: critical
+          service: chromadb
+        annotations:
+          summary: "ChromaDB error rate is high"
+          description: "ChromaDB error rate is {{ $value }} errors/sec, which is above the threshold of 0.1 errors/sec"
+          runbook_url: "https://docs.example.com/runbooks/chromadb-errors"
+
+      # ChromaDB Service Down Alert
+      - alert: ChromaDBServiceDown
+        expr: up{job="data-pipeline"} == 0
+        for: 1m
+        labels:
+          severity: critical
+          service: chromadb
+        annotations:
+          summary: "ChromaDB service is down"
+          description: "ChromaDB service has been down for more than 1 minute"
+          runbook_url: "https://docs.example.com/runbooks/chromadb-service-down"
+
+  - name: embedding_service_alerts
+    rules:
+      # Embedding Service Latency Alert
+      - alert: EmbeddingServiceLatencyHigh
+        expr: histogram_quantile(0.95, rate(embedding_latency_seconds_bucket[5m])) > 5.0
+        for: 2m
+        labels:
+          severity: warning
+          service: embedding
+        annotations:
+          summary: "Embedding service latency is high"
+          description: "Embedding service P95 latency is {{ $value }}s, which is above the threshold of 5.0s"
+          runbook_url: "https://docs.example.com/runbooks/embedding-latency"
+
+      # Embedding Cache Hit Rate Low Alert
+      - alert: EmbeddingCacheHitRateLow
+        expr: rate(embedding_cache_hits_total[5m]) / (rate(embedding_cache_hits_total[5m]) + rate(embedding_cache_misses_total[5m])) < 0.7
+        for: 5m
+        labels:
+          severity: warning
+          service: embedding
+        annotations:
+          summary: "Embedding cache hit rate is low"
+          description: "Embedding cache hit rate is {{ $value | printf \"%.2f%%\" }}, which is below the threshold of 70%"
+          runbook_url: "https://docs.example.com/runbooks/embedding-cache"
+
+  - name: search_service_alerts
+    rules:
+      # Search Service Latency Alert
+      - alert: SearchServiceLatencyHigh
+        expr: histogram_quantile(0.90, rate(search_latency_seconds_bucket[5m])) > 10.0
+        for: 2m
+        labels:
+          severity: warning
+          service: search
+        annotations:
+          summary: "Search service latency is high"
+          description: "Search service P90 latency is {{ $value }}s, which is above the threshold of 10.0s"
+          runbook_url: "https://docs.example.com/runbooks/search-latency"
+
+      # Search Request Rate High Alert
+      - alert: SearchRequestRateHigh
+        expr: rate(search_requests_total[5m]) > 100
+        for: 2m
+        labels:
+          severity: warning
+          service: search
+        annotations:
+          summary: "Search request rate is high"
+          description: "Search request rate is {{ $value }} requests/sec, which is above the threshold of 100 requests/sec"
+          runbook_url: "https://docs.example.com/runbooks/search-rate"
+
+  - name: system_alerts
+    rules:
+      # Memory Usage High Alert
+      - alert: MemoryUsageHigh
+        expr: memory_usage_bytes / 1024 / 1024 / 1024 > 8
+        for: 5m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "Memory usage is high"
+          description: "Memory usage is {{ $value }}GB, which is above the threshold of 8GB"
+          runbook_url: "https://docs.example.com/runbooks/memory-usage"
+
+      # CPU Usage High Alert
+      - alert: CPUUsageHigh
+        expr: cpu_usage_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: system
+        annotations:
+          summary: "CPU usage is high"
+          description: "CPU usage is {{ $value }}%, which is above the threshold of 80%"
+          runbook_url: "https://docs.example.com/runbooks/cpu-usage"

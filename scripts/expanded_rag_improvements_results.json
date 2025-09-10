@@ -1,0 +1,311 @@
+{
+  "results": {
+    "What are the main philosophical currents of logic and mathematics?": {
+      "analysis": {
+        "original_query": "What are the main philosophical currents of logic and mathematics?",
+        "query_type": "question",
+        "intent": "philosophical",
+        "complexity": "medium",
+        "entities": [
+          "philosophy",
+          "logic",
+          "mathematics"
+        ],
+        "concepts": [
+          "philosophical",
+          "currents",
+          "logic"
+        ],
+        "keywords": [
+          "what",
+          "are",
+          "the",
+          "main",
+          "philosophical",
+          "currents",
+          "of",
+          "logic",
+          "and",
+          "mathematics?"
+        ],
+        "sentiment": "neutral",
+        "confidence": 0.8,
+        "suggested_improvements": []
+      },
+      "optimization": {
+        "original_query": "What are the main philosophical currents of logic and mathematics?",
+        "optimized_query": "What are the main philosophical currents of logic and mathematics? philosophy logic mathematics",
+        "search_strategy": "semantic_with_keywords",
+        "filters": {
+          "topics": [
+            "philosophy",
+            "mathematics",
+            "logic"
+          ]
+        },
+        "boost_terms": [
+          "philosophy",
+          "logic",
+          "reasoning",
+          "truth",
+          "knowledge"
+        ],
+        "exclude_terms": [],
+        "max_results": 5,
+        "confidence_threshold": 0.3
+      },
+      "caching": {
+        "cache_key": "philosophical_medium_2321856915569858650",
+        "cache_ttl": 7200,
+        "cache_priority": "high",
+        "cache_type": "semantic",
+        "invalidation_triggers": [
+          "new_documents",
+          "user_feedback"
+        ],
+        "preload_related": true
+      },
+      "search_results_count": 3,
+      "response_length": 655,
+      "behavior": {
+        "query_pattern": "question",
+        "intent_preference": "philosophical",
+        "complexity_preference": "medium",
+        "response_length": 655,
+        "engagement_score": 0.6771579520809424,
+        "satisfaction_prediction": 0.7160064728213947,
+        "follow_up_likelihood": 0.41655943488596797,
+        "preferred_response_style": "concise"
+      },
+      "quality": {
+        "relevance_score": 0.6,
+        "completeness_score": 0.9,
+        "accuracy_score": 0.8091475201974536,
+        "coherence_score": 0.8047928986134234,
+        "citation_quality": 0.6,
+        "user_satisfaction_prediction": 0.7627767334527072,
+        "improvement_suggestions": [],
+        "overall_quality_score": 0.7477661699107057
+      },
+      "learning": {
+        "query_improvement_suggestions": [],
+        "response_optimization": [],
+        "search_strategy_adjustments": [],
+        "user_preference_updates": [
+          "User prefers academic/technical content"
+        ],
+        "system_improvements": [
+          "Improve caching strategy for better performance"
+        ]
+      },
+      "response_time": 0.004178047180175781
+    },
+    "How to improve reading comprehension and speed?": {
+      "analysis": {
+        "original_query": "How to improve reading comprehension and speed?",
+        "query_type": "question",
+        "intent": "educational",
+        "complexity": "medium",
+        "entities": [
+          "reading",
+          "learning",
+          "education"
+        ],
+        "concepts": [
+          "improve",
+          "reading",
+          "comprehension"
+        ],
+        "keywords": [
+          "how",
+          "to",
+          "improve",
+          "reading",
+          "comprehension",
+          "and",
+          "speed?"
+        ],
+        "sentiment": "neutral",
+        "confidence": 0.8,
+        "suggested_improvements": []
+      },
+      "optimization": {
+        "original_query": "How to improve reading comprehension and speed?",
+        "optimized_query": "How to improve reading comprehension and speed? reading learning education",
+        "search_strategy": "educational",
+        "filters": {
+          "topics": [
+            "reading",
+            "learning",
+            "education"
+          ]
+        },
+        "boost_terms": [
+          "learning",
+          "study",
+          "education",
+          "comprehension",
+          "reading"
+        ],
+        "exclude_terms": [],
+        "max_results": 5,
+        "confidence_threshold": 0.3
+      },
+      "caching": {
+        "cache_key": "educational_medium_-4247855751464668787",
+        "cache_ttl": 7200,
+        "cache_priority": "high",
+        "cache_type": "semantic",
+        "invalidation_triggers": [
+          "new_documents",
+          "user_feedback"
+        ],
+        "preload_related": true
+      },
+      "search_results_count": 3,
+      "response_length": 655,
+      "behavior": {
+        "query_pattern": "question",
+        "intent_preference": "educational",
+        "complexity_preference": "medium",
+        "response_length": 655,
+        "engagement_score": 0.7526425804173216,
+        "satisfaction_prediction": 0.7016007002380107,
+        "follow_up_likelihood": 0.6210325278720873,
+        "preferred_response_style": "concise"
+      },
+      "quality": {
+        "relevance_score": 0.8714285714285714,
+        "completeness_score": 0.9,
+        "accuracy_score": 0.8897536205080292,
+        "coherence_score": 0.7181691927803894,
+        "citation_quality": 0.6,
+        "user_satisfaction_prediction": 0.6235559062685098,
+        "improvement_suggestions": [],
+        "overall_quality_score": 0.8406838958336176
+      },
+      "learning": {
+        "query_improvement_suggestions": [],
+        "response_optimization": [],
+        "search_strategy_adjustments": [],
+        "user_preference_updates": [],
+        "system_improvements": [
+          "Improve caching strategy for better performance"
+        ]
+      },
+      "response_time": 0.0015785694122314453
+    },
+    "Python programming best practices for beginners": {
+      "analysis": {
+        "original_query": "Python programming best practices for beginners",
+        "query_type": "question",
+        "intent": "technical",
+        "complexity": "medium",
+        "entities": [
+          "programming",
+          "software",
+          "development"
+        ],
+        "concepts": [
+          "python",
+          "programming",
+          "practices",
+          "beginners"
+        ],
+        "keywords": [
+          "python",
+          "programming",
+          "best",
+          "practices",
+          "for",
+          "beginners"
+        ],
+        "sentiment": "neutral",
+        "confidence": 0.8,
+        "suggested_improvements": []
+      },
+      "optimization": {
+        "original_query": "Python programming best practices for beginners",
+        "optimized_query": "Python programming best practices for beginners programming software development",
+        "search_strategy": "hybrid",
+        "filters": {
+          "topics": [
+            "programming",
+            "technology",
+            "software"
+          ]
+        },
+        "boost_terms": [
+          "programming",
+          "code",
+          "software",
+          "development",
+          "technology"
+        ],
+        "exclude_terms": [],
+        "max_results": 5,
+        "confidence_threshold": 0.3
+      },
+      "caching": {
+        "cache_key": "technical_medium_-623000430743783165",
+        "cache_ttl": 7200,
+        "cache_priority": "high",
+        "cache_type": "semantic",
+        "invalidation_triggers": [
+          "new_documents",
+          "user_feedback"
+        ],
+        "preload_related": true
+      },
+      "search_results_count": 3,
+      "response_length": 655,
+      "behavior": {
+        "query_pattern": "question",
+        "intent_preference": "technical",
+        "complexity_preference": "medium",
+        "response_length": 655,
+        "engagement_score": 0.8469567719429502,
+        "satisfaction_prediction": 0.757243302747632,
+        "follow_up_likelihood": 0.7565469566869805,
+        "preferred_response_style": "concise"
+      },
+      "quality": {
+        "relevance_score": 0.8,
+        "completeness_score": 0.9,
+        "accuracy_score": 0.7665819917809784,
+        "coherence_score": 0.853204159563123,
+        "citation_quality": 0.6,
+        "user_satisfaction_prediction": 0.8182293729300899,
+        "improvement_suggestions": [],
+        "overall_quality_score": 0.8019659139015569
+      },
+      "learning": {
+        "query_improvement_suggestions": [],
+        "response_optimization": [],
+        "search_strategy_adjustments": [],
+        "user_preference_updates": [
+          "User prefers academic/technical content"
+        ],
+        "system_improvements": [
+          "Improve caching strategy for better performance"
+        ]
+      },
+      "response_time": 0.0015056133270263672
+    }
+  },
+  "analytics": {
+    "timestamp": "2025-09-09T17:32:56.343188",
+    "total_queries": 3,
+    "avg_response_time": 0.0024207433064778647,
+    "cache_hit_rate": 0.0,
+    "advanced_features_usage": 24,
+    "memory_usage_mb": 245,
+    "cpu_usage_percent": 12.5,
+    "active_connections": 1,
+    "error_rate": 0.0,
+    "throughput_qps": 15.2,
+    "health_status": "warning",
+    "health_message": "Cache hit rate is lower than expected"
+  },
+  "timestamp": "2025-09-09T17:32:56.346229"
+}

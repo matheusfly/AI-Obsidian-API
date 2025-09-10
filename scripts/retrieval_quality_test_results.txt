@@ -1,0 +1,47 @@
+🧪 Retrieval Quality Validation Test
+==================================================
+
+Test 1: Philosophy and mathematics query
+Query: 'What are the main philosophical currents of logic and mathematics?'
+✅ PASS - Found 2/2 expected files
+   Precision@K: 0.400, Recall: 1.000
+   Highest Similarity: 0.638
+   Top Results:
+     1. philosophy_of_math.md (similarity: 0.638)
+     2. logic_foundations.md (similarity: 0.496)
+     3. scrapy_guide.md (similarity: 0.457)
+
+Test 2: Web scraping and Python query
+Query: 'How does Scrapy handle web scraping?'
+❌ FAIL - Found 2/2 expected files
+   Precision@K: 0.400, Recall: 1.000
+   Highest Similarity: 0.524
+   Expected Similarity: 0.6
+   Top Results:
+     1. philosophy_of_math.md (similarity: 0.524)
+     2. logic_foundations.md (similarity: 0.471)
+     3. scrapy_guide.md (similarity: 0.421)
+
+Test 3: Reading techniques query
+Query: 'What is the PQLP reading technique?'
+❌ FAIL - Found 1/2 expected files
+   Precision@K: 0.200, Recall: 0.500
+   Highest Similarity: 0.524
+   Expected Similarity: 0.6
+   Top Results:
+     1. philosophy_of_math.md (similarity: 0.524)
+     2. logic_foundations.md (similarity: 0.471)
+     3. scrapy_guide.md (similarity: 0.421)
+
+📊 Test Summary
+Total Tests: 3
+Passed: 1
+Failed: 2
+Success Rate: 33.3%
+Overall Status: ❌ FAIL
+
+🎯 Overall Validation Results
+========================================
+Quality Score: 0.333
+Overall Score: 0.333
+Status: ❌ FAIL

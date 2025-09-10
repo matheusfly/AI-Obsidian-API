@@ -1,0 +1,109 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: 0.0.0.0:4317
+      http:
+        endpoint: 0.0.0.0:4318
+
+processors:
+  batch:
+    timeout: 1s
+    send_batch_size: 1024
+    send_batch_max_size: 2048
+
+  # Add resource attributes for better trace identification
+  resource:
+    attributes:
+      - key: service.name
+        value: data-pipeline
+        action: upsert
+      - key: service.version
+        value: "1.0.0"
+        action: upsert
+      - key: deployment.environment
+        value: local
+        action: upsert
+      - key: langsmith.project
+        value: obsidian-vault
+        action: upsert
+
+  # Filter and enhance traces for LangSmith
+  filter:
+    traces:
+      span:
+        - 'attributes["http.method"] == "POST"'
+        - 'attributes["http.route"] == "/query"'
+        - 'attributes["http.route"] == "/search"'
+        - 'attributes["http.route"] == "/index"'
+
+  # Add custom attributes for LangSmith
+  attributes:
+    actions:
+      - key: langsmith.operation
+        from_attribute: http.route
+        action: insert
+      - key: langsmith.service
+        value: data-pipeline
+        action: insert
+      - key: langsmith.trace_type
+        value: vector_search
+        action: insert
+
+exporters:
+  # Export to LangSmith via OTLP
+  otlp/langsmith:
+    endpoint: https://api.smith.langchain.com:443
+    headers:
+      "x-api-key": "${LANGSMITH_API_KEY}"
+    tls:
+      insecure: false
+    sending_queue:
+      num_consumers: 10
+      queue_size: 1000
+    retry_on_failure:
+      enabled: true
+      initial_interval: 1s
+      max_interval: 30s
+      max_elapsed_time: 300s
+
+  # Export to Prometheus for metrics
+  prometheus:
+    endpoint: "0.0.0.0:8889"
+    namespace: "obsidian_pipeline"
+    const_labels:
+      service: "data-pipeline"
+      environment: "local"
+
+  # Debug exporter for local debugging (replaces logging)
+  debug:
+    verbosity: normal
+    sampling_initial: 2
+    sampling_thereafter: 500
+
+service:
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch, resource, filter, attributes]
+      exporters: [otlp/langsmith, debug]
+    
+    metrics:
+      receivers: [otlp]
+      processors: [batch, resource]
+      exporters: [prometheus, debug]
+    
+    logs:
+      receivers: [otlp]
+      processors: [batch, resource]
+      exporters: [debug]
+
+  extensions: [health_check, pprof, zpages]
+
+extensions:
+  health_check:
+    endpoint: 0.0.0.0:13133
+  pprof:
+    endpoint: 0.0.0.0:1777
+  zpages:
+    endpoint: 0.0.0.0:55679

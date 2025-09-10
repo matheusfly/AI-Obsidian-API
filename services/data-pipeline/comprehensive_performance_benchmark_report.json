@@ -1,0 +1,474 @@
+{
+  "timestamp": "2025-09-07T14:09:35.874181",
+  "tests": {
+    "baseline": {
+      "test_name": "Baseline Search",
+      "queries": {
+        "machine learning algorithms": {
+          "search_time": 0.03384852409362793,
+          "num_results": 5,
+          "avg_quality_score": 0.3735856056213379,
+          "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+        },
+        "python programming language": {
+          "search_time": 0.013967752456665039,
+          "num_results": 5,
+          "avg_quality_score": 0.33092823028564455,
+          "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+        },
+        "data analysis techniques": {
+          "search_time": 0.012858867645263672,
+          "num_results": 5,
+          "avg_quality_score": 0.42327252626419065,
+          "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+        },
+        "artificial intelligence overview": {
+          "search_time": 0.012589216232299805,
+          "num_results": 5,
+          "avg_quality_score": 0.2918137311935425,
+          "top_result": "Deep learning is a subset of machine learning that uses artificial neural networks with multiple lay..."
+        },
+        "database optimization methods": {
+          "search_time": 0.016887426376342773,
+          "num_results": 5,
+          "avg_quality_score": 0.3180059313774109,
+          "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+        },
+        "API development best practices": {
+          "search_time": 0.012936592102050781,
+          "num_results": 5,
+          "avg_quality_score": 0.3031036853790283,
+          "top_result": "API development requires understanding REST principles, authentication mechanisms, error handling, a..."
+        },
+        "cloud computing services": {
+          "search_time": 0.012957572937011719,
+          "num_results": 5,
+          "avg_quality_score": 0.3552449345588684,
+          "top_result": "Cloud computing provides scalable computing resources over the internet, including Infrastructure as..."
+        },
+        "software architecture patterns": {
+          "search_time": 0.012340307235717773,
+          "num_results": 5,
+          "avg_quality_score": 0.31769251823425293,
+          "top_result": "Software architecture defines the high-level structure of software systems, including components, re..."
+        },
+        "debugging techniques": {
+          "search_time": 0.011941671371459961,
+          "num_results": 5,
+          "avg_quality_score": 0.39460346698760984,
+          "top_result": "Debugging techniques include using debuggers, logging, unit testing, and systematic problem-solving ..."
+        },
+        "performance testing strategies": {
+          "search_time": 0.011931180953979492,
+          "num_results": 5,
+          "avg_quality_score": 0.35387650728225706,
+          "top_result": "Performance testing evaluates system behavior under various load conditions to ensure applications m..."
+        }
+      },
+      "performance": {
+        "avg_search_time": 0.015225911140441894,
+        "min_search_time": 0.011931180953979492,
+        "max_search_time": 0.03384852409362793,
+        "total_queries": 10
+      },
+      "quality": {
+        "avg_quality_score": 0.34621271371841433,
+        "min_quality_score": 0.2918137311935425,
+        "max_quality_score": 0.42327252626419065
+      }
+    },
+    "baseline_expanded": {
+      "test_name": "Baseline Search (Expanded)",
+      "queries": {
+        "machine learning algorithms": {
+          "search_time": 1.0906589031219482,
+          "num_results": 5,
+          "avg_quality_score": 0.37665821313858033,
+          "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+        },
+        "python programming language": {
+          "search_time": 0.22024083137512207,
+          "num_results": 5,
+          "avg_quality_score": 0.2527541756629944,
+          "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+        },
+        "data analysis techniques": {
+          "search_time": 0.6600098609924316,
+          "num_results": 5,
+          "avg_quality_score": 0.42327252626419065,
+          "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+        },
+        "artificial intelligence overview": {
+          "search_time": 0.2048811912536621,
+          "num_results": 5,
+          "avg_quality_score": 0.2918137311935425,
+          "top_result": "Deep learning is a subset of machine learning that uses artificial neural networks with multiple lay..."
+        },
+        "database optimization methods": {
+          "search_time": 0.6520860195159912,
+          "num_results": 5,
+          "avg_quality_score": 0.3180059313774109,
+          "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+        },
+        "API development best practices": {
+          "search_time": 0.22177600860595703,
+          "num_results": 5,
+          "avg_quality_score": 0.33485113382339476,
+          "top_result": "API development requires understanding REST principles, authentication mechanisms, error handling, a..."
+        },
+        "cloud computing services": {
+          "search_time": 0.6243133544921875,
+          "num_results": 5,
+          "avg_quality_score": 0.3552449345588684,
+          "top_result": "Cloud computing provides scalable computing resources over the internet, including Infrastructure as..."
+        },
+        "software architecture patterns": {
+          "search_time": 0.2239513397216797,
+          "num_results": 5,
+          "avg_quality_score": 0.31769251823425293,
+          "top_result": "Software architecture defines the high-level structure of software systems, including components, re..."
+        },
+        "debugging techniques": {
+          "search_time": 0.6576645374298096,
+          "num_results": 5,
+          "avg_quality_score": 0.3203727602958679,
+          "top_result": "Debugging techniques include using debuggers, logging, unit testing, and systematic problem-solving ..."
+        },
+        "performance testing strategies": {
+          "search_time": 0.2146456241607666,
+          "num_results": 5,
+          "avg_quality_score": 0.3046202540397644,
+          "top_result": "Performance testing evaluates system behavior under various load conditions to ensure applications m..."
+        }
+      },
+      "performance": {
+        "avg_search_time": 0.47702276706695557,
+        "min_search_time": 0.2048811912536621,
+        "max_search_time": 1.0906589031219482,
+        "total_queries": 10
+      },
+      "quality": {
+        "avg_quality_score": 0.3295286178588867,
+        "min_quality_score": 0.2527541756629944,
+        "max_quality_score": 0.42327252626419065
+      }
+    },
+    "standard_reranked": {
+      "test_name": "Standard Re-ranked Search",
+      "queries": {
+        "machine learning algorithms": {
+          "search_time": 0.717538595199585,
+          "num_results": 5,
+          "avg_quality_score": -0.8479153382778165,
+          "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+        },
+        "python programming language": {
+          "search_time": 0.2687819004058838,
+          "num_results": 5,
+          "avg_quality_score": -2.507912173271179,
+          "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+        },
+        "data analysis techniques": {
+          "search_time": 0.6370177268981934,
+          "num_results": 5,
+          "avg_quality_score": 2.119737414121628,
+          "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+        },
+        "artificial intelligence overview": {
+          "search_time": 0.26305341720581055,
+          "num_results": 5,
+          "avg_quality_score": -6.931644971370696,
+          "top_result": "Deep learning is a subset of machine learning that uses artificial neural networks with multiple lay..."
+        },
+        "database optimization methods": {
+          "search_time": 0.6522049903869629,
+          "num_results": 5,
+          "avg_quality_score": -1.4738181746006012,
+          "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+        },
+        "API development best practices": {
+          "search_time": 0.26465368270874023,
+          "num_results": 5,
+          "avg_quality_score": -4.751008526086807,
+          "top_result": "API development requires understanding REST principles, authentication mechanisms, error handling, a..."
+        },
+        "cloud computing services": {
+          "search_time": 0.6510708332061768,
+          "num_results": 5,
+          "avg_quality_score": -4.310361477136611,
+          "top_result": "Cloud computing provides scalable computing resources over the internet, including Infrastructure as..."
+        },
+        "software architecture patterns": {
+          "search_time": 0.2689855098724365,
+          "num_results": 5,
+          "avg_quality_score": -2.221022090911865,
+          "top_result": "Software architecture defines the high-level structure of software systems, including components, re..."
+        },
+        "debugging techniques": {
+          "search_time": 0.6465051174163818,
+          "num_results": 5,
+          "avg_quality_score": -2.858293788433075,
+          "top_result": "Debugging techniques include using debuggers, logging, unit testing, and systematic problem-solving ..."
+        },
+        "performance testing strategies": {
+          "search_time": 0.2736480236053467,
+          "num_results": 5,
+          "avg_quality_score": -1.2330419218540192,
+          "top_result": "Performance testing evaluates system behavior under various load conditions to ensure applications m..."
+        }
+      },
+      "performance": {
+        "avg_search_time": 0.46434597969055175,
+        "min_search_time": 0.26305341720581055,
+        "max_search_time": 0.717538595199585,
+        "total_queries": 10
+      },
+      "quality": {
+        "avg_quality_score": -2.5015281047821043,
+        "min_quality_score": -6.931644971370696,
+        "max_quality_score": 2.119737414121628
+      }
+    },
+    "improved_reranked": {
+      "test_name": "Improved Re-ranked Search",
+      "queries": {
+        "machine learning algorithms": {
+          "search_time": 0.1439650058746338,
+          "num_results": 5,
+          "avg_quality_score": 0.3941999077796936,
+          "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+        },
+        "python programming language": {
+          "search_time": 0.1114051342010498,
+          "num_results": 5,
+          "avg_quality_score": 0.3248867003917694,
+          "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+        },
+        "data analysis techniques": {
+          "search_time": 0.10886454582214355,
+          "num_results": 5,
+          "avg_quality_score": 0.5580336669683457,
+          "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+        },
+        "artificial intelligence overview": {
+          "search_time": 0.10842156410217285,
+          "num_results": 5,
+          "avg_quality_score": 0.13687985706329348,
+          "top_result": "Deep learning is a subset of machine learning that uses artificial neural networks with multiple lay..."
+        },
+        "database optimization methods": {
+          "search_time": 0.1113591194152832,
+          "num_results": 5,
+          "avg_quality_score": 0.3694216361641884,
+          "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+        },
+        "API development best practices": {
+          "search_time": 0.11144232749938965,
+          "num_results": 5,
+          "avg_quality_score": 0.24572280883789063,
+          "top_result": "API development requires understanding REST principles, authentication mechanisms, error handling, a..."
+        },
+        "cloud computing services": {
+          "search_time": 0.1113135814666748,
+          "num_results": 5,
+          "avg_quality_score": 0.2607227716445923,
+          "top_result": "Cloud computing provides scalable computing resources over the internet, including Infrastructure as..."
+        },
+        "software architecture patterns": {
+          "search_time": 0.11150026321411133,
+          "num_results": 5,
+          "avg_quality_score": 0.30709779739379883,
+          "top_result": "Software architecture defines the high-level structure of software systems, including components, re..."
+        },
+        "debugging techniques": {
+          "search_time": 0.11058449745178223,
+          "num_results": 5,
+          "avg_quality_score": 0.31413672447204594,
+          "top_result": "Debugging techniques include using debuggers, logging, unit testing, and systematic problem-solving ..."
+        },
+        "performance testing strategies": {
+          "search_time": 0.11078763008117676,
+          "num_results": 5,
+          "avg_quality_score": 0.4023874022960663,
+          "top_result": "Performance testing evaluates system behavior under various load conditions to ensure applications m..."
+        }
+      },
+      "performance": {
+        "avg_search_time": 0.1139643669128418,
+        "min_search_time": 0.10842156410217285,
+        "max_search_time": 0.1439650058746338,
+        "total_queries": 10
+      },
+      "quality": {
+        "avg_quality_score": 0.33134892730116844,
+        "min_quality_score": 0.13687985706329348,
+        "max_quality_score": 0.5580336669683457
+      }
+    },
+    "hybrid": {
+      "test_name": "Hybrid Search",
+      "queries": {
+        "machine learning algorithms": {
+          "search_time": 0.8574292659759521,
+          "num_results": 5,
+          "avg_quality_score": 0.37665821313858033,
+          "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+        },
+        "python programming language": {
+          "search_time": 0.840949535369873,
+          "num_results": 5,
+          "avg_quality_score": 0.2527541756629944,
+          "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+        },
+        "data analysis techniques": {
+          "search_time": 0.8393559455871582,
+          "num_results": 5,
+          "avg_quality_score": 0.42327252626419065,
+          "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+        },
+        "artificial intelligence overview": {
+          "search_time": 0.8457310199737549,
+          "num_results": 5,
+          "avg_quality_score": 0.2918137311935425,
+          "top_result": "Deep learning is a subset of machine learning that uses artificial neural networks with multiple lay..."
+        },
+        "database optimization methods": {
+          "search_time": 0.8439550399780273,
+          "num_results": 5,
+          "avg_quality_score": 0.3180059313774109,
+          "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+        },
+        "API development best practices": {
+          "search_time": 0.8424017429351807,
+          "num_results": 5,
+          "avg_quality_score": 0.33485113382339476,
+          "top_result": "API development requires understanding REST principles, authentication mechanisms, error handling, a..."
+        },
+        "cloud computing services": {
+          "search_time": 0.8494319915771484,
+          "num_results": 5,
+          "avg_quality_score": 0.3552449345588684,
+          "top_result": "Cloud computing provides scalable computing resources over the internet, including Infrastructure as..."
+        },
+        "software architecture patterns": {
+          "search_time": 0.83416748046875,
+          "num_results": 5,
+          "avg_quality_score": 0.31769251823425293,
+          "top_result": "Software architecture defines the high-level structure of software systems, including components, re..."
+        },
+        "debugging techniques": {
+          "search_time": 0.833989143371582,
+          "num_results": 5,
+          "avg_quality_score": 0.3203727602958679,
+          "top_result": "Debugging techniques include using debuggers, logging, unit testing, and systematic problem-solving ..."
+        },
+        "performance testing strategies": {
+          "search_time": 0.8376522064208984,
+          "num_results": 5,
+          "avg_quality_score": 0.3046202540397644,
+          "top_result": "Performance testing evaluates system behavior under various load conditions to ensure applications m..."
+        }
+      },
+      "performance": {
+        "avg_search_time": 0.8425063371658326,
+        "min_search_time": 0.833989143371582,
+        "max_search_time": 0.8574292659759521,
+        "total_queries": 10
+      },
+      "quality": {
+        "avg_quality_score": 0.3295286178588867,
+        "min_quality_score": 0.2527541756629944,
+        "max_quality_score": 0.42327252626419065
+      }
+    }
+  },
+  "comparisons": {
+    "performance": {
+      "baseline": {
+        "avg_search_time": 0.015225911140441894,
+        "avg_quality_score": 0.34621271371841433,
+        "total_queries": 10
+      },
+      "baseline_expanded": {
+        "avg_search_time": 0.47702276706695557,
+        "avg_quality_score": 0.3295286178588867,
+        "total_queries": 10
+      },
+      "standard_reranked": {
+        "avg_search_time": 0.46434597969055175,
+        "avg_quality_score": -2.5015281047821043,
+        "total_queries": 10
+      },
+      "improved_reranked": {
+        "avg_search_time": 0.1139643669128418,
+        "avg_quality_score": 0.33134892730116844,
+        "total_queries": 10
+      },
+      "hybrid": {
+        "avg_search_time": 0.8425063371658326,
+        "avg_quality_score": 0.3295286178588867,
+        "total_queries": 10
+      }
+    },
+    "quality": {
+      "baseline": {
+        "avg_quality_score": 0.34621271371841433,
+        "quality_range": 0.13145879507064817
+      },
+      "baseline_expanded": {
+        "avg_quality_score": 0.3295286178588867,
+        "quality_range": 0.17051835060119624
+      },
+      "standard_reranked": {
+        "avg_quality_score": -2.5015281047821043,
+        "quality_range": 9.051382385492325
+      },
+      "improved_reranked": {
+        "avg_quality_score": 0.33134892730116844,
+        "quality_range": 0.4211538099050522
+      },
+      "hybrid": {
+        "avg_quality_score": 0.3295286178588867,
+        "quality_range": 0.17051835060119624
+      }
+    },
+    "speed": {
+      "baseline": {
+        "avg_search_time": 0.015225911140441894,
+        "speed_ratio": 1.0,
+        "faster_than_baseline": false
+      },
+      "baseline_expanded": {
+        "avg_search_time": 0.47702276706695557,
+        "speed_ratio": 31.329669710203707,
+        "faster_than_baseline": false
+      },
+      "standard_reranked": {
+        "avg_search_time": 0.46434597969055175,
+        "speed_ratio": 30.49708982322849,
+        "faster_than_baseline": false
+      },
+      "improved_reranked": {
+        "avg_search_time": 0.1139643669128418,
+        "speed_ratio": 7.484896362631358,
+        "faster_than_baseline": false
+      },
+      "hybrid": {
+        "avg_search_time": 0.8425063371658326,
+        "speed_ratio": 55.33372219203566,
+        "faster_than_baseline": false
+      }
+    }
+  },
+  "recommendations": [
+    "\ud83c\udfc6 Best Quality: baseline (Score: 0.346)",
+    "\u26a1 Fastest: baseline (Time: 0.015s)",
+    "\u274c Improved Re-ranked Search may not provide sufficient quality improvement",
+    "\u26a0\ufe0f Query expansion may not provide significant benefit for this dataset",
+    "\u26a0\ufe0f Hybrid search may not provide significant benefit",
+    "\ud83d\udd27 Consider implementing caching for frequently accessed queries",
+    "\ud83d\udcca Monitor memory usage with cross-encoder models",
+    "\ud83c\udfaf Fine-tune re-ranking weights based on domain-specific data",
+    "\ud83d\ude80 Consider using GPU acceleration for cross-encoder models in production"
+  ]
+}

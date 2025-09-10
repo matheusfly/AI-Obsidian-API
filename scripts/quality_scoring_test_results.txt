@@ -1,0 +1,94 @@
+🧪 Quality Scoring Metrics Test
+========================================
+
+Test 1: Perfect Retrieval
+Query: 'machine learning algorithms'
+Relevant Files: ['ml_algorithms.md', 'data_analysis.md']
+Precision@K: 0.667
+Recall: 1.000
+MRR: 1.000
+NDCG: 1.000
+Overall Quality: 0.900
+✅ PASS
+Results:
+  1. ml_algorithms.md (similarity: 0.950)
+  2. data_analysis.md (similarity: 0.900)
+  3. python_guide.md (similarity: 0.850)
+
+Test 2: Poor Retrieval
+Query: 'philosophy of mathematics'
+Relevant Files: ['philosophy_math.md', 'logic_foundations.md']
+Precision@K: 0.000
+Recall: 0.000
+MRR: 0.000
+NDCG: 0.000
+Overall Quality: 0.000
+✅ PASS
+Results:
+  1. scrapy_guide.md (similarity: 0.600)
+  2. web_scraping.md (similarity: 0.550)
+  3. python_guide.md (similarity: 0.500)
+
+Test 3: Partial Retrieval
+Query: 'web scraping techniques'
+Relevant Files: ['scrapy_guide.md', 'web_scraping_techniques.md']
+Precision@K: 0.333
+Recall: 0.500
+MRR: 1.000
+NDCG: 0.613
+Overall Quality: 0.573
+✅ PASS
+Results:
+  1. scrapy_guide.md (similarity: 0.850)
+  2. python_guide.md (similarity: 0.600)
+  3. ml_algorithms.md (similarity: 0.450)
+
+Test 4: Empty Results
+Query: 'nonexistent topic'
+Relevant Files: ['any_file.md']
+Precision@K: 0.000
+Recall: 0.000
+MRR: 0.000
+NDCG: 0.000
+Overall Quality: 0.000
+✅ PASS
+Results:
+
+📊 Test Summary
+Total Tests: 4
+Passed: 4
+Failed: 0
+Success Rate: 100.0%
+Overall Status: ✅ PASS
+
+🔄 Metric Consistency Test
+------------------------------
+
+Best Order:
+  Precision@K: 0.667
+  Recall: 1.000
+  MRR: 1.000
+  NDCG: 1.000
+  Overall: 0.900
+
+Worst Order:
+  Precision@K: 0.667
+  Recall: 1.000
+  MRR: 0.500
+  NDCG: 0.693
+  Overall: 0.739
+
+Consistency Checks:
+  Precision@K: ✅
+  MRR: ✅
+  NDCG: ✅
+  Overall: ✅
+
+Overall Consistency: ✅ GOOD
+
+🎯 Overall Validation Results
+========================================
+Scoring Score: 1.000
+Consistency Score: 1.000
+Overall Score: 1.000
+Status: ✅ PASS

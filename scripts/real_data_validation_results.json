@@ -1,0 +1,51 @@
+{
+  "phase": "real_data_validation",
+  "test_name": "Real Data Comprehensive Validation",
+  "overall_score": 0.45,
+  "embedding_results": {
+    "total_texts": 3,
+    "embeddings_generated": 3,
+    "embedding_dimension": 384,
+    "similarity_tests": [
+      {
+        "text1": "Machine learning algorithms use statistical method...",
+        "text2": "Philosophy of mathematics examines the nature of m...",
+        "similarity": 0.11370300209210715
+      },
+      {
+        "text1": "Machine learning algorithms use statistical method...",
+        "text2": "Web scraping with Python involves using libraries ...",
+        "similarity": 0.17545694063143627
+      },
+      {
+        "text1": "Philosophy of mathematics examines the nature of m...",
+        "text2": "Web scraping with Python involves using libraries ...",
+        "similarity": -0.01180462906532434
+      }
+    ],
+    "service_working": true
+  },
+  "chroma_results": {
+    "error": "'ChromaService' object has no attribute 'get_collection_info'",
+    "service_working": false
+  },
+  "search_results": {
+    "search_service_initialized": true,
+    "embedding_service_connected": true,
+    "chroma_service_connected": true,
+    "test_query": "What is machine learning?"
+  },
+  "vault_results": {
+    "vault_path": "data\\raw\\vault",
+    "vault_exists": false,
+    "markdown_files": 0,
+    "total_files": 0,
+    "sample_files": []
+  },
+  "integration_results": {
+    "error": "'ChromaService' object has no attribute 'add_document'",
+    "services_initialized": false
+  },
+  "duration": 34.318474531173706,
+  "passed": false
+}

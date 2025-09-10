@@ -1,0 +1,21 @@
+version: '3.9'
+services:
+  langgraph-obsidian:
+    build: 
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"   # API Gateway
+      - "2024:2024"   # LangGraph Server
+      - "2025:2025"   # LangGraph Studio
+    environment:
+      - OBSIDIAN_API_BASE=http://host.docker.internal:27123
+      - OBSIDIAN_API_KEY=${OBSIDIAN_API_KEY}
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+    volumes:
+      - ${OBSIDIAN_VAULT_PATH}:/vault:rw
+      - ./data/vector:/data/vector:rw
+      - ./data/graph.db:/data/graph.db:rw
+    extra_hosts:
+      - "host.docker.internal:host-gateway"

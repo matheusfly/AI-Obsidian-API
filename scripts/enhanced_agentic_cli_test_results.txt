@@ -1,0 +1,36 @@
+🧪 Testing Enhanced Agentic RAG CLI (Corrected)
+=======================================================
+✅ Successfully loaded module using importlib
+✅ Successfully imported EnhancedAgenticRAGCLI class
+
+🔧 Testing CLI initialization...
+✅ CLI initialized successfully
+✅ Vault path: D:\Nomade Milionario
+✅ Documents loaded: 16746 chunks
+
+🧠 Testing Phase 2 components...
+✅ Topic detector initialized
+✅ Smart document filter initialized
+✅ Re-ranker initialized
+✅ Content processor initialized
+✅ Quality validator initialized
+
+🔍 Testing search functionality...
+Testing query: 'philosophy of mathematics'
+✅ Search functionality structure verified
+
+📁 Testing document structure...
+✅ Sample document keys: ['id', 'file_path', 'content', 'heading', 'chunk_index', 'word_count', 'token_count', 'metadata']
+✅ Sample document preview: {'id': '02_agentic_RAG_cli_chunk_0', 'file_path': 'D:\\Nomade Milionario\\02_agentic_RAG_cli.md', 'c...
+
+🔧 Testing method existence...
+✅ Method _load_and_process_documents exists
+✅ Method search exists
+❌ Method _detect_topic missing
+❌ Method _filter_documents missing
+❌ Method _perform_semantic_search missing
+❌ Method _rerank_results missing
+❌ Method _generate_synthesis missing
+❌ Method _display_results missing
+
+🎯 All basic tests passed!

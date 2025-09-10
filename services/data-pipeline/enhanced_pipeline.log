@@ -1,0 +1,131 @@
+2025-09-07 07:34:03,878 - src.ingestion.filesystem_client - INFO - Initialized FilesystemVaultClient for vault: D:\Nomade Milionario
+2025-09-07 07:34:04,636 - src.processing.content_processor - INFO - Initialized ContentProcessor with model: sentence-transformers/all-MiniLM-L6-v2, max_chunk_size: 512
+2025-09-07 07:34:04,638 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-09-07 07:34:04,639 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-07 07:34:07,376 - src.embeddings.embedding_service - INFO - Initialized EmbeddingService with model: sentence-transformers/all-MiniLM-L6-v2
+2025-09-07 07:34:07,403 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-07 07:34:07,473 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-07 07:34:10,193 - src.vector.chroma_service - INFO - Initialized ChromaService with collection: enhanced_obsidian_vault, model: all-MiniLM-L6-v2
+2025-09-07 07:34:10,193 - __main__ - INFO - Gemini LLM initialized
+2025-09-07 07:34:10,193 - __main__ - INFO - Enhanced pipeline initialized with vault: D:\Nomade Milionario
+2025-09-07 07:34:10,193 - __main__ - INFO - Testing enhanced pipeline with limited ingestion
+2025-09-07 07:34:10,193 - __main__ - INFO - Starting enhanced vault ingestion
+2025-09-07 07:34:10,193 - __main__ - INFO - Step 1: Discovering vault files
+2025-09-07 07:34:10,307 - src.ingestion.filesystem_client - INFO - Found 1119 markdown files in vault.
+2025-09-07 07:34:10,307 - __main__ - INFO - Processing limited set of 10 files
+2025-09-07 07:34:10,307 - __main__ - INFO - Step 2: Reading file contents
+2025-09-07 07:34:10,323 - __main__ - INFO - Step 3: Processing content into intelligent chunks
+2025-09-07 07:34:10,444 - src.processing.content_processor - INFO - Created 80 chunks for file: 2025-01-09_11-23-28_Perplexity.ai_flask dash plotly fullstack application github....md
+2025-09-07 07:34:10,445 - src.processing.content_processor - INFO - Created 2 chunks for file: AGENTS.md
+2025-09-07 07:34:10,642 - src.processing.content_processor - INFO - Created 50 chunks for file: Base_Data-Models_BIZ.excalidraw.md
+2025-09-07 07:34:10,721 - src.processing.content_processor - INFO - Created 83 chunks for file: context enhacers.md
+2025-09-07 07:34:10,769 - src.processing.content_processor - INFO - Created 64 chunks for file: context_engineering.md
+2025-09-07 07:34:10,998 - src.processing.content_processor - INFO - Created 161 chunks for file: dEV_TUNE_ENV.md
+2025-09-07 07:34:11,006 - src.processing.content_processor - INFO - Created 5 chunks for file: Energia Cinematica.md
+2025-09-07 07:34:11,014 - src.processing.content_processor - INFO - Created 4 chunks for file: EP_1.md
+2025-09-07 07:34:11,023 - src.processing.content_processor - INFO - Created 11 chunks for file: Ep_3.md
+2025-09-07 07:34:11,027 - src.processing.content_processor - INFO - Created 4 chunks for file: excalibrain.md
+2025-09-07 07:34:11,027 - src.processing.content_processor - INFO - Processed 10 files into 464 total chunks
+2025-09-07 07:34:11,027 - __main__ - INFO - Step 4: Generating embeddings
+2025-09-07 07:34:11,027 - src.embeddings.embedding_service - INFO - Generating embeddings for 464 texts in batches
+2025-09-07 07:34:18,625 - src.embeddings.embedding_service - INFO - Generated 464 embeddings in 36 batches
+2025-09-07 07:34:18,625 - __main__ - INFO - Step 5: Storing embeddings in ChromaDB
+2025-09-07 07:34:18,626 - src.vector.chroma_service - INFO - Storing 464 chunks with rich metadata in ChromaDB
+2025-09-07 07:34:18,846 - src.vector.chroma_service - INFO - Successfully stored 464 chunks with comprehensive metadata in ChromaDB
+2025-09-07 07:34:18,954 - __main__ - INFO - Ingestion complete: {'files_discovered': 1119, 'files_processed': 10, 'chunks_created': 464, 'embeddings_generated': 464, 'vault_stats': {'total_files': 1119, 'total_size_bytes': 13375958, 'total_size_mb': 12.76, 'vault_path': 'D:\\Nomade Milionario', 'files_sample': [{'path': '2025-01-09_11-23-28_Perplexity.ai_flask dash plotly fullstack application github....md', 'name': '2025-01-09_11-23-28_Perplexity.ai_flask dash plotly fullstack application github....md', 'size': 78900, 'modified': 1736432637.4795754, 'created': 1736432611.1884642}, {'path': 'AGENTS.md', 'name': 'AGENTS.md', 'size': 217, 'modified': 1756924834.2394738, 'created': 1756924834.2104137}, {'path': 'Base_Data-Models_BIZ.excalidraw.md', 'name': 'Base_Data-Models_BIZ.excalidraw.md', 'size': 41143, 'modified': 1755603716.1306288, 'created': 1735814876.9120698}, {'path': 'context enhacers.md', 'name': 'context enhacers.md', 'size': 68357, 'modified': 1756742344.638305, 'created': 1756742322.7149394}, {'path': 'context_engineering.md', 'name': 'context_engineering.md', 'size': 38568, 'modified': 1756742322.78356, 'created': 1756738699.2403152}]}, 'embedding_cache_stats': {'cache_size': 458, 'model_name': 'sentence-transformers/all-MiniLM-L6-v2', 'max_batch_tokens': 4096}, 'chroma_stats': {'collection_name': 'enhanced_obsidian_vault', 'total_chunks': 464, 'embedding_model': 'sentence-transformers/all-MiniLM-L6-v2'}}
+2025-09-07 07:34:18,957 - __main__ - INFO - Testing enhanced search
+2025-09-07 07:34:18,957 - src.vector.chroma_service - INFO - Searching for: 'performance optimization' with 3 results
+2025-09-07 07:34:19,012 - src.vector.chroma_service - INFO - Found 3 results
+2025-09-07 07:34:19,014 - __main__ - INFO - Testing LLM integration
+2025-09-07 07:34:19,014 - __main__ - INFO - Processing LLM query: 'What are the key performance optimization strategies?'
+2025-09-07 07:34:19,014 - src.vector.chroma_service - INFO - Searching for: 'What are the key performance optimization strategies?' with 3 results
+2025-09-07 07:34:19,027 - src.vector.chroma_service - INFO - Found 3 results
+2025-09-07 07:34:21,586 - __main__ - INFO - LLM query completed with 3 context chunks
+2025-09-07 08:02:13,172 - src.ingestion.filesystem_client - INFO - Initialized FilesystemVaultClient for vault: D:\Nomade Milionario
+2025-09-07 08:02:14,001 - src.processing.content_processor - INFO - Initialized ContentProcessor with model: sentence-transformers/all-MiniLM-L6-v2, max_chunk_size: 512
+2025-09-07 08:02:14,004 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-09-07 08:02:14,004 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-07 08:02:16,978 - src.embeddings.embedding_service - INFO - Initialized EmbeddingService with model: sentence-transformers/all-MiniLM-L6-v2
+2025-09-07 08:02:17,002 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-07 08:02:17,067 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-07 08:02:19,901 - src.vector.chroma_service - INFO - Retrieved existing collection: enhanced_obsidian_vault
+2025-09-07 08:02:19,901 - src.vector.chroma_service - INFO - Initialized ChromaService with collection: enhanced_obsidian_vault, model: all-MiniLM-L6-v2
+2025-09-07 08:02:19,901 - __main__ - INFO - Gemini LLM initialized
+2025-09-07 08:02:19,902 - __main__ - INFO - Enhanced pipeline initialized with vault: D:\Nomade Milionario
+2025-09-07 08:02:19,902 - __main__ - INFO - Testing enhanced pipeline with limited ingestion
+2025-09-07 08:02:19,902 - __main__ - INFO - Starting enhanced vault ingestion
+2025-09-07 08:02:19,902 - __main__ - INFO - Step 1: Discovering vault files
+2025-09-07 08:02:20,018 - src.ingestion.filesystem_client - INFO - Found 1119 markdown files in vault.
+2025-09-07 08:02:20,019 - __main__ - INFO - Processing limited set of 10 files
+2025-09-07 08:02:20,019 - __main__ - INFO - Step 2: Reading file contents
+2025-09-07 08:02:20,035 - __main__ - INFO - Step 3: Processing content into intelligent chunks
+2025-09-07 08:02:20,155 - src.processing.content_processor - INFO - Created 80 chunks for file: 2025-01-09_11-23-28_Perplexity.ai_flask dash plotly fullstack application github....md
+2025-09-07 08:02:20,155 - src.processing.content_processor - INFO - Created 2 chunks for file: AGENTS.md
+2025-09-07 08:02:20,342 - src.processing.content_processor - INFO - Created 50 chunks for file: Base_Data-Models_BIZ.excalidraw.md
+2025-09-07 08:02:20,418 - src.processing.content_processor - INFO - Created 83 chunks for file: context enhacers.md
+2025-09-07 08:02:20,460 - src.processing.content_processor - INFO - Created 64 chunks for file: context_engineering.md
+2025-09-07 08:02:20,677 - src.processing.content_processor - INFO - Created 161 chunks for file: dEV_TUNE_ENV.md
+2025-09-07 08:02:20,684 - src.processing.content_processor - INFO - Created 5 chunks for file: Energia Cinematica.md
+2025-09-07 08:02:20,691 - src.processing.content_processor - INFO - Created 4 chunks for file: EP_1.md
+2025-09-07 08:02:20,699 - src.processing.content_processor - INFO - Created 11 chunks for file: Ep_3.md
+2025-09-07 08:02:20,703 - src.processing.content_processor - INFO - Created 4 chunks for file: excalibrain.md
+2025-09-07 08:02:20,703 - src.processing.content_processor - INFO - Processed 10 files into 464 total chunks
+2025-09-07 08:02:20,704 - __main__ - INFO - Step 4: Generating embeddings
+2025-09-07 08:02:20,704 - src.embeddings.embedding_service - INFO - Generating embeddings for 464 texts in batches
+2025-09-07 08:02:28,067 - src.embeddings.embedding_service - INFO - Generated 464 embeddings in 36 batches
+2025-09-07 08:02:28,068 - __main__ - INFO - Step 5: Storing embeddings in ChromaDB
+2025-09-07 08:02:28,068 - src.vector.chroma_service - INFO - Storing 464 chunks with rich metadata in ChromaDB
+2025-09-07 08:02:28,480 - src.vector.chroma_service - INFO - Successfully stored 464 chunks with comprehensive metadata in ChromaDB
+2025-09-07 08:02:28,599 - __main__ - INFO - Ingestion complete: {'files_discovered': 1119, 'files_processed': 10, 'chunks_created': 464, 'embeddings_generated': 464, 'vault_stats': {'total_files': 1119, 'total_size_bytes': 13375958, 'total_size_mb': 12.76, 'vault_path': 'D:\\Nomade Milionario', 'files_sample': [{'path': '2025-01-09_11-23-28_Perplexity.ai_flask dash plotly fullstack application github....md', 'name': '2025-01-09_11-23-28_Perplexity.ai_flask dash plotly fullstack application github....md', 'size': 78900, 'modified': 1736432637.4795754, 'created': 1736432611.1884642}, {'path': 'AGENTS.md', 'name': 'AGENTS.md', 'size': 217, 'modified': 1756924834.2394738, 'created': 1756924834.2104137}, {'path': 'Base_Data-Models_BIZ.excalidraw.md', 'name': 'Base_Data-Models_BIZ.excalidraw.md', 'size': 41143, 'modified': 1755603716.1306288, 'created': 1735814876.9120698}, {'path': 'context enhacers.md', 'name': 'context enhacers.md', 'size': 68357, 'modified': 1756742344.638305, 'created': 1756742322.7149394}, {'path': 'context_engineering.md', 'name': 'context_engineering.md', 'size': 38568, 'modified': 1756742322.78356, 'created': 1756738699.2403152}]}, 'embedding_cache_stats': {'cache_size': 458, 'model_name': 'sentence-transformers/all-MiniLM-L6-v2', 'max_batch_tokens': 4096}, 'chroma_stats': {'collection_name': 'enhanced_obsidian_vault', 'total_chunks': 464, 'embedding_model': 'sentence-transformers/all-MiniLM-L6-v2'}}
+2025-09-07 08:02:28,601 - __main__ - INFO - Testing enhanced search
+2025-09-07 08:02:28,601 - src.vector.chroma_service - INFO - Searching for: 'performance optimization' with 3 results
+2025-09-07 08:02:28,647 - src.vector.chroma_service - INFO - Found 3 results
+2025-09-07 08:02:28,648 - __main__ - INFO - Testing LLM integration
+2025-09-07 08:02:28,648 - __main__ - INFO - Processing LLM query: 'What are the key performance optimization strategies?'
+2025-09-07 08:02:28,648 - src.vector.chroma_service - INFO - Searching for: 'What are the key performance optimization strategies?' with 3 results
+2025-09-07 08:02:28,661 - src.vector.chroma_service - INFO - Found 3 results
+2025-09-07 08:02:31,255 - __main__ - INFO - LLM query completed with 3 context chunks
+2025-09-07 08:07:44,405 - src.ingestion.filesystem_client - INFO - Initialized FilesystemVaultClient for vault: D:\Nomade Milionario
+2025-09-07 08:07:45,208 - src.processing.content_processor - INFO - Initialized ContentProcessor with model: sentence-transformers/all-MiniLM-L6-v2, max_chunk_size: 512
+2025-09-07 08:07:45,210 - sentence_transformers.SentenceTransformer - INFO - Use pytorch device_name: cpu
+2025-09-07 08:07:45,211 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-07 08:07:47,964 - src.embeddings.embedding_service - INFO - Initialized EmbeddingService with model: sentence-transformers/all-MiniLM-L6-v2
+2025-09-07 08:07:47,987 - chromadb.telemetry.product.posthog - INFO - Anonymized telemetry enabled. See                     https://docs.trychroma.com/telemetry for more information.
+2025-09-07 08:07:48,049 - sentence_transformers.SentenceTransformer - INFO - Load pretrained SentenceTransformer: sentence-transformers/all-MiniLM-L6-v2
+2025-09-07 08:07:50,824 - src.vector.chroma_service - INFO - Retrieved existing collection: enhanced_obsidian_vault
+2025-09-07 08:07:50,825 - src.vector.chroma_service - INFO - Initialized ChromaService with collection: enhanced_obsidian_vault, model: all-MiniLM-L6-v2
+2025-09-07 08:07:50,825 - __main__ - INFO - Gemini LLM initialized
+2025-09-07 08:07:50,825 - __main__ - INFO - Enhanced pipeline initialized with vault: D:\Nomade Milionario
+2025-09-07 08:07:50,825 - __main__ - INFO - Testing enhanced pipeline with limited ingestion
+2025-09-07 08:07:50,825 - __main__ - INFO - Starting enhanced vault ingestion
+2025-09-07 08:07:50,826 - __main__ - INFO - Step 1: Discovering vault files
+2025-09-07 08:07:50,931 - src.ingestion.filesystem_client - INFO - Found 1119 markdown files in vault.
+2025-09-07 08:07:50,931 - __main__ - INFO - Processing limited set of 10 files
+2025-09-07 08:07:50,932 - __main__ - INFO - Step 2: Reading file contents
+2025-09-07 08:07:50,945 - __main__ - INFO - Step 3: Processing content into intelligent chunks
+2025-09-07 08:07:51,056 - src.processing.content_processor - INFO - Created 80 chunks for file: 2025-01-09_11-23-28_Perplexity.ai_flask dash plotly fullstack application github....md
+2025-09-07 08:07:51,056 - src.processing.content_processor - INFO - Created 2 chunks for file: AGENTS.md
+2025-09-07 08:07:51,239 - src.processing.content_processor - INFO - Created 50 chunks for file: Base_Data-Models_BIZ.excalidraw.md
+2025-09-07 08:07:51,310 - src.processing.content_processor - INFO - Created 83 chunks for file: context enhacers.md
+2025-09-07 08:07:51,353 - src.processing.content_processor - INFO - Created 64 chunks for file: context_engineering.md
+2025-09-07 08:07:51,570 - src.processing.content_processor - INFO - Created 161 chunks for file: dEV_TUNE_ENV.md
+2025-09-07 08:07:51,577 - src.processing.content_processor - INFO - Created 5 chunks for file: Energia Cinematica.md
+2025-09-07 08:07:51,586 - src.processing.content_processor - INFO - Created 4 chunks for file: EP_1.md
+2025-09-07 08:07:51,593 - src.processing.content_processor - INFO - Created 11 chunks for file: Ep_3.md
+2025-09-07 08:07:51,597 - src.processing.content_processor - INFO - Created 4 chunks for file: excalibrain.md
+2025-09-07 08:07:51,598 - src.processing.content_processor - INFO - Processed 10 files into 464 total chunks
+2025-09-07 08:07:51,598 - __main__ - INFO - Step 4: Generating embeddings
+2025-09-07 08:07:51,598 - src.embeddings.embedding_service - INFO - Generating embeddings for 464 texts in batches
+2025-09-07 08:07:58,504 - src.embeddings.embedding_service - INFO - Generated 464 embeddings in 36 batches
+2025-09-07 08:07:58,504 - __main__ - INFO - Step 5: Storing embeddings in ChromaDB
+2025-09-07 08:07:58,504 - src.vector.chroma_service - INFO - Storing 464 chunks with rich metadata in ChromaDB
+2025-09-07 08:07:58,703 - src.vector.chroma_service - INFO - Successfully stored 464 chunks with comprehensive metadata in ChromaDB
+2025-09-07 08:07:58,796 - __main__ - INFO - Ingestion complete: {'files_discovered': 1119, 'files_processed': 10, 'chunks_created': 464, 'embeddings_generated': 464, 'vault_stats': {'total_files': 1119, 'total_size_bytes': 13375958, 'total_size_mb': 12.76, 'vault_path': 'D:\\Nomade Milionario', 'files_sample': [{'path': '2025-01-09_11-23-28_Perplexity.ai_flask dash plotly fullstack application github....md', 'name': '2025-01-09_11-23-28_Perplexity.ai_flask dash plotly fullstack application github....md', 'size': 78900, 'modified': 1736432637.4795754, 'created': 1736432611.1884642}, {'path': 'AGENTS.md', 'name': 'AGENTS.md', 'size': 217, 'modified': 1756924834.2394738, 'created': 1756924834.2104137}, {'path': 'Base_Data-Models_BIZ.excalidraw.md', 'name': 'Base_Data-Models_BIZ.excalidraw.md', 'size': 41143, 'modified': 1755603716.1306288, 'created': 1735814876.9120698}, {'path': 'context enhacers.md', 'name': 'context enhacers.md', 'size': 68357, 'modified': 1756742344.638305, 'created': 1756742322.7149394}, {'path': 'context_engineering.md', 'name': 'context_engineering.md', 'size': 38568, 'modified': 1756742322.78356, 'created': 1756738699.2403152}]}, 'embedding_cache_stats': {'cache_size': 458, 'model_name': 'sentence-transformers/all-MiniLM-L6-v2', 'max_batch_tokens': 4096}, 'chroma_stats': {'collection_name': 'enhanced_obsidian_vault', 'total_chunks': 464, 'embedding_model': 'sentence-transformers/all-MiniLM-L6-v2'}}
+2025-09-07 08:07:58,799 - __main__ - INFO - Testing enhanced search
+2025-09-07 08:07:58,800 - src.vector.chroma_service - INFO - Searching for: 'performance optimization' with 3 results
+2025-09-07 08:07:58,841 - src.vector.chroma_service - INFO - Found 3 results
+2025-09-07 08:07:58,842 - __main__ - INFO - Testing LLM integration
+2025-09-07 08:07:58,842 - __main__ - INFO - Processing LLM query: 'What are the key performance optimization strategies?'
+2025-09-07 08:07:58,842 - src.vector.chroma_service - INFO - Searching for: 'What are the key performance optimization strategies?' with 3 results
+2025-09-07 08:07:58,858 - src.vector.chroma_service - INFO - Found 3 results
+2025-09-07 08:08:01,570 - __main__ - INFO - LLM query completed with 3 context chunks

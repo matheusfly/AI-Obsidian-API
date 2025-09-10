@@ -1,0 +1,160 @@
+---
+description:
+globs:
+alwaysApply: true
+Absolutely. Below is a **complete, hyper-specific, method-driven Prompt Tuning Template** — built *exclusively* around **your custom MCP methods**, **your enforcement rules**, and **your runtime-debugging philosophy**.
+
+This is not generic advice.  
+This is your operational doctrine — encoded.
+
+—
+
+🔁 **PROMPT TUNING TEMPLATE — CUSTOM MCP METHOD USE CASES**
+
+> **GOAL**: Build, test, debug, and verify every prompt through enforced MCP tooling — no theory, no assumptions, no untested outputs.
+
+—
+
+### 🧭 STEP 0: INITIATE — ALWAYS START WITH `byteover-retrieve-knowledge` + `Sequential Thinking`
+
+**USE CASE**  
+You are given ANY task — antonyms, code, scraping, planning — and must begin by grounding the AI in context and breaking it down.
+
+**METHODS TO CALL**  
+→ `byteover-retrieve-knowledge` — Load existing context, handbooks, or prior plans.  
+→ `byteover-assess-context-completeness` — Verify if enough info exists. If not, trigger search.  
+→ `Sequential Thinking` — Break main goal into atomic, executable subtasks.
+
+**EXAMPLE OUTPUT STRUCTURE**  
+```plaintext
+[byteover-log]: Loaded context for "antonym generation" — 3 handbooks found.
+[seqthink-plan]: 
+  1. Trial: Generate 1 antonym pair → validate → output.
+  2. If valid → generate 5 more → store in handbook.
+  3. If invalid → debug with agent-ops → fix with context7 → retry.
+```
+
+—
+
+### 🛠️ STEP 1: EXECUTE SUBTASK — WRITE → RUN → DEBUG
+
+**USE CASE**  
+Every subtask must produce a runnable artifact — code, script, query, or prompt — then be executed and traced.
+
+**METHODS TO CALL**  
+→ Write output (e.g., “happy → sad”)  
+→ `agent-ops` — Trace execution, capture errors, log spans.  
+→ If error → `fetch` or `context7` — Get correct syntax or definition.  
+→ `byteover-think-about-collected-information` — Reassess after fix.
+
+**EXAMPLE OUTPUT STRUCTURE**  
+```plaintext
+[trial-output]: "happy → sad"
+[agentops-trace-summary]: SUCCESS — no errors, span completed in 0.8s.
+[fix-applied]: None — output valid.
+```
+
+—
+
+### 📚 STEP 2: STORE & DOCUMENT — KNOWLEDGE MANAGEMENT
+
+**USE CASE**  
+Successful outputs must be stored, documented, and made reusable. Failed attempts must be logged for revision.
+
+**METHODS TO CALL**  
+→ `byteover-store-knowledge` — Save validated output.  
+→ `byteover-create-handbook` — If new category (e.g., “antonyms_handbook”).  
+→ `byteover-update-handbook` — Append new entries.  
+→ `byteover-save-implementation-plan` — Log the full workflow for reuse.
+
+**EXAMPLE OUTPUT STRUCTURE**  
+```plaintext
+[byteover-log]: Stored "happy → sad" in antonyms_handbook v1.2.
+[byteover-log]: Updated implementation plan "antonym_gen_v3" — marked step 1 complete.
+```
+
+—
+
+### 🔁 STEP 3: LOOP & SCALE — REPEAT UNTIL GOAL MET
+
+**USE CASE**  
+If goal requires multiple outputs (e.g., 10 antonym pairs), loop through subtasks, scaling with verification.
+
+**METHODS TO CALL**  
+→ `Sequential Thinking` — Plan next batch.  
+→ `byteover-retrieve-active-plans` — Check progress.  
+→ `byteover-update-plan-progress` — Mark completion %.  
+→ `agent-ops` — Debug each batch.
+
+**EXAMPLE OUTPUT STRUCTURE**  
+```plaintext
+[seqthink-plan]: Batch 2/5 — Generate 2 more pairs → validate → store.
+[agentops-trace-summary]: SUCCESS — “fast → slow”, “light → dark” validated.
+[byteover-log]: Plan “antonym_gen_v3” now 40% complete.
+```
+
+—
+
+### 🚨 STEP 4: HANDLE FAILURES — DEBUG → FIX → RETRY
+
+**USE CASE**  
+If output is invalid, ambiguous, or crashes — DO NOT REPORT SUCCESS. Debug, fix, retry.
+
+**METHODS TO CALL**  
+→ `agent-ops` — Get full trace + error.  
+→ `fetch` / `context7` — Pull documentation or correct examples.  
+→ `byteover-update-module` — If code module failed, patch it.  
+→ `byteover-think-about-collected-information` — Re-evaluate strategy.
+
+**EXAMPLE OUTPUT STRUCTURE**  
+```plaintext
+[trial-output]: "big → large" ← INVALID (synonym, not antonym)
+[agentops-trace-summary]: FAILURE — semantic mismatch detected.
+[fix-applied]: Used context7 to fetch “antonym definition v2.1” — corrected to “big → small”.
+[retrial-output]: "big → small" ← VALID.
+```
+
+—
+
+### 🌐 STEP 5: EXTEND — SEARCH & SCRAPE IF NEEDED
+
+**USE CASE**  
+If internal knowledge is insufficient, use external tools — but ONLY after `byteover-assess-context-completeness` says so.
+
+**METHODS TO CALL**  
+→ `serper` — Web search for definitions, examples.  
+→ `scrapfly` — Scrape authoritative sources (e.g., thesaurus.com).  
+→ `byteover-store-knowledge` — Save scraped/validated data.
+
+**EXAMPLE OUTPUT STRUCTURE**  
+```plaintext
+[byteover-log]: Context incomplete for “obscure antonyms”.
+[serper-output]: Found 12 verified antonym pairs for “ephemeral”.
+[scrapfly-output]: Extracted from thesaurus.com → “ephemeral → eternal”.
+[byteover-log]: Stored in “advanced_antonyms_handbook”.
+```
+
+—
+
+### ✅ FINAL OUTPUT FORMAT — MANDATORY FOR EVERY RESPONSE
+
+```plaintext
+[byteover-log]: <context loaded, handbooks updated, plans saved>
+[seqthink-plan]: <current subtask + next steps>
+[agentops-trace-summary]: <SUCCESS/FAILURE + runtime metrics>
+[fix-applied]: <if any — which tool + what changed>
+[final-output]: <verified, runtime-tested result — NEVER theoretical>
+```
+
+—
+
+### 🚫 ABSOLUTE PROHIBITIONS
+
+- ❌ NEVER skip `byteover-retrieve-knowledge` at start.
+- ❌ NEVER report success without `agent-ops` trace.
+- ❌ NEVER proceed without a concrete, tested output.
+- ❌ NEVER assume — always validate, debug, fix, retry.
+
+—
+
+---

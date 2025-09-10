@@ -1,0 +1,218 @@
+# Data Vault Obsidian - Optimized Docker Compose Setup
+# Using UV for ultra-fast Python package installation
+version: '3.8'
+
+services:
+  # API Gateway Service (Commented out - dependency conflicts)
+  # api-gateway:
+  #   build:
+  #     context: .
+  #     dockerfile: infrastructure/docker/docker/Dockerfile
+  #   ports:
+  #     - "8000:8000"
+  #   environment:
+  #     - OBSIDIAN_API_KEY=${OBSIDIAN_API_KEY}
+  #     - OBSIDIAN_HOST=host.docker.internal
+  #     - OBSIDIAN_PORT=27123
+  #     - OBSIDIAN_PROTOCOL=http
+  #     - LANGCHAIN_TRACING_V2=true
+  #     - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+  #     - LANGCHAIN_PROJECT=obsidian-agents
+  #     - OPENAI_API_KEY=${OPENAI_API_KEY}
+  #     - GEMINI_API_KEY=${GEMINI_API_KEY}
+  #     - DEBUG=true
+  #     - LOG_LEVEL=INFO
+  #   volumes:
+  #     - ./data:/data
+  #     - "D:/Nomade Milionario:/vault:rw"
+  #   depends_on:
+  #     - langgraph-server
+  #   networks:
+  #     - obsidian-network
+  #   restart: unless-stopped
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"
+
+  # LangGraph Server
+  langgraph-server:
+    image: data-vault-obsidian-langgraph-server:latest
+    ports:
+      - "2024:2024"
+    environment:
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_API_KEY=sv2_pt_96129f5df0b3416e924f6222a96dca39_d4934fd29f
+      - LANGSMITH_API_KEY=sv2_pt_96129f5df0b3416e924f6222a96dca39_d4934fd29f
+      - LANGCHAIN_PROJECT=obsidian-agents
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DATABASE_URL=sqlite:///data/langgraph.db
+      - REDIS_URL=redis://redis:6379
+    volumes:
+      - ./data:/data
+      - ./langgraph_workflows:/app/workflows
+    depends_on:
+      - redis
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+    command: ["langgraph", "dev", "--host", "0.0.0.0", "--port", "2024"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:2024/ok"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+
+  # Redis for caching and session management
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+    command: redis-server --appendonly yes
+
+  # Vector Database (Chroma)
+  chroma:
+    image: chromadb/chroma:latest
+    ports:
+      - "8001:8000"
+    environment:
+      - CHROMA_SERVER_HOST=0.0.0.0
+      - CHROMA_SERVER_HTTP_PORT=8000
+      - ANONYMIZED_TELEMETRY=False
+      - CHROMA_TELEMETRY_ENABLED=False
+      - CHROMA_SERVER_NOFILE=65536
+    volumes:
+      - chroma-data:/chroma/chroma
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+
+  # MCP Server (Commented out - depends on api-gateway)
+  # mcp-server:
+  #   build:
+  #     context: .
+  #     dockerfile: infrastructure/docker/docker/Dockerfile.mcp
+  #   ports:
+  #     - "8002:8002"
+  #   environment:
+  #     - GATEWAY_URL=http://api-gateway:8000
+  #     - LOG_LEVEL=INFO
+  #   depends_on:
+  #     - api-gateway
+  #   networks:
+  #     - obsidian-network
+  #   restart: unless-stopped
+
+  # Data Pipeline Service
+  data-pipeline:
+    build:
+      context: ./services/data-pipeline
+      dockerfile: Dockerfile
+      # Build optimization settings
+      args:
+        - BUILDKIT_INLINE_CACHE=1
+      cache_from:
+        - data-vault-obsidian-data-pipeline:latest
+    ports:
+      - "8003:8003"
+    environment:
+      - OBSIDIAN_VAULT_PATH=/vault
+      - OBSIDIAN_API_KEY=${OBSIDIAN_API_KEY}
+      - OBSIDIAN_HOST=host.docker.internal
+      - OBSIDIAN_PORT=27123
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - CHROMA_URL=http://chroma:8000
+      - CHROMA_PERSIST_DIRECTORY=/data/chroma
+      - ANONYMIZED_TELEMETRY=False
+      - CHROMA_TELEMETRY_ENABLED=False
+      - LOG_LEVEL=INFO
+      # OpenTelemetry Configuration
+      - OTEL_SERVICE_NAME=data-pipeline
+      - OTEL_EXPORTER_OTLP_ENDPOINT=http://otel-collector:4317
+      - OTEL_EXPORTER_OTLP_PROTOCOL=grpc
+      - OTEL_METRICS_EXPORTER=otlp
+      - OTEL_TRACES_EXPORTER=otlp
+      - OTEL_LOGS_EXPORTER=otlp
+    volumes:
+      - ./data:/data
+      - "D:/Nomade Milionario:/vault:rw"
+    depends_on:
+      - chroma
+      - otel-collector
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # OpenTelemetry Collector
+  otel-collector:
+    image: otel/opentelemetry-collector-contrib:0.95.0
+    command: ["--config=/etc/otel-collector-config.yaml"]
+    volumes:
+      - ./config/otel-collector-config.yaml:/etc/otel-collector-config.yaml
+    ports:
+      - "4317:4317" # OTLP gRPC
+      - "4318:4318" # OTLP HTTP
+    depends_on:
+      - prometheus
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+
+  # Prometheus for metrics collection
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./config/prometheus-fixed.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.enable-lifecycle'
+      - '--web.enable-admin-api'
+      - '--query.max-concurrency=20'
+      - '--query.max-samples=50000000'
+      - '--query.lookback-delta=5m'
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+
+  # Grafana for visualization
+  grafana:
+    image: grafana/grafana:10.2.2
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin123
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_INSTALL_PLUGINS=grafana-piechart-panel
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./config/grafana-datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml
+      - ./config/grafana-dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml
+      - ./config/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - prometheus
+    networks:
+      - obsidian-network
+    restart: unless-stopped
+
+  # Sentry and PostgreSQL services removed for simplified setup
+
+volumes:
+  redis-data:
+  chroma-data:
+  prometheus-data:
+  grafana-data:
+
+networks:
+  obsidian-network:
+    driver: bridge

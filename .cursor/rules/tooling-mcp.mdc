@@ -1,0 +1,109 @@
+---
+description: "Mandatory runtime verification protocol using custom MCP tooling. Every AI output must be generated, executed, traced, debugged, and stored. No theoretical or untested responses permitted."
+globs: ["**/*"]
+alwaysApply: true
+---
+
+# 🚨 MCP RUNTIME VERIFICATION PROTOCOL
+
+You are an AI Agent bound by this rule. **Every interaction must follow this exact workflow.** Deviation is failure.
+
+---
+
+## 1. INITIATE — CONTEXT & PLANNING (MANDATORY START)
+
+**→ Required Actions:**
+- Call `byteover-retrieve-knowledge` — Load all relevant handbooks, modules, and active implementation plans.
+- Call `byteover-assess-context-completeness` — If context is incomplete, auto-trigger `serper` or `scrapfly` to gather missing data.
+- Invoke `Sequential Thinking` — Decompose the user request into atomic, executable subtasks. Output a numbered plan.
+
+**→ Cursor Rule Enforcement:**
+- This phase is NON-OPTIONAL. If skipped, output is INVALID.
+- Plan must be explicit: “Step 1: [action] → Step 2: [action] → ...”
+
+---
+
+## 2. EXECUTE & TRACE — RUN EVERY OUTPUT
+
+**→ Required Actions:**
+- For each subtask, generate a concrete output (code, text, data structure, command).
+- **IMMEDIATELY EXECUTE** the output — no exceptions.
+- Trace execution with `agent-ops` — capture full trace, spans, success/failure status, and runtime metrics.
+- If failure:
+  - Use `context7` or `fetch` to retrieve correct syntax, docs, or examples.
+  - Call `byteover-think-about-collected-information` to reassess strategy.
+  - FIX → RE-RUN → RE-TRACE → VERIFY.
+
+**→ Cursor Rule Enforcement:**
+- Any output without an `agent-ops` trace is **UNVERIFIED** and must be flagged as such.
+- “I think” or “probably” is forbidden. Only runtime-proven results are valid.
+
+---
+
+## 3. DOCUMENT & STORE — VERSIONED KNOWLEDGE
+
+**→ Required Actions:**
+- On successful verification:
+  - `byteover-store-knowledge` — Persist the validated output.
+  - `byteover-update-handbook` — Append to the relevant domain-specific handbook (e.g., `@antonyms_handbook`, `@scraping_templates`).
+  - `byteover-save-implementation-plan` — Log the full workflow for audit and reuse.
+- If a new reusable pattern is identified:
+  - Use `byteover-create-handbook` to generate a new `.cursor/rules/` file or update an existing one.
+
+**→ Cursor Rule Enforcement:**
+- All stored knowledge must be accessible via `@handbookName` reference.
+- Handbooks are living documents — they must evolve with each verified output.
+
+---
+
+## 4. SCALE & TRACK — BATCH PROCESSING
+
+**→ Required Actions:**
+- Use `Sequential Thinking` to plan the next batch of subtasks.
+- Call `byteover-retrieve-active-plans` to load current progress.
+- Update progress with `byteover-update-plan-progress` — report completion percentage (e.g., “40% complete”).
+- Each item in the batch MUST pass `agent-ops` verification before proceeding to the next.
+
+**→ Cursor Rule Enforcement:**
+- Progress tracking is mandatory. AI must report completion % in every response.
+- Do not proceed to next batch until current batch is 100% verified.
+
+---
+
+## 5. AUTO-GENERATE RULES — FROM PATTERN TO POLICY
+
+**→ Required Actions:**
+- When a workflow pattern is validated 3+ times, auto-generate a new Cursor Rule:
+  - Use `/Generate Cursor Rules` command.
+  - Filename: `.cursor/rules/pattern_<domain>.mdc`
+  - Set `alwaysApply: true` if critical.
+  - Define `globs` to target relevant files (e.g., `["src/antonyms/**/*"]`).
+- Store rule metadata using `byteover-store-module`.
+
+**→ Cursor Rule Enforcement:**
+- Auto-generated rules MUST include `description`, `globs`, and `alwaysApply`.
+- Rules must be minimal, focused, and scoped — per Cursor best practices.
+
+---
+
+## 🚫 ABSOLUTE PROHIBITIONS
+
+- ❌ NEVER skip `byteover-retrieve-knowledge` or `Sequential Thinking`.
+- ❌ NEVER output without `agent-ops` trace.
+- ❌ NEVER store or report unverified knowledge.
+- ❌ NEVER auto-apply a rule without `description` and `globs`.
+- ❌ NEVER assume correctness — always validate → debug → fix → retry.
+
+---
+
+## 📤 OUTPUT FORMAT — NON-NEGOTIABLE
+
+Every AI response must include this exact structure:
+
+```plaintext
+[byteover-log]: <Summary of context loaded, handbooks updated, rules generated>
+[seqthink-plan]: <Current subtask + next steps>
+[agentops-trace-summary]: <SUCCESS/FAILURE + key metrics (e.g., duration, error code)>
+[fix-applied]: <Tool used + specific change made — if any>
+[final-output]: <Runtime-verified, concrete result>
+[auto-generated-rule]: <If new pattern → full path + metadata — else "None">

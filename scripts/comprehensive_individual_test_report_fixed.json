@@ -1,0 +1,143 @@
+{
+  "timestamp": "2025-09-09 14:53:51",
+  "components_tested": [
+    {
+      "component": "ReRanker",
+      "status": "passed",
+      "tests_passed": 2,
+      "tests_failed": 0,
+      "total_tests": 2,
+      "errors": [],
+      "performance_time": 10.780269622802734,
+      "details": {
+        "rerank_results": 2,
+        "search_results": 2
+      },
+      "passed": true
+    },
+    {
+      "component": "TopicDetector",
+      "status": "passed",
+      "tests_passed": 1,
+      "tests_failed": 0,
+      "total_tests": 1,
+      "errors": [],
+      "performance_time": 4.695199012756348,
+      "details": {
+        "test_queries": 3,
+        "results": [
+          {
+            "query": "machine learning algorithms",
+            "topic": "technology",
+            "topics": [
+              "technology",
+              "performance",
+              "science"
+            ]
+          },
+          {
+            "query": "philosophical logic",
+            "topic": "philosophy",
+            "topics": [
+              "philosophy",
+              "science"
+            ]
+          },
+          {
+            "query": "performance optimization",
+            "topic": "performance",
+            "topics": [
+              "performance",
+              "business",
+              "technology",
+              "science"
+            ]
+          }
+        ]
+      },
+      "passed": true
+    },
+    {
+      "component": "SmartDocumentFilter",
+      "status": "passed",
+      "tests_passed": 2,
+      "tests_failed": 0,
+      "total_tests": 2,
+      "errors": [],
+      "performance_time": 3.808067560195923,
+      "details": {
+        "tech_docs": 1,
+        "filtered_docs": 1
+      },
+      "passed": true
+    },
+    {
+      "component": "AdvancedContentProcessor",
+      "status": "passed",
+      "tests_passed": 1,
+      "tests_failed": 0,
+      "total_tests": 1,
+      "errors": [],
+      "performance_time": 0.45108771324157715,
+      "details": {
+        "chunks_generated": 4,
+        "chunk_headings": [
+          "Introduction to Machine Learning",
+          "Types of ML",
+          "Supervised Learning",
+          "Unsupervised Learning"
+        ]
+      },
+      "passed": true
+    },
+    {
+      "component": "ValidationScripts",
+      "status": "passed",
+      "tests_passed": 2,
+      "tests_failed": 0,
+      "total_tests": 2,
+      "errors": [],
+      "performance_time": 36.47983169555664,
+      "details": {
+        "embedding_shape": [
+          384
+        ],
+        "quality_score": 0.3333333333333333
+      },
+      "passed": true
+    },
+    {
+      "component": "MainCLIScripts",
+      "status": "passed",
+      "tests_passed": 3,
+      "tests_failed": 0,
+      "total_tests": 3,
+      "errors": [],
+      "performance_time": 9.679794311523438e-05,
+      "details": {
+        "import_results": [
+          {
+            "script": "fixed-agentic-rag-cli.py",
+            "status": "importable"
+          },
+          {
+            "script": "enhanced_agentic_rag_cli.py",
+            "status": "importable"
+          },
+          {
+            "script": "final_comprehensive_rag_cli.py",
+            "status": "importable"
+          }
+        ]
+      },
+      "passed": true
+    }
+  ],
+  "total_tests": 11,
+  "passed_tests": 11,
+  "failed_tests": 0,
+  "errors": [],
+  "performance_metrics": {
+    "total_test_time": 56.2163405418396
+  }
+}

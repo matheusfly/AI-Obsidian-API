@@ -1,0 +1,42 @@
+{
+  "phase": "1",
+  "test_name": "Phase 1 Simple Real Data Validation",
+  "components": {
+    "embedding_service": {
+      "working": true,
+      "dimension": 384,
+      "model_name": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+      "multilingual": true
+    },
+    "chromadb_service": {
+      "working": true,
+      "collection_name": "test_simple_validation",
+      "total_chunks": 0,
+      "embedding_model": "sentence-transformers/all-MiniLM-L6-v2"
+    },
+    "vault_data": {
+      "available": true,
+      "file_count": 3,
+      "sample_content_length": 200,
+      "sample_files": [
+        "ai-agents-guide.md",
+        "rag-system-architecture.md",
+        "vector-databases.md"
+      ]
+    },
+    "cross_encoder": {
+      "working": true,
+      "model_name": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+      "test_scores": [
+        2.596755266189575,
+        -11.259468078613281
+      ],
+      "score_range": [
+        -11.259468078613281,
+        2.596755266189575
+      ]
+    }
+  },
+  "overall_score": 0.75,
+  "passed": true
+}

@@ -1,0 +1,7 @@
+🧪 Simple Validation Test
+==============================
+❌ Error: No module named 'numpy'
+Traceback (most recent call last):
+  File "d:\codex\datamaster\backend-ops\data-vault-obsidian\scripts\test_file_output.py", line 18, in <module>
+    import numpy as np
+ModuleNotFoundError: No module named 'numpy'

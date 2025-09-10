@@ -1,0 +1,47 @@
+groups:
+  - name: vector-database-alerts
+    rules:
+      - alert: VectorDBDown
+        expr: up{job="data-pipeline"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Vector Database is down"
+          description: "Data pipeline service has been down for more than 1 minute"
+
+      - alert: HighQueryLatency
+        expr: histogram_quantile(0.95, rate(vector_db_query_duration_seconds_bucket[5m])) > 1
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High query latency detected"
+          description: "95th percentile query latency is {{ $value }}s"
+
+      - alert: LowCacheHitRate
+        expr: (rate(vector_db_cache_hits_total[5m]) / (rate(vector_db_cache_hits_total[5m]) + rate(vector_db_cache_misses_total[5m]))) < 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Low cache hit rate"
+          description: "Cache hit rate is {{ $value | printf \"%.2f%%\" }}"
+
+      - alert: HighMemoryUsage
+        expr: vector_db_memory_usage_bytes > 1000000000  # 1GB
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage"
+          description: "Vector database memory usage is {{ $value | printf \"%.2f MB\" }}"
+
+      - alert: CollectionSizeGrowing
+        expr: increase(vector_db_collection_size[1h]) > 1000
+        for: 0m
+        labels:
+          severity: info
+        annotations:
+          summary: "Collection growing rapidly"
+          description: "Collection added {{ $value }} vectors in the last hour"

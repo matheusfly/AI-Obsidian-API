@@ -1,0 +1,19 @@
+{
+  "component": "TopicDetector",
+  "tests_passed": 7,
+  "tests_failed": 0,
+  "total_tests": 7,
+  "performance_metrics": {
+    "initialization_time": 4.29986047744751,
+    "single_detection_time": 0.022907257080078125,
+    "detection_accuracy": 1.0,
+    "multiple_detection_time": 0.02127385139465332,
+    "similarity_scores_time": 0.02077960968017578,
+    "batch_processing_time": 1.0800294876098633,
+    "queries_per_second": 46.29503228717528,
+    "avg_time_per_query": 0.021600589752197266,
+    "total_test_time": 5.760732650756836
+  },
+  "errors": [],
+  "warnings": []
+}

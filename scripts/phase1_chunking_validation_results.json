@@ -1,0 +1,155 @@
+{
+  "phase": "1.2",
+  "test_name": "Chunking Strategy Validation",
+  "overall_score": 0.7,
+  "structure_results": {
+    "total_chunks": 8,
+    "structure_preserved": true,
+    "heading_chunks": 8,
+    "content_chunks": 0,
+    "chunk_analysis": [
+      {
+        "chunk_id": "chunk_0",
+        "heading": "Introduction to Machine Learning",
+        "content_length": 119,
+        "word_count": 17,
+        "token_count": 18
+      },
+      {
+        "chunk_id": "chunk_1",
+        "heading": "Supervised Learning",
+        "content_length": 89,
+        "word_count": 12,
+        "token_count": 14
+      },
+      {
+        "chunk_id": "chunk_2",
+        "heading": "Classification",
+        "content_length": 74,
+        "word_count": 7,
+        "token_count": 10
+      },
+      {
+        "chunk_id": "chunk_3",
+        "heading": "Regression",
+        "content_length": 64,
+        "word_count": 7,
+        "token_count": 10
+      },
+      {
+        "chunk_id": "chunk_4",
+        "heading": "Unsupervised Learning",
+        "content_length": 86,
+        "word_count": 11,
+        "token_count": 21
+      },
+      {
+        "chunk_id": "chunk_5",
+        "heading": "Clustering",
+        "content_length": 63,
+        "word_count": 8,
+        "token_count": 13
+      },
+      {
+        "chunk_id": "chunk_6",
+        "heading": "Dimensionality Reduction",
+        "content_length": 86,
+        "word_count": 10,
+        "token_count": 15
+      },
+      {
+        "chunk_id": "chunk_7",
+        "heading": "Conclusion",
+        "content_length": 71,
+        "word_count": 10,
+        "token_count": 11
+      }
+    ],
+    "structure_score": 1.0
+  },
+  "overlap_results": {
+    "overlap_tests": [
+      {
+        "expected_overlap": 0,
+        "chunks_generated": 1,
+        "actual_overlap_ratio": 0,
+        "has_overlap": false,
+        "passed": true
+      },
+      {
+        "expected_overlap": 50,
+        "chunks_generated": 1,
+        "actual_overlap_ratio": 0,
+        "has_overlap": false,
+        "passed": false
+      },
+      {
+        "expected_overlap": 100,
+        "chunks_generated": 1,
+        "actual_overlap_ratio": 0,
+        "has_overlap": false,
+        "passed": false
+      }
+    ],
+    "all_passed": false
+  },
+  "semantic_results": {
+    "total_chunks": 6,
+    "coherent_chunks": 4,
+    "average_chunk_size": 23.0,
+    "chunk_quality_scores": [
+      {
+        "chunk_id": "chunk_0",
+        "word_count": 24,
+        "quality_score": 0.48,
+        "is_coherent": true,
+        "complete_sentences": 1
+      },
+      {
+        "chunk_id": "chunk_1",
+        "word_count": 20,
+        "quality_score": 0.4,
+        "is_coherent": false,
+        "complete_sentences": 1
+      },
+      {
+        "chunk_id": "chunk_2",
+        "word_count": 28,
+        "quality_score": 0.56,
+        "is_coherent": true,
+        "complete_sentences": 2
+      },
+      {
+        "chunk_id": "chunk_3",
+        "word_count": 26,
+        "quality_score": 0.52,
+        "is_coherent": true,
+        "complete_sentences": 2
+      },
+      {
+        "chunk_id": "chunk_4",
+        "word_count": 22,
+        "quality_score": 0.44,
+        "is_coherent": true,
+        "complete_sentences": 1
+      },
+      {
+        "chunk_id": "chunk_5",
+        "word_count": 18,
+        "quality_score": 0.36,
+        "is_coherent": false,
+        "complete_sentences": 1
+      }
+    ],
+    "coherence_ratio": 0.6666666666666666
+  },
+  "performance_results": {
+    "document_size_words": 25304,
+    "chunks_generated": 101,
+    "processing_time": 0.09064817428588867,
+    "words_per_second": 279145.16976586374,
+    "performance_acceptable": true
+  },
+  "duration": 11.2359299659729,
+  "passed": true
+}

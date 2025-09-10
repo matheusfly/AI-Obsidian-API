@@ -1,0 +1,36 @@
+# 🎭 PLAYWRIGHT BUILT-IN REPORT COMMANDS
+# Focus on Playwright's native HTML reporter only
+
+## Quick One-Liners:
+
+# Run Playwright tests with built-in HTML reporter
+npx playwright test --config=playwright.config.cjs --reporter=html
+
+# Open Playwright's built-in report (if not already open)
+npx playwright show-report
+
+# Run and auto-open report
+npx playwright test --config=playwright.config.cjs --reporter=html && npx playwright show-report
+
+# Run with PowerShell script (auto-opens)
+.\scripts\testing\playwright_builtin_runner.ps1 -AutoOpen
+
+## Report Locations:
+- Built-in HTML Report: test-reports\playwright\playwright-results\index.html
+- Test Results: test-results\
+- Screenshots: test-results\[test-name]\test-failed-1.png
+- Videos: test-results\[test-name]\video.webm
+
+## Key Features:
+✅ Uses Playwright's native HTML reporter
+✅ No custom HTML pages needed
+✅ Built-in screenshots and videos
+✅ Interactive test results
+✅ Timeline view
+✅ Trace viewer integration
+✅ Auto-opens in browser
+
+## Note:
+- Services must be running for tests to pass
+- Use .\scripts\main_launcher.ps1 to start services first
+- Report automatically opens at http://localhost:9323

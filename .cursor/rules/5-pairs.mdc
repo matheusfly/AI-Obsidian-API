@@ -1,0 +1,12 @@
+---
+description: "Runtime-verified antonym generation with auto-documentation."
+globs: ["src/linguistics/antonyms/**/*", "docs/antonyms.md"]
+alwaysApply: true
+---
+
+[byteover-log]: Loaded @antonyms_handbook_v3, active plan @antonym_gen_batch_5. No new rules generated.
+[seqthink-plan]: Step 3/5: Generate "light → dark" → validate → store. Next: "old → new".
+[agentops-trace-summary]: SUCCESS — "light → dark" validated in 0.7s. No errors.
+[fix-applied]: None.
+[final-output]: "light → dark"
+[auto-generated-rule]: None

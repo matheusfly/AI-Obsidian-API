@@ -1,0 +1,110 @@
+{
+  "export_timestamp": "2025-09-07T21:24:38.999748",
+  "system_metrics": [
+    {
+      "timestamp": "2025-09-07 21:24:27.700146",
+      "cpu_percent": 18.0,
+      "memory_percent": 82.4,
+      "memory_used_gb": 26.13003158569336,
+      "memory_available_gb": 5.596401214599609,
+      "disk_usage_percent": 84.3,
+      "disk_free_gb": 149.75762176513672,
+      "network_sent_mb": 567.3541704011876,
+      "network_recv_mb": 8018.072031479141,
+      "process_count": 539,
+      "load_average": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "query_metrics": [
+    {
+      "timestamp": "2025-09-07 21:24:28.862596",
+      "query": "machine learning algorithms",
+      "search_time_ms": 60.0,
+      "gemini_time_ms": 120.0,
+      "total_time_ms": 180.0,
+      "results_count": 3,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "timestamp": "2025-09-07 21:24:31.142649",
+      "query": "API authentication implementation",
+      "search_time_ms": 70.0,
+      "gemini_time_ms": 140.0,
+      "total_time_ms": 210.0,
+      "results_count": 3,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "timestamp": "2025-09-07 21:24:33.420699",
+      "query": "database optimization techniques",
+      "search_time_ms": 80.0,
+      "gemini_time_ms": 160.0,
+      "total_time_ms": 240.0,
+      "results_count": 3,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "timestamp": "2025-09-07 21:24:35.711235",
+      "query": "Python performance tuning",
+      "search_time_ms": 90.0,
+      "gemini_time_ms": 180.0,
+      "total_time_ms": 270.0,
+      "results_count": 3,
+      "success": true,
+      "error_message": null
+    },
+    {
+      "timestamp": "2025-09-07 21:24:37.996121",
+      "query": "vector database configuration",
+      "search_time_ms": 100.0,
+      "gemini_time_ms": 200.0,
+      "total_time_ms": 300.0,
+      "results_count": 3,
+      "success": true,
+      "error_message": null
+    }
+  ],
+  "analytics_summary": {
+    "uptime_seconds": 13.5499427318573,
+    "total_queries": 5,
+    "recent_queries_count": 5,
+    "success_rate": 100.0,
+    "avg_search_time_ms": 80.0,
+    "avg_gemini_time_ms": 160.0,
+    "avg_total_time_ms": 240.0,
+    "system_metrics": {
+      "avg_cpu_percent": 18.0,
+      "avg_memory_percent": 82.4,
+      "avg_disk_usage_percent": 84.3,
+      "current": {
+        "timestamp": "2025-09-07T21:24:40.007318",
+        "cpu_percent": 39.8,
+        "memory_percent": 82.9,
+        "memory_used_gb": 26.289169311523438,
+        "memory_available_gb": 5.437263488769531,
+        "disk_usage_percent": 84.3,
+        "disk_free_gb": 149.75762557983398,
+        "network_sent_mb": 0.20689324434454723,
+        "network_recv_mb": 0.09890737673952248,
+        "process_count": 537,
+        "load_average": [
+          0.0,
+          0.0,
+          0.0
+        ]
+      }
+    },
+    "query_trends": {
+      "queries_per_minute": 0.08333333333333333,
+      "avg_results_per_query": 3.0,
+      "error_rate": 0.0
+    }
+  }
+}

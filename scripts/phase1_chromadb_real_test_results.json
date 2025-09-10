@@ -1,0 +1,67 @@
+{
+  "test_name": "Phase 1.2 Real ChromaDB Service Test",
+  "passed": true,
+  "quality_score": 1.0,
+  "collection_name": "test_phase1_chromadb_validation",
+  "persist_directory": "D:\\codex\\datamaster\\backend-ops\\data-vault-obsidian\\data\\chroma",
+  "files_processed": 3,
+  "chunks_prepared": 3,
+  "collection_stats": {
+    "collection_name": "test_phase1_chromadb_validation",
+    "total_chunks": 0,
+    "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+    "hnsw_optimization": true,
+    "hnsw_config": {},
+    "batch_optimization_enabled": true
+  },
+  "store_success": true,
+  "search_success_rate": 1.0,
+  "metadata_success_rate": 1.0,
+  "quality_checks": {
+    "collection_stats": true,
+    "data_preparation": true,
+    "store_embeddings": true,
+    "semantic_search": true,
+    "metadata_search": true
+  },
+  "search_results": [
+    {
+      "query": "artificial intelligence",
+      "results_count": 3,
+      "success": true
+    },
+    {
+      "query": "machine learning algorithms",
+      "results_count": 3,
+      "success": true
+    },
+    {
+      "query": "vector database",
+      "results_count": 3,
+      "success": true
+    }
+  ],
+  "metadata_results": [
+    {
+      "filter": {
+        "file_type": "markdown"
+      },
+      "results_count": 3,
+      "success": true
+    },
+    {
+      "filter": {
+        "path_category": "test"
+      },
+      "results_count": 3,
+      "success": true
+    },
+    {
+      "filter": {
+        "content_type": "documentation"
+      },
+      "results_count": 3,
+      "success": true
+    }
+  ]
+}

@@ -1,0 +1,236 @@
+{
+  "phase": "1",
+  "test_name": "Phase 1 Real Data Comprehensive Validation",
+  "overall_score": 1.0,
+  "embedding_results": {
+    "service_working": true,
+    "model_name": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "multilingual": true,
+    "embedding_dimension": 384,
+    "real_files_tested": 3,
+    "similarity_tests": [
+      {
+        "file1": "ai-agents-guide.md",
+        "file2": "rag-system-architecture.md",
+        "similarity": 0.1255816863339157
+      },
+      {
+        "file1": "ai-agents-guide.md",
+        "file2": "vector-databases.md",
+        "similarity": 0.3959893055941183
+      },
+      {
+        "file1": "rag-system-architecture.md",
+        "file2": "vector-databases.md",
+        "similarity": 0.41604376481625643
+      }
+    ],
+    "consistency_tests": [
+      {
+        "file": "ai-agents-guide.md",
+        "consistency": 1.0000000000000004
+      },
+      {
+        "file": "rag-system-architecture.md",
+        "consistency": 1.0000000000000004
+      },
+      {
+        "file": "vector-databases.md",
+        "consistency": 1.0000000000000002
+      }
+    ],
+    "avg_similarity": 0.31253825224809684,
+    "avg_consistency": 1.0000000000000002
+  },
+  "chroma_results": {
+    "service_working": true,
+    "collection_name": "test_phase1_validation",
+    "persist_directory": "D:\\codex\\datamaster\\backend-ops\\data-vault-obsidian\\data\\chroma",
+    "collection_stats": {
+      "collection_name": "test_phase1_validation",
+      "total_chunks": 2,
+      "embedding_model": "sentence-transformers/all-MiniLM-L6-v2",
+      "hnsw_optimization": true,
+      "hnsw_config": {},
+      "batch_optimization_enabled": true
+    },
+    "chunks_prepared": 2,
+    "store_success": true,
+    "search_results_count": 2,
+    "metadata_results_count": 2,
+    "search_working": true,
+    "metadata_search_working": true
+  },
+  "search_results": {
+    "service_working": true,
+    "queries_tested": 5,
+    "successful_searches": 5,
+    "success_rate": 1.0,
+    "avg_search_time": 0.014222240447998047,
+    "avg_similarity": 0.10245767831802369,
+    "search_results": [
+      {
+        "query": "artificial intelligence machine learning",
+        "results_count": 2,
+        "search_time": 0.016662120819091797,
+        "avg_similarity": 0.14614129066467285,
+        "max_similarity": 0.2549363374710083,
+        "min_similarity": 0.0373462438583374,
+        "success": true
+      },
+      {
+        "query": "vector database embeddings",
+        "results_count": 2,
+        "search_time": 0.017787456512451172,
+        "avg_similarity": 0.12160176038742065,
+        "max_similarity": 0.13554155826568604,
+        "min_similarity": 0.10766196250915527,
+        "success": true
+      },
+      {
+        "query": "philosophy mathematics logic",
+        "results_count": 2,
+        "search_time": 0.01241445541381836,
+        "avg_similarity": 0.0720270574092865,
+        "max_similarity": 0.09615427255630493,
+        "min_similarity": 0.047899842262268066,
+        "success": true
+      },
+      {
+        "query": "web scraping data extraction",
+        "results_count": 2,
+        "search_time": 0.012408971786499023,
+        "avg_similarity": 0.07077860832214355,
+        "max_similarity": 0.0800020694732666,
+        "min_similarity": 0.06155514717102051,
+        "success": true
+      },
+      {
+        "query": "performance optimization techniques",
+        "results_count": 2,
+        "search_time": 0.011838197708129883,
+        "avg_similarity": 0.10173967480659485,
+        "max_similarity": 0.11704635620117188,
+        "min_similarity": 0.08643299341201782,
+        "success": true
+      }
+    ],
+    "performance_metrics": [
+      {
+        "query": "artificial intelligence machine learning",
+        "search_time": 0.016662120819091797,
+        "results_per_second": 120.03273903213805
+      },
+      {
+        "query": "vector database embeddings",
+        "search_time": 0.017787456512451172,
+        "results_per_second": 112.43878508430957
+      },
+      {
+        "query": "philosophy mathematics logic",
+        "search_time": 0.01241445541381836,
+        "results_per_second": 161.1025158440561
+      },
+      {
+        "query": "web scraping data extraction",
+        "search_time": 0.012408971786499023,
+        "results_per_second": 161.17370837896516
+      },
+      {
+        "query": "performance optimization techniques",
+        "search_time": 0.011838197708129883,
+        "results_per_second": 168.9446357722595
+      }
+    ]
+  },
+  "reranking_results": {
+    "service_working": true,
+    "model_name": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "test_query": "artificial intelligence machine learning algorithms",
+    "documents_tested": 5,
+    "score_analysis": [
+      {
+        "document": "Machine learning is a subset of artificial intelligence that focuses on algorithms and statistical m...",
+        "cross_score": 7.15975284576416,
+        "rank": 1
+      },
+      {
+        "document": "Web scraping involves extracting data from websites using tools like Scrapy and BeautifulSoup....",
+        "cross_score": -11.31767463684082,
+        "rank": 2
+      },
+      {
+        "document": "Philosophy of mathematics examines the nature of mathematical objects and truth....",
+        "cross_score": -11.379510879516602,
+        "rank": 3
+      },
+      {
+        "document": "Artificial intelligence algorithms use neural networks to process and learn from data....",
+        "cross_score": 7.049307823181152,
+        "rank": 4
+      },
+      {
+        "document": "Database optimization techniques improve query performance and reduce response times....",
+        "cross_score": -11.250910758972168,
+        "rank": 5
+      }
+    ],
+    "sorted_results": [
+      {
+        "document": "Machine learning is a subset of artificial intelligence that focuses on algorithms and statistical m...",
+        "cross_score": 7.15975284576416,
+        "rank": 1
+      },
+      {
+        "document": "Artificial intelligence algorithms use neural networks to process and learn from data....",
+        "cross_score": 7.049307823181152,
+        "rank": 4
+      },
+      {
+        "document": "Database optimization techniques improve query performance and reduce response times....",
+        "cross_score": -11.250910758972168,
+        "rank": 5
+      },
+      {
+        "document": "Web scraping involves extracting data from websites using tools like Scrapy and BeautifulSoup....",
+        "cross_score": -11.31767463684082,
+        "rank": 2
+      },
+      {
+        "document": "Philosophy of mathematics examines the nature of mathematical objects and truth....",
+        "cross_score": -11.379510879516602,
+        "rank": 3
+      }
+    ],
+    "performance_tests": [
+      {
+        "candidate_count": 5,
+        "processing_time": 0.019847393035888672,
+        "candidates_per_second": 251.92225452273982
+      },
+      {
+        "candidate_count": 10,
+        "processing_time": 0.033777475357055664,
+        "candidates_per_second": 296.0552822344413
+      },
+      {
+        "candidate_count": 20,
+        "processing_time": 0.04289579391479492,
+        "candidates_per_second": 466.2461788147934
+      },
+      {
+        "candidate_count": 50,
+        "processing_time": 0.09517788887023926,
+        "candidates_per_second": 525.3320975438685
+      }
+    ],
+    "avg_score": -3.9478073120117188,
+    "score_range": [
+      -11.379510879516602,
+      7.15975284576416
+    ]
+  },
+  "duration": 27.192821264266968,
+  "passed": true,
+  "timestamp": "2025-09-09 16:20:36"
+}

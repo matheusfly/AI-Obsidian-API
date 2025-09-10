@@ -1,0 +1,277 @@
+{
+  "timestamp": "2025-09-07T14:42:33.491085",
+  "tests": {
+    "baseline": {
+      "test_name": "Baseline Search",
+      "queries": {
+        "machine learning algorithms": {
+          "search_time": 0.03571033477783203,
+          "num_results": 5,
+          "avg_quality_score": 0.30370292663574217,
+          "avg_normalized_score": 0.30370292663574217,
+          "method_type": "similarity",
+          "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+        },
+        "python programming language": {
+          "search_time": 0.012863874435424805,
+          "num_results": 5,
+          "avg_quality_score": 0.2560302376747131,
+          "avg_normalized_score": 0.2560302376747131,
+          "method_type": "similarity",
+          "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+        },
+        "data analysis techniques": {
+          "search_time": 0.011965513229370117,
+          "num_results": 5,
+          "avg_quality_score": 0.302033805847168,
+          "avg_normalized_score": 0.302033805847168,
+          "method_type": "similarity",
+          "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+        },
+        "database optimization methods": {
+          "search_time": 0.012329339981079102,
+          "num_results": 5,
+          "avg_quality_score": 0.28909590244293215,
+          "avg_normalized_score": 0.28909590244293215,
+          "method_type": "similarity",
+          "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+        },
+        "API development best practices": {
+          "search_time": 0.01226353645324707,
+          "num_results": 5,
+          "avg_quality_score": 0.1943019986152649,
+          "avg_normalized_score": 0.19810105562210084,
+          "method_type": "similarity",
+          "top_result": "API development requires understanding REST principles, authentication mechanisms, error handling, a..."
+        }
+      },
+      "performance": {
+        "avg_search_time": 0.017026519775390624,
+        "min_search_time": 0.011965513229370117,
+        "max_search_time": 0.03571033477783203,
+        "total_queries": 5
+      },
+      "quality": {
+        "avg_quality_score": 0.2690329742431641,
+        "avg_normalized_score": 0.26979278564453124,
+        "min_quality_score": 0.1943019986152649,
+        "max_quality_score": 0.30370292663574217,
+        "quality_consistency": 0.8291852824482431
+      },
+      "ux_metrics": {
+        "p50": 0.012329339981079102,
+        "p95": 0.031141042709350582,
+        "p99": 0.03479647636413574,
+        "consistency": 0.45106816043069464,
+        "min_time": 0.011965513229370117,
+        "max_time": 0.03571033477783203,
+        "std_dev": 0.009346398821768331
+      },
+      "memory_efficiency": {
+        "memory_per_query": -0.83984375,
+        "total_memory_used": -4.19921875,
+        "memory_efficiency": 0
+      }
+    },
+    "improved_reranked": {
+      "test_name": "Improved Re-ranked Search",
+      "queries": {
+        "machine learning algorithms": {
+          "search_time": 0.0018854141235351562,
+          "num_results": 5,
+          "avg_quality_score": 0.30370292663574217,
+          "avg_normalized_score": 0.30370292663574217,
+          "method_type": "similarity",
+          "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+        },
+        "python programming language": {
+          "search_time": 0.0022056102752685547,
+          "num_results": 5,
+          "avg_quality_score": 0.2560302376747131,
+          "avg_normalized_score": 0.2560302376747131,
+          "method_type": "similarity",
+          "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+        },
+        "data analysis techniques": {
+          "search_time": 0.0016911029815673828,
+          "num_results": 5,
+          "avg_quality_score": 0.302033805847168,
+          "avg_normalized_score": 0.302033805847168,
+          "method_type": "similarity",
+          "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+        },
+        "database optimization methods": {
+          "search_time": 0.0015184879302978516,
+          "num_results": 5,
+          "avg_quality_score": 0.28909590244293215,
+          "avg_normalized_score": 0.28909590244293215,
+          "method_type": "similarity",
+          "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+        },
+        "API development best practices": {
+          "search_time": 0.0018932819366455078,
+          "num_results": 5,
+          "avg_quality_score": 0.1943019986152649,
+          "avg_normalized_score": 0.19810105562210084,
+          "method_type": "similarity",
+          "top_result": "API development requires understanding REST principles, authentication mechanisms, error handling, a..."
+        }
+      },
+      "performance": {
+        "avg_search_time": 0.0018387794494628905,
+        "min_search_time": 0.0015184879302978516,
+        "max_search_time": 0.0022056102752685547,
+        "total_queries": 5
+      },
+      "quality": {
+        "avg_quality_score": 0.2690329742431641,
+        "avg_normalized_score": 0.26979278564453124,
+        "min_quality_score": 0.1943019986152649,
+        "max_quality_score": 0.30370292663574217,
+        "quality_consistency": 0.8291852824482431
+      },
+      "ux_metrics": {
+        "p50": 0.0018854141235351562,
+        "p95": 0.0021431446075439453,
+        "p99": 0.002193117141723633,
+        "consistency": 0.8750104213892559,
+        "min_time": 0.0015184879302978516,
+        "max_time": 0.0022056102752685547,
+        "std_dev": 0.00022982826854646266
+      },
+      "memory_efficiency": {
+        "memory_per_query": 0.00234375,
+        "total_memory_used": 0.01171875,
+        "memory_efficiency": 426.6666666666667
+      }
+    },
+    "hybrid": {
+      "test_name": "Hybrid Search",
+      "queries": {
+        "machine learning algorithms": {
+          "search_time": 1.3160572052001953,
+          "num_results": 5,
+          "avg_quality_score": 0.29923985004425047,
+          "avg_normalized_score": 0.29923985004425047,
+          "method_type": "similarity",
+          "top_result": "Machine learning algorithms are computational methods that enable computers to learn patterns from d..."
+        },
+        "python programming language": {
+          "search_time": 0.8917844295501709,
+          "num_results": 5,
+          "avg_quality_score": 0.17944875955581666,
+          "avg_normalized_score": 0.17968450784683226,
+          "method_type": "similarity",
+          "top_result": "Python is a versatile programming language widely used in data science, machine learning, web develo..."
+        },
+        "data analysis techniques": {
+          "search_time": 0.8844900131225586,
+          "num_results": 5,
+          "avg_quality_score": 0.302033805847168,
+          "avg_normalized_score": 0.302033805847168,
+          "method_type": "similarity",
+          "top_result": "Data analysis techniques involve collecting, cleaning, processing, and interpreting data to extract ..."
+        },
+        "database optimization methods": {
+          "search_time": 0.8814249038696289,
+          "num_results": 5,
+          "avg_quality_score": 0.28909590244293215,
+          "avg_normalized_score": 0.28909590244293215,
+          "method_type": "similarity",
+          "top_result": "Database optimization involves improving query performance, indexing strategies, and data storage ef..."
+        },
+        "API development best practices": {
+          "search_time": 0.8781909942626953,
+          "num_results": 5,
+          "avg_quality_score": 0.20194021463394166,
+          "avg_normalized_score": 0.20257428884506226,
+          "method_type": "similarity",
+          "top_result": "API development requires understanding REST principles, authentication mechanisms, error handling, a..."
+        }
+      },
+      "performance": {
+        "avg_search_time": 0.9703895092010498,
+        "min_search_time": 0.8781909942626953,
+        "max_search_time": 1.3160572052001953,
+        "total_queries": 5
+      },
+      "quality": {
+        "avg_quality_score": 0.2543517065048218,
+        "avg_normalized_score": 0.25452567100524903,
+        "min_quality_score": 0.17944875955581666,
+        "max_quality_score": 0.302033805847168,
+        "quality_consistency": 0.7686290221179553
+      },
+      "ux_metrics": {
+        "p50": 0.8844900131225586,
+        "p95": 1.2312026500701903,
+        "p99": 1.2990862941741943,
+        "consistency": 0.821831959597071,
+        "min_time": 0.8781909942626953,
+        "max_time": 1.3160572052001953,
+        "std_dev": 0.17289239728191108
+      },
+      "memory_efficiency": {
+        "memory_per_query": 2.015625,
+        "total_memory_used": 10.078125,
+        "memory_efficiency": 0.49612403100775193
+      }
+    }
+  },
+  "normalized_comparisons": {
+    "performance": {
+      "baseline": {
+        "avg_search_time": 0.017026519775390624,
+        "avg_normalized_quality": 0.26979278564453124,
+        "ux_p95": 0.031141042709350582,
+        "memory_per_query": -0.83984375
+      },
+      "improved_reranked": {
+        "avg_search_time": 0.0018387794494628905,
+        "avg_normalized_quality": 0.26979278564453124,
+        "ux_p95": 0.0021431446075439453,
+        "memory_per_query": 0.00234375
+      },
+      "hybrid": {
+        "avg_search_time": 0.9703895092010498,
+        "avg_normalized_quality": 0.25452567100524903,
+        "ux_p95": 1.2312026500701903,
+        "memory_per_query": 2.015625
+      }
+    },
+    "quality": {
+      "baseline": {
+        "avg_normalized_score": 0.26979278564453124,
+        "quality_consistency": 0.8291852824482431,
+        "quality_range": 0.10940092802047727
+      },
+      "improved_reranked": {
+        "avg_normalized_score": 0.26979278564453124,
+        "quality_consistency": 0.8291852824482431,
+        "quality_range": 0.10940092802047727
+      },
+      "hybrid": {
+        "avg_normalized_score": 0.25452567100524903,
+        "quality_consistency": 0.7686290221179553,
+        "quality_range": 0.12258504629135134
+      }
+    },
+    "efficiency": {
+      "improved_reranked": {
+        "quality_improvement": 0.0,
+        "performance_cost": -0.015187740325927733,
+        "efficiency_ratio": 0.0,
+        "better_than_baseline": false
+      },
+      "hybrid": {
+        "quality_improvement": -0.015267114639282209,
+        "performance_cost": 0.9533629894256592,
+        "efficiency_ratio": -0.016013957756509593,
+        "better_than_baseline": false
+      }
+    }
+  },
+  "statistical_validation": {
+    "improved_reranked_vs_baseline": {
+      "p_value": NaN,
+      "significant": 

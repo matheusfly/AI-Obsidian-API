@@ -1,0 +1,136 @@
+{
+  "phase": "1.4",
+  "test_name": "Cross-Encoder Re-ranking Validation",
+  "overall_score": 0.30000000000000004,
+  "precision_results": {
+    "initial_precision_3": 1.0,
+    "reranked_precision_3": 1.0,
+    "precision_improvement_3": 0.0,
+    "initial_precision_5": 0.6,
+    "reranked_precision_5": 0.6,
+    "precision_improvement_5": 0.0,
+    "ranking_improvement": 0.0,
+    "reranking_effective": false
+  },
+  "relevance_results": {
+    "total_docs": 5,
+    "correctly_scored": 0,
+    "scoring_accuracy": 0.0,
+    "score_analysis": [
+      {
+        "doc_id": "doc_1",
+        "expected_relevance": "very_high",
+        "expected_range": [
+          0.8,
+          1.0
+        ],
+        "actual_score": 9.359318733215332,
+        "correctly_scored": false
+      },
+      {
+        "doc_id": "doc_3",
+        "expected_relevance": "high",
+        "expected_range": [
+          0.6,
+          0.8
+        ],
+        "actual_score": 3.2974905967712402,
+        "correctly_scored": false
+      },
+      {
+        "doc_id": "doc_4",
+        "expected_relevance": "medium",
+        "expected_range": [
+          0.3,
+          0.6
+        ],
+        "actual_score": -0.5913791656494141,
+        "correctly_scored": false
+      },
+      {
+        "doc_id": "doc_2",
+        "expected_relevance": "high",
+        "expected_range": [
+          0.6,
+          0.8
+        ],
+        "actual_score": -6.852958679199219,
+        "correctly_scored": false
+      },
+      {
+        "doc_id": "doc_5",
+        "expected_relevance": "low",
+        "expected_range": [
+          0.0,
+          0.3
+        ],
+        "actual_score": -11.319652557373047,
+        "correctly_scored": false
+      }
+    ]
+  },
+  "performance_results": {
+    "performance_tests": [
+      {
+        "candidate_count": 5,
+        "processing_time": 0.038642168045043945,
+        "candidates_per_second": 129.39232586980262,
+        "performance_acceptable": true
+      },
+      {
+        "candidate_count": 10,
+        "processing_time": 0.036566972732543945,
+        "candidates_per_second": 273.4708195053888,
+        "performance_acceptable": true
+      },
+      {
+        "candidate_count": 20,
+        "processing_time": 0.04727506637573242,
+        "candidates_per_second": 423.0559898328677,
+        "performance_acceptable": true
+      },
+      {
+        "candidate_count": 50,
+        "processing_time": 0.1112818717956543,
+        "candidates_per_second": 449.30948044991965,
+        "performance_acceptable": true
+      },
+      {
+        "candidate_count": 100,
+        "processing_time": 0.21808791160583496,
+        "candidates_per_second": 458.5306872979588,
+        "performance_acceptable": true
+      }
+    ],
+    "scalability_acceptable": true
+  },
+  "weight_results": {
+    "weight_tests": [
+      {
+        "configuration": "Cross-encoder Heavy",
+        "similarity_weight": 0.3,
+        "cross_score_weight": 0.7,
+        "quality_score": 1.5,
+        "top_result": "doc_1"
+      },
+      {
+        "configuration": "Balanced",
+        "similarity_weight": 0.5,
+        "cross_score_weight": 0.5,
+        "quality_score": 1.5,
+        "top_result": "doc_1"
+      },
+      {
+        "configuration": "Similarity Heavy",
+        "similarity_weight": 0.7,
+        "cross_score_weight": 0.3,
+        "quality_score": 1.5,
+        "top_result": "doc_1"
+      }
+    ],
+    "best_configuration": "Cross-encoder Heavy",
+    "best_score": 1.5
+  },
+  "duration": 22.706671953201294,
+  "passed": false
+}

@@ -1,0 +1,90 @@
+{
+  "phase": "1.1",
+  "test_name": "Embedding Quality Validation",
+  "overall_score": 1.0,
+  "accuracy_results": {
+    "total_tests": 4,
+    "passed_tests": 4,
+    "failed_tests": 0,
+    "test_results": [
+      {
+        "test_name": "Philosophy vs Programming",
+        "text1": "Philosophy of mathematics examines the nature of m...",
+        "text2": "Python programming involves writing code with func...",
+        "similarity": 0.12105021625757217,
+        "expected_range": [
+          0.1,
+          0.4
+        ],
+        "passed": true,
+        "description": "Different domains should have moderate similarity"
+      },
+      {
+        "test_name": "Philosophy Subfields",
+        "text1": "Platonism asserts that mathematical objects exist ...",
+        "text2": "Formalism views mathematics as a game played with ...",
+        "similarity": 0.4195312559604645,
+        "expected_range": [
+          0.3,
+          0.7
+        ],
+        "passed": true,
+        "description": "Related philosophy topics should have high similarity"
+      },
+      {
+        "test_name": "Technical vs Business",
+        "text1": "Machine learning algorithms use statistical method...",
+        "text2": "Business strategy focuses on competitive advantage...",
+        "similarity": 0.09368003159761429,
+        "expected_range": [
+          0.05,
+          0.3
+        ],
+        "passed": true,
+        "description": "Different domains should have low similarity"
+      },
+      {
+        "test_name": "Identical Content",
+        "text1": "The quick brown fox jumps over the lazy dog...",
+        "text2": "The quick brown fox jumps over the lazy dog...",
+        "similarity": 1.0,
+        "expected_range": [
+          0.99,
+          1.0
+        ],
+        "passed": true,
+        "description": "Identical content should have perfect similarity"
+      }
+    ],
+    "overall_accuracy": 1.0
+  },
+  "consistency_results": {
+    "avg_consistency": 1.000000238418579,
+    "min_consistency": 1.000000238418579,
+    "max_consistency": 1.000000238418579,
+    "is_consistent": true
+  },
+  "dimensionality_results": {
+    "dimensionality_tests": [
+      {
+        "text_length": 10,
+        "embedding_dimension": 384,
+        "is_correct_dimension": true
+      },
+      {
+        "text_length": 65,
+        "embedding_dimension": 384,
+        "is_correct_dimension": true
+      },
+      {
+        "text_length": 215,
+        "embedding_dimension": 384,
+        "is_correct_dimension": true
+      }
+    ],
+    "all_same_dimension": true,
+    "expected_dimension": 384
+  },
+  "duration": 14.564062595367432,
+  "passed": true
+}
