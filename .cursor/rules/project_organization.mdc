@@ -1,0 +1,323 @@
+# 📁 **PROJECT ORGANIZATION RULES**
+## **API-MCP-Simbiosis Advanced Search Engine - Consistent Folder Structure**
+
+> **Comprehensive rules to maintain professional project organization and folder structure**
+
+**Generated:** September 16, 2025  
+**Project:** API-MCP-Simbiosis Advanced Search Engine  
+**Status:** ✅ **ACTIVE RULES**  
+**Scope:** All project files and folders  
+**Enforcement:** Strict organization compliance  
+
+---
+
+## 🎯 **ORGANIZATION PRINCIPLES**
+
+### **📁 Core Principles**
+1. **Clear Separation of Concerns** - Technical docs vs success reports
+2. **Logical Grouping** - Related files in appropriate subfolders
+3. **Professional Structure** - Production-ready organization
+4. **Scalable Organization** - Easy to maintain and extend
+5. **Consistent Naming** - Standardized file and folder names
+
+### **🚫 Prohibited Practices**
+- ❌ **No files in root** except essential application files
+- ❌ **No mixed documentation** - separate technical docs from reports
+- ❌ **No scattered scripts** - consolidate in organized subfolders
+- ❌ **No temporary files** in main directories
+- ❌ **No empty directories** - clean up after reorganization
+
+---
+
+## 📋 **FOLDER STRUCTURE RULES**
+
+### **✅ REQUIRED FOLDER STRUCTURE**
+
+```
+api-mcp-simbiosis/
+├── 📁 algorithms/                    # Core algorithms (13 files)
+│   ├── advanced_local_search.go
+│   ├── bm25_tfidf.go
+│   ├── caching_layer.go
+│   ├── candidate_aggregator.go
+│   ├── command_executor.go
+│   ├── context_assembler.go
+│   ├── deduplicator.go
+│   ├── full_context_retrieval_pipeline.go
+│   ├── metadata_boost.go
+│   ├── note_creation_workaround.go
+│   ├── query_composer.go
+│   ├── recursive_vault_traversal.go
+│   └── streaming_merger.go
+├── 📁 cache/                         # Cache directory
+├── 📁 client/                        # HTTP client wrapper
+│   └── http_client.go
+├── 📁 docs/                          # Technical documentation ONLY
+│   ├── API_REFERENCE.md
+│   ├── CHANGELOG.md
+│   ├── CURSOR_RULES_GUIDE.md
+│   ├── CURSOR_RULES_IMPLEMENTATION_SUMMARY.md
+│   ├── DOCS_INDEX.md
+│   ├── DOCUMENTATION_COMPLETE_SUMMARY.md
+│   ├── PROJECT_SUMMARY.md
+│   ├── QUICK_START_GUIDE.md
+│   └── README.md
+├── 📁 mcp/                          # MCP configuration files
+│   ├── prompts.json
+│   ├── resources.json
+│   └── tools.json
+├── 📁 monitoring/                   # Performance monitoring
+│   └── performance_monitor.go
+├── 📁 reports/                      # Success reports and summaries ONLY
+│   ├── COMPLETE_IMPROVEMENTS_REPORT.md
+│   ├── ENHANCED_FEATURES_COMPARISON_REPORT.md
+│   ├── ENHANCED_FEATURES_IMPLEMENTATION_SUMMARY.md
+│   ├── FINAL_CLEANUP_COMPLETE.md
+│   ├── FINAL_ENHANCED_FEATURES_SUMMARY.md
+│   ├── IMPLEMENTATION_COMPLETE_SUMMARY.md
+│   ├── INTERACTIVE_SEARCH_ENGINE_SUCCESS_REPORT.md
+│   ├── NAVIGATION_ENHANCEMENT_SUMMARY.md
+│   ├── PROJECT_CLEANUP_SUMMARY.md
+│   ├── REAL_VAULT_TESTING_SUCCESS_REPORT.md
+│   └── VALIDATION_REPORT.md
+├── 📁 scripts/                      # All scripts organized
+│   ├── 📁 examples/                 # Example scripts ONLY
+│   │   ├── basic_search.go
+│   │   ├── enhanced_features_demo.go
+│   │   ├── final_comprehensive_demo.go
+│   │   ├── final_interactive_demo.go
+│   │   ├── run_search.go
+│   │   ├── simple_search_demo.go
+│   │   ├── simple_search_test.go
+│   │   └── success_demo.go
+│   └── 📁 tests/                    # Test scripts ONLY
+│       ├── final_comprehensive_test.go
+│       ├── test_final_search.go
+│       ├── test_http_integration.go
+│       ├── test_interactive_engine.go
+│       ├── test_interactive_simple.go
+│       ├── test_logica_search.go
+│       ├── test_real_vault.go
+│       └── test_specific_file.go
+├── 📁 temp/                         # Temporary files ONLY
+│   ├── debug_vault_files.go
+│   └── debug_vault_response.go
+├── 📁 tests/                        # Test files
+│   ├── integration_test.go
+│   └── validation_test.go
+├── 📄 go.mod                        # Go module file
+├── 📄 go.sum                        # Go sum file
+├── 📄 README.md                     # Main README
+├── 📄 enhanced_features_demo.exe   # Compiled demo
+├── 📄 interactive_cli.go            # Interactive CLI
+├── 📄 interactive_search_engine.go  # Interactive search engine
+├── 📄 quick_search.go               # Quick search
+└── 📄 smart_search.go               # Smart search
+```
+
+---
+
+## 📄 **FILE PLACEMENT RULES**
+
+### **📁 `algorithms/` - Core Algorithms**
+- **Purpose**: Core search algorithms and processing logic
+- **Allowed**: `.go` files implementing search algorithms
+- **Prohibited**: Documentation, tests, examples
+- **Naming**: Use descriptive names (e.g., `recursive_vault_traversal.go`)
+
+### **📁 `docs/` - Technical Documentation**
+- **Purpose**: Technical documentation, API references, guides
+- **Allowed**: `.md` files with technical content
+- **Prohibited**: Success reports, implementation summaries
+- **Naming**: Use descriptive names (e.g., `API_REFERENCE.md`)
+
+### **📁 `reports/` - Success Reports**
+- **Purpose**: Success reports, implementation summaries, validation reports
+- **Allowed**: `.md` files with success reports and summaries
+- **Prohibited**: Technical documentation, API references
+- **Naming**: Use descriptive names (e.g., `COMPLETE_IMPROVEMENTS_REPORT.md`)
+
+### **📁 `scripts/examples/` - Example Scripts**
+- **Purpose**: Example scripts demonstrating functionality
+- **Allowed**: `.go` files with example implementations
+- **Prohibited**: Test scripts, production code
+- **Naming**: Use descriptive names (e.g., `enhanced_features_demo.go`)
+
+### **📁 `scripts/tests/` - Test Scripts**
+- **Purpose**: Test scripts for validation and testing
+- **Allowed**: `.go` files with test implementations
+- **Prohibited**: Example scripts, production code
+- **Naming**: Use descriptive names (e.g., `test_real_vault.go`)
+
+### **📁 `temp/` - Temporary Files**
+- **Purpose**: Temporary files, debug scripts, work-in-progress
+- **Allowed**: Any temporary files
+- **Prohibited**: Production code, documentation
+- **Naming**: Use descriptive names (e.g., `debug_vault_files.go`)
+
+### **📁 Root Level - Essential Files Only**
+- **Purpose**: Core application files and configuration
+- **Allowed**: Main application files, configuration files
+- **Prohibited**: Documentation, reports, examples, tests
+- **Naming**: Use descriptive names (e.g., `interactive_search_engine.go`)
+
+---
+
+## 🚫 **PROHIBITED PRACTICES**
+
+### **❌ File Placement Violations**
+- **No documentation in root** - Move to `docs/` or `reports/`
+- **No scripts in root** - Move to `scripts/examples/` or `scripts/tests/`
+- **No mixed content** - Keep technical docs separate from success reports
+- **No temporary files in main directories** - Move to `temp/`
+- **No empty directories** - Clean up after reorganization
+
+### **❌ Naming Violations**
+- **No generic names** - Use descriptive, specific names
+- **No inconsistent naming** - Follow established patterns
+- **No mixed case** - Use consistent case conventions
+- **No special characters** - Use alphanumeric and underscores only
+
+### **❌ Structure Violations**
+- **No deep nesting** - Keep folder structure shallow and logical
+- **No duplicate content** - Avoid redundant files
+- **No orphaned files** - Ensure all files have proper locations
+- **No broken references** - Update paths after reorganization
+
+---
+
+## ✅ **ENFORCEMENT RULES**
+
+### **🔍 Automatic Checks**
+- **File Placement**: Verify files are in correct directories
+- **Naming Conventions**: Check file and folder names
+- **Structure Compliance**: Validate folder structure
+- **Content Separation**: Ensure proper content separation
+
+### **📋 Manual Reviews**
+- **Before Commits**: Review file placement and naming
+- **After Reorganization**: Verify structure compliance
+- **Documentation Updates**: Check for proper categorization
+- **Script Organization**: Validate script placement
+
+### **🚨 Violation Handling**
+- **Immediate Correction**: Fix violations immediately
+- **Structure Updates**: Update folder structure as needed
+- **Documentation**: Update documentation for changes
+- **Testing**: Verify functionality after reorganization
+
+---
+
+## 🎯 **MAINTENANCE GUIDELINES**
+
+### **📁 Regular Maintenance**
+- **Weekly**: Review folder structure for compliance
+- **Monthly**: Clean up temporary files and empty directories
+- **Quarterly**: Review and update organization rules
+- **Annually**: Major structure review and optimization
+
+### **🔄 Update Procedures**
+- **New Files**: Place in appropriate directories immediately
+- **Moved Files**: Update all references and documentation
+- **Deleted Files**: Clean up empty directories
+- **Renamed Files**: Update all references and documentation
+
+### **📊 Compliance Monitoring**
+- **Structure Compliance**: Monitor folder structure adherence
+- **Naming Compliance**: Check naming convention adherence
+- **Content Separation**: Verify proper content separation
+- **Documentation**: Ensure documentation is up-to-date
+
+---
+
+## 🚀 **QUICK REFERENCE**
+
+### **📁 Where to Place Files**
+```bash
+# Core algorithms
+algorithms/recursive_vault_traversal.go
+
+# Technical documentation
+docs/API_REFERENCE.md
+
+# Success reports
+reports/COMPLETE_IMPROVEMENTS_REPORT.md
+
+# Example scripts
+scripts/examples/enhanced_features_demo.go
+
+# Test scripts
+scripts/tests/test_real_vault.go
+
+# Temporary files
+temp/debug_vault_files.go
+
+# Main application files
+interactive_search_engine.go
+```
+
+### **📋 Naming Conventions**
+```bash
+# Algorithms: descriptive names with underscores
+recursive_vault_traversal.go
+advanced_local_search.go
+
+# Documentation: descriptive names with underscores
+API_REFERENCE.md
+QUICK_START_GUIDE.md
+
+# Reports: descriptive names with underscores
+COMPLETE_IMPROVEMENTS_REPORT.md
+ENHANCED_FEATURES_COMPARISON_REPORT.md
+
+# Scripts: descriptive names with underscores
+enhanced_features_demo.go
+test_real_vault.go
+```
+
+---
+
+## 🎉 **COMPLIANCE CHECKLIST**
+
+### **✅ Before Adding Files**
+- [ ] **Correct Directory**: File is in appropriate directory
+- [ ] **Proper Naming**: File name follows conventions
+- [ ] **Content Type**: Content matches directory purpose
+- [ ] **No Duplicates**: No duplicate files exist
+- [ ] **Documentation**: Documentation updated if needed
+
+### **✅ Before Committing**
+- [ ] **Structure Compliance**: Folder structure is correct
+- [ ] **Naming Compliance**: All names follow conventions
+- [ ] **Content Separation**: Proper content separation
+- [ ] **No Violations**: No prohibited practices
+- [ ] **Testing**: Functionality verified after changes
+
+### **✅ After Reorganization**
+- [ ] **Structure Updated**: Folder structure reflects changes
+- [ ] **References Updated**: All references updated
+- [ ] **Documentation Updated**: Documentation reflects changes
+- [ ] **Testing Completed**: All functionality verified
+- [ ] **Compliance Verified**: All rules followed
+
+---
+
+## 🏆 **SUCCESS METRICS**
+
+### **📊 Compliance Targets**
+- **Structure Compliance**: 100%
+- **Naming Compliance**: 100%
+- **Content Separation**: 100%
+- **Documentation Accuracy**: 100%
+- **Functionality Maintenance**: 100%
+
+### **🎯 Quality Indicators**
+- **Professional Appearance**: Clean, organized structure
+- **Easy Navigation**: Logical file placement
+- **Maintainable Codebase**: Scalable organization
+- **Clear Separation**: Proper content separation
+- **Consistent Standards**: Uniform naming and structure
+
+---
+
+**CENTRALIZED REPORTS & CHANGELOG SYSTEM COMPLETE!**

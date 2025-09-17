@@ -1,0 +1,289 @@
+# 🔧 **SCRIPT ORGANIZATION RULES**
+## **API-MCP-Simbiosis Advanced Search Engine - Script Management**
+
+> **Comprehensive rules for maintaining consistent script organization and management**
+
+**Generated:** September 16, 2025  
+**Project:** API-MCP-Simbiosis Advanced Search Engine  
+**Status:** ✅ **ACTIVE RULES**  
+**Scope:** All script files  
+**Enforcement:** Strict script organization compliance  
+
+---
+
+## 🎯 **SCRIPT ORGANIZATION PRINCIPLES**
+
+### **🔧 Core Principles**
+1. **Clear Separation** - Examples vs tests vs production code
+2. **Logical Grouping** - Related scripts in appropriate subfolders
+3. **Consistent Naming** - Standardized script naming conventions
+4. **Professional Structure** - Production-ready script organization
+5. **Easy Maintenance** - Scalable and maintainable script structure
+
+### **🚫 Prohibited Practices**
+- ❌ **No scripts in root** - All scripts must be in organized subfolders
+- ❌ **No mixed content** - Keep examples separate from tests
+- ❌ **No inconsistent naming** - Follow established naming conventions
+- ❌ **No temporary scripts** - Move temporary scripts to temp/
+- ❌ **No broken references** - Maintain all script references
+
+---
+
+## 📁 **SCRIPT STRUCTURE RULES**
+
+### **📁 `scripts/examples/` - Example Scripts**
+- **Purpose**: Example scripts demonstrating functionality
+- **Content Types**: Demo scripts, example implementations, showcase code
+- **Format**: Go (.go) files
+- **Naming**: Descriptive names with underscores
+
+#### **Required Files**
+```
+scripts/examples/
+├── basic_search.go                    # Basic search example
+├── enhanced_features_demo.go          # Enhanced features demo
+├── final_comprehensive_demo.go        # Comprehensive demo
+├── final_interactive_demo.go          # Interactive demo
+├── run_search.go                      # Search runner
+├── simple_search_demo.go              # Simple search demo
+├── simple_search_test.go              # Simple search test
+└── success_demo.go                    # Success demo
+```
+
+### **📁 `scripts/tests/` - Test Scripts**
+- **Purpose**: Test scripts for validation and testing
+- **Content Types**: Test implementations, validation scripts, testing code
+- **Format**: Go (.go) files
+- **Naming**: Descriptive names with underscores
+
+#### **Required Files**
+```
+scripts/tests/
+├── final_comprehensive_test.go        # Comprehensive test
+├── test_final_search.go               # Final search test
+├── test_http_integration.go           # HTTP integration test
+├── test_interactive_engine.go         # Interactive engine test
+├── test_interactive_simple.go         # Interactive simple test
+├── test_logica_search.go              # Logica search test
+├── test_real_vault.go                 # Real vault test
+└── test_specific_file.go              # Specific file test
+```
+
+### **📁 `temp/` - Temporary Scripts**
+- **Purpose**: Temporary files, debug scripts, work-in-progress
+- **Content Types**: Debug scripts, temporary implementations, work-in-progress
+- **Format**: Any format
+- **Naming**: Descriptive names with underscores
+
+#### **Current Files**
+```
+temp/
+├── debug_vault_files.go              # Debug vault files
+└── debug_vault_response.go           # Debug vault response
+```
+
+---
+
+## 📋 **SCRIPT NAMING RULES**
+
+### **🔧 Example Scripts (`scripts/examples/`)**
+- **Pattern**: `{feature}_{type}.go`
+- **Examples**: `enhanced_features_demo.go`, `simple_search_demo.go`
+- **Conventions**: Use descriptive names, underscores for separation
+
+### **🧪 Test Scripts (`scripts/tests/`)**
+- **Pattern**: `test_{feature}.go` or `{feature}_test.go`
+- **Examples**: `test_real_vault.go`, `test_interactive_engine.go`
+- **Conventions**: Use descriptive names, test prefix or suffix
+
+### **🔧 Temporary Scripts (`temp/`)**
+- **Pattern**: `{purpose}_{type}.go`
+- **Examples**: `debug_vault_files.go`, `debug_vault_response.go`
+- **Conventions**: Use descriptive names, indicate temporary nature
+
+---
+
+## 📚 **SCRIPT CONTENT STANDARDS**
+
+### **📁 Example Scripts**
+- **Purpose**: Demonstrate functionality
+- **Content**: Working examples, demos, showcases
+- **Quality**: Production-quality examples
+- **Documentation**: Clear comments and documentation
+- **Testing**: Should work when executed
+
+### **🧪 Test Scripts**
+- **Purpose**: Validate functionality
+- **Content**: Test implementations, validation code
+- **Quality**: Comprehensive testing coverage
+- **Documentation**: Clear test descriptions
+- **Validation**: Should validate expected behavior
+
+### **🔧 Temporary Scripts**
+- **Purpose**: Debug, temporary work, experiments
+- **Content**: Debug code, temporary implementations
+- **Quality**: Working but temporary
+- **Documentation**: Basic comments
+- **Cleanup**: Should be cleaned up regularly
+
+---
+
+## 🚫 **SCRIPT VIOLATIONS**
+
+### **❌ Placement Violations**
+- **Scripts in Root**: Scripts placed in root directory
+- **Mixed Content**: Examples mixed with tests
+- **Wrong Directory**: Scripts in incorrect directories
+- **Temporary in Main**: Temporary scripts in main directories
+
+### **❌ Naming Violations**
+- **Generic Names**: Non-descriptive script names
+- **Inconsistent Naming**: Different naming conventions
+- **Mixed Case**: Inconsistent case usage
+- **Special Characters**: Use of special characters
+
+### **❌ Content Violations**
+- **Broken Code**: Scripts that don't work
+- **Incomplete Implementation**: Incomplete scripts
+- **Missing Documentation**: Lack of comments
+- **Outdated Code**: Code that's no longer relevant
+
+---
+
+## ✅ **ENFORCEMENT RULES**
+
+### **🔍 Automatic Checks**
+- **File Placement**: Verify scripts are in correct directories
+- **Naming Compliance**: Check naming conventions
+- **Content Separation**: Ensure proper content separation
+- **Functionality**: Verify scripts work when executed
+
+### **📋 Manual Reviews**
+- **Code Quality**: Review code for quality and completeness
+- **Documentation**: Check comments and documentation
+- **Functionality**: Test script functionality
+- **Organization**: Validate script organization
+
+### **🚨 Violation Handling**
+- **Immediate Correction**: Fix violations immediately
+- **Code Updates**: Update code for functionality
+- **Structure Fixes**: Correct structure violations
+- **Quality Improvements**: Enhance script quality
+
+---
+
+## 🎯 **MAINTENANCE GUIDELINES**
+
+### **📁 Regular Maintenance**
+- **Weekly**: Review scripts for functionality
+- **Monthly**: Clean up temporary scripts
+- **Quarterly**: Review and improve script organization
+- **Annually**: Major script review and cleanup
+
+### **🔄 Update Procedures**
+- **New Scripts**: Place in appropriate directories immediately
+- **Moved Scripts**: Update all references and documentation
+- **Deleted Scripts**: Clean up empty directories
+- **Renamed Scripts**: Update all references and documentation
+
+### **📊 Quality Monitoring**
+- **Functionality**: Monitor script functionality
+- **Organization**: Check script organization
+- **Documentation**: Verify script documentation
+- **Cleanup**: Regular cleanup of temporary scripts
+
+---
+
+## 🚀 **QUICK REFERENCE**
+
+### **📁 Script Placement**
+```bash
+# Example scripts
+scripts/examples/enhanced_features_demo.go
+scripts/examples/simple_search_demo.go
+
+# Test scripts
+scripts/tests/test_real_vault.go
+scripts/tests/test_interactive_engine.go
+
+# Temporary scripts
+temp/debug_vault_files.go
+temp/debug_vault_response.go
+```
+
+### **📋 Naming Conventions**
+```bash
+# Example scripts: descriptive names
+enhanced_features_demo.go
+simple_search_demo.go
+
+# Test scripts: test prefix or suffix
+test_real_vault.go
+test_interactive_engine.go
+
+# Temporary scripts: descriptive names
+debug_vault_files.go
+debug_vault_response.go
+```
+
+### **🔧 Script Execution**
+```bash
+# Example scripts
+go run scripts/examples/enhanced_features_demo.go
+go run scripts/examples/simple_search_demo.go
+
+# Test scripts
+go run scripts/tests/test_real_vault.go
+go run scripts/tests/test_interactive_engine.go
+
+# Temporary scripts
+go run temp/debug_vault_files.go
+go run temp/debug_vault_response.go
+```
+
+---
+
+## 🎉 **COMPLIANCE CHECKLIST**
+
+### **✅ Before Creating Scripts**
+- [ ] **Correct Directory**: Script is in appropriate directory
+- [ ] **Proper Naming**: Script name follows conventions
+- [ ] **Content Type**: Content matches directory purpose
+- [ ] **Functionality**: Script works when executed
+- [ ] **Documentation**: Script has proper comments
+
+### **✅ Before Committing Scripts**
+- [ ] **Placement Compliance**: Script is in correct directory
+- [ ] **Naming Compliance**: Name follows conventions
+- [ ] **Content Separation**: Proper content separation
+- [ ] **Functionality**: Script works correctly
+- [ ] **Documentation**: Proper comments and documentation
+
+### **✅ After Script Updates**
+- [ ] **Functionality**: Script still works after changes
+- [ ] **References**: All references updated
+- [ ] **Documentation**: Documentation reflects changes
+- [ ] **Organization**: Script organization maintained
+- [ ] **Compliance**: All rules followed
+
+---
+
+## 🏆 **SUCCESS METRICS**
+
+### **📊 Compliance Targets**
+- **Placement Compliance**: 100%
+- **Naming Compliance**: 100%
+- **Content Separation**: 100%
+- **Functionality**: 100%
+- **Documentation**: 100%
+
+### **🎯 Quality Indicators**
+- **Professional Organization**: Clean, organized script structure
+- **Easy Navigation**: Logical script placement
+- **Maintainable Code**: Well-organized and documented scripts
+- **Clear Separation**: Proper separation of examples and tests
+- **Consistent Standards**: Uniform naming and organization
+
+---
+
+**CENTRALIZED REPORTS & CHANGELOG SYSTEM COMPLETE!**

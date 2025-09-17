@@ -1,0 +1,220 @@
+# 🎯 API-MCP-Simbiosis Project Rules
+# Maintain clean folder structure and professional organization
+
+## 📁 FOLDER STRUCTURE RULES
+
+### ✅ MANDATORY FOLDER ORGANIZATION
+- **test_scripts/** - ALL test files and debugging scripts
+  - Files matching: `test_*.go`, `*_test.go`, `debug_*.go`
+  - NO test files in root directory
+  - NO test files in other folders
+
+- **example_scripts/** - ALL example and demo files
+  - Files matching: `*demo*.go`, `*example*.go`, `run_*.go`, `simple_*.go`
+  - NO example files in root directory
+  - NO example files in other folders
+
+- **temp_files/** - Temporary and debug files
+  - Files matching: `debug_*.go`, `temp_*.go`, `*_temp.go`
+  - Files that are temporary or for debugging only
+  - Clean up regularly
+
+- **algorithms/** - Core algorithm implementations ONLY
+  - Files matching: `*_algorithm.go`, `query_*.go`, `candidate_*.go`, `bm25_*.go`, `metadata_*.go`, `deduplicator.go`, `context_*.go`, `streaming_*.go`
+  - NO test files, NO example files, NO debug files
+
+- **client/** - HTTP client implementation ONLY
+  - Files matching: `*client*.go`, `http_*.go`
+  - NO test files, NO example files, NO debug files
+
+- **tests/** - Unit and integration tests ONLY
+  - Files matching: `*_test.go` (unit tests)
+  - NO example files, NO debug files, NO temporary files
+
+- **docs/** - Documentation files ONLY
+  - Files matching: `*.md` (documentation)
+  - NO code files, NO test files, NO example files
+
+- **mcp/** - MCP configuration files ONLY
+  - Files matching: `*.json` (MCP config)
+  - NO code files, NO test files, NO example files
+
+- **monitoring/** - Performance monitoring ONLY
+  - Files matching: `*monitor*.go`, `*performance*.go`
+  - NO test files, NO example files, NO debug files
+
+### 🚫 PROHIBITED IN ROOT DIRECTORY
+- NO test files (move to test_scripts/)
+- NO example files (move to example_scripts/)
+- NO debug files (move to temp_files/)
+- NO temporary files (move to temp_files/)
+- NO duplicate files
+- NO unused files
+
+### ✅ ALLOWED IN ROOT DIRECTORY
+- `interactive_cli.go` - Main production CLI
+- `interactive_search_engine.go` - Core search engine
+- `go.mod` - Go module file
+- `go.sum` - Go dependencies
+- `README.md` - Main documentation
+- `CHANGELOG.md` - Development history
+- `PROJECT_*.md` - Project documentation
+- `VALIDATION_*.md` - Validation reports
+- `IMPLEMENTATION_*.md` - Implementation docs
+- `DOCS_*.md` - Documentation indexes
+- `NAVIGATION_*.md` - Navigation docs
+- `REAL_*.md` - Real testing reports
+- `FINAL_*.md` - Final summaries
+
+## 📝 FILE NAMING CONVENTIONS
+
+### ✅ REQUIRED NAMING PATTERNS
+- **Test files**: `test_*.go` or `*_test.go`
+- **Example files**: `*demo*.go`, `*example*.go`, `run_*.go`, `simple_*.go`
+- **Debug files**: `debug_*.go`, `temp_*.go`, `*_temp.go`
+- **Algorithm files**: `*_algorithm.go`, `query_*.go`, `candidate_*.go`, `bm25_*.go`, `metadata_*.go`, `deduplicator.go`, `context_*.go`, `streaming_*.go`
+- **Client files**: `*client*.go`, `http_*.go`
+- **Monitor files**: `*monitor*.go`, `*performance*.go`
+- **Documentation**: `*.md`
+
+### 🚫 PROHIBITED NAMING PATTERNS
+- NO files with spaces in names
+- NO files with special characters except `_` and `-`
+- NO files with mixed case (use snake_case)
+- NO files with numbers at the beginning
+- NO files with generic names like `test.go`, `main.go`, `temp.go`
+
+## 🧹 CLEANUP RULES
+
+### ✅ MANDATORY CLEANUP ACTIONS
+1. **Before committing**: Move all test files to test_scripts/
+2. **Before committing**: Move all example files to example_scripts/
+3. **Before committing**: Move all debug files to temp_files/
+4. **Before committing**: Remove unused imports
+5. **Before committing**: Remove unused variables
+6. **Before committing**: Update documentation if needed
+
+### 🔄 REGULAR MAINTENANCE
+- **Weekly**: Clean up temp_files/ directory
+- **Weekly**: Review and organize test_scripts/
+- **Weekly**: Review and organize example_scripts/
+- **Weekly**: Update CHANGELOG.md with changes
+- **Weekly**: Update README.md if structure changes
+
+## 📚 DOCUMENTATION RULES
+
+### ✅ MANDATORY DOCUMENTATION
+- **Every new file**: Add proper header comment
+- **Every new function**: Add documentation comment
+- **Every new algorithm**: Add usage examples
+- **Every new feature**: Update CHANGELOG.md
+- **Every structural change**: Update README.md
+
+### 📋 DOCUMENTATION STRUCTURE
+- **README.md**: Main project documentation
+- **CHANGELOG.md**: Development history
+- **PROJECT_*.md**: Project overviews
+- **docs/**: Detailed documentation
+- **test_scripts/**: Test documentation
+- **example_scripts/**: Example documentation
+
+## 🔧 CODE QUALITY RULES
+
+### ✅ MANDATORY CODE STANDARDS
+- **Go formatting**: Use `go fmt` before committing
+- **Go imports**: Use `goimports` for import organization
+- **Go linting**: Use `golangci-lint` for code quality
+- **Go testing**: All tests must pass before committing
+- **Go building**: All code must compile without errors
+
+### 🚫 PROHIBITED CODE PATTERNS
+- NO unused imports
+- NO unused variables
+- NO hardcoded values (use constants)
+- NO magic numbers (use named constants)
+- NO long functions (max 50 lines)
+- NO deep nesting (max 3 levels)
+
+## 🧪 TESTING RULES
+
+### ✅ MANDATORY TESTING
+- **All algorithms**: Must have unit tests
+- **All client code**: Must have integration tests
+- **All new features**: Must have tests
+- **All bug fixes**: Must have regression tests
+
+### 📁 TEST ORGANIZATION
+- **Unit tests**: In tests/ directory
+- **Integration tests**: In tests/ directory
+- **Test scripts**: In test_scripts/ directory
+- **Example tests**: In example_scripts/ directory
+
+## 🚀 DEPLOYMENT RULES
+
+### ✅ PRODUCTION READINESS
+- **Main CLI**: interactive_cli.go must be production ready
+- **Core engine**: interactive_search_engine.go must be production ready
+- **All algorithms**: Must be fully implemented and tested
+- **All documentation**: Must be up to date
+- **All tests**: Must pass with 100% success rate
+
+### 🔒 VERSION CONTROL
+- **Semantic versioning**: Use MAJOR.MINOR.PATCH format
+- **Changelog**: Update CHANGELOG.md for every release
+- **Tags**: Create git tags for releases
+- **Branches**: Use feature branches for development
+
+## 🎯 ENFORCEMENT RULES
+
+### ✅ AUTOMATIC CHECKS
+- **Before commit**: Check folder structure
+- **Before commit**: Check file naming
+- **Before commit**: Check code quality
+- **Before commit**: Check documentation
+- **Before commit**: Run all tests
+
+### 🚫 BLOCKING CONDITIONS
+- **Block commit**: If test files in root directory
+- **Block commit**: If example files in root directory
+- **Block commit**: If debug files in root directory
+- **Block commit**: If tests fail
+- **Block commit**: If code doesn't compile
+- **Block commit**: If documentation is missing
+
+## 📊 METRICS & MONITORING
+
+### ✅ TRACK THESE METRICS
+- **Folder structure compliance**: 100%
+- **File naming compliance**: 100%
+- **Code quality score**: >90%
+- **Test coverage**: >80%
+- **Documentation coverage**: 100%
+- **Build success rate**: 100%
+
+### 📈 IMPROVEMENT TARGETS
+- **Reduce root directory files**: <20 files
+- **Increase test coverage**: >90%
+- **Improve code quality**: >95%
+- **Faster build times**: <30 seconds
+- **Better documentation**: 100% coverage
+
+---
+
+## 🎉 SUCCESS CRITERIA
+
+**The project is considered well-organized when:**
+- ✅ All files are in correct directories
+- ✅ All files follow naming conventions
+- ✅ All code passes quality checks
+- ✅ All tests pass with 100% success
+- ✅ All documentation is up to date
+- ✅ Root directory contains only essential files
+- ✅ Folder structure is clean and logical
+- ✅ Code is maintainable and professional
+
+**🚀 MAINTAIN THIS STANDARD AT ALL TIMES!**
+
+---
+
+*Generated by AI Assistant - API-MCP-Simbiosis Project*  
+*Cursor Rules v1.0.0 - Folder Structure Maintenance*

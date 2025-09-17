@@ -1,0 +1,256 @@
+# 🚀 **MAIN CURSOR RULES**
+## **API-MCP-Simbiosis Advanced Search Engine - Complete Project Rules**
+
+> **Comprehensive Cursor rules for maintaining consistent project organization, documentation, and script management**
+
+**Generated:** September 16, 2025  
+**Project:** API-MCP-Simbiosis Advanced Search Engine  
+**Status:** ✅ **ACTIVE RULES**  
+**Scope:** Entire project  
+**Enforcement:** Strict compliance required  
+
+---
+
+## 🎯 **RULE OVERVIEW**
+
+This project uses a comprehensive set of Cursor rules to maintain professional organization and consistency. All rules are enforced strictly to ensure production-ready quality.
+
+### **📁 Rule Categories**
+1. **Project Organization** - Folder structure and file placement
+2. **Documentation Standards** - Documentation organization and formatting
+3. **Script Organization** - Script management and organization
+
+---
+
+## 📋 **RULE IMPLEMENTATION**
+
+### **📁 Project Organization Rules**
+- **File**: `.cursor/rules/project_organization.mdc`
+- **Purpose**: Maintain professional folder structure
+- **Scope**: All project files and folders
+- **Enforcement**: Strict organization compliance
+
+### **📚 Documentation Standards Rules**
+- **File**: `.cursor/rules/documentation_standards.mdc`
+- **Purpose**: Maintain consistent documentation standards
+- **Scope**: All documentation files
+- **Enforcement**: Strict documentation compliance
+
+### **🔧 Script Organization Rules**
+- **File**: `.cursor/rules/script_organization.mdc`
+- **Purpose**: Maintain consistent script organization
+- **Scope**: All script files
+- **Enforcement**: Strict script organization compliance
+
+---
+
+## 🚀 **QUICK REFERENCE**
+
+### **📁 Project Structure**
+```
+api-mcp-simbiosis/
+├── 📁 algorithms/          # Core algorithms (13 files)
+├── 📁 docs/               # Technical documentation (8 files)
+├── 📁 reports/            # Success reports (11 files)
+├── 📁 scripts/             # Organized scripts (16 files)
+│   ├── examples/          # Example scripts (8 files)
+│   └── tests/             # Test scripts (8 files)
+├── 📁 temp/               # Temporary files (2 files)
+├── 📄 README.md           # Main documentation
+├── 📄 interactive_search_engine.go
+├── 📄 quick_search.go
+└── 📄 smart_search.go
+```
+
+### **📋 File Placement Rules**
+- **Core Algorithms**: `algorithms/` directory
+- **Technical Documentation**: `docs/` directory
+- **Success Reports**: `reports/` directory
+- **Example Scripts**: `scripts/examples/` directory
+- **Test Scripts**: `scripts/tests/` directory
+- **Temporary Files**: `temp/` directory
+- **Main Application Files**: Root directory only
+
+### **🔧 Naming Conventions**
+- **Algorithms**: `recursive_vault_traversal.go`
+- **Documentation**: `API_REFERENCE.md`
+- **Reports**: `COMPLETE_IMPROVEMENTS_REPORT.md`
+- **Scripts**: `enhanced_features_demo.go`
+- **Tests**: `test_real_vault.go`
+
+---
+
+## ✅ **ENFORCEMENT CHECKLIST**
+
+### **📁 Before Adding Files**
+- [ ] **Correct Directory**: File is in appropriate directory
+- [ ] **Proper Naming**: File name follows conventions
+- [ ] **Content Type**: Content matches directory purpose
+- [ ] **No Duplicates**: No duplicate files exist
+- [ ] **Documentation**: Documentation updated if needed
+
+### **📚 Before Committing**
+- [ ] **Structure Compliance**: Folder structure is correct
+- [ ] **Naming Compliance**: All names follow conventions
+- [ ] **Content Separation**: Proper content separation
+- [ ] **No Violations**: No prohibited practices
+- [ ] **Testing**: Functionality verified after changes
+
+### **🔧 After Reorganization**
+- [ ] **Structure Updated**: Folder structure reflects changes
+- [ ] **References Updated**: All references updated
+- [ ] **Documentation Updated**: Documentation reflects changes
+- [ ] **Testing Completed**: All functionality verified
+- [ ] **Compliance Verified**: All rules followed
+
+---
+
+## 🚫 **PROHIBITED PRACTICES**
+
+### **❌ File Placement Violations**
+- **No files in root** except essential application files
+- **No mixed documentation** - separate technical docs from reports
+- **No scattered scripts** - consolidate in organized subfolders
+- **No temporary files** in main directories
+- **No empty directories** - clean up after reorganization
+
+### **❌ Naming Violations**
+- **No generic names** - use descriptive, specific names
+- **No inconsistent naming** - follow established patterns
+- **No mixed case** - use consistent case conventions
+- **No special characters** - use alphanumeric and underscores only
+
+### **❌ Structure Violations**
+- **No deep nesting** - keep folder structure shallow and logical
+- **No duplicate content** - avoid redundant files
+- **No orphaned files** - ensure all files have proper locations
+- **No broken references** - update paths after reorganization
+
+---
+
+## 🎯 **MAINTENANCE GUIDELINES**
+
+### **📁 Regular Maintenance**
+- **Weekly**: Review folder structure for compliance
+- **Monthly**: Clean up temporary files and empty directories
+- **Quarterly**: Review and update organization rules
+- **Annually**: Major structure review and optimization
+
+### **🔄 Update Procedures**
+- **New Files**: Place in appropriate directories immediately
+- **Moved Files**: Update all references and documentation
+- **Deleted Files**: Clean up empty directories
+- **Renamed Files**: Update all references and documentation
+
+### **📊 Compliance Monitoring**
+- **Structure Compliance**: Monitor folder structure adherence
+- **Naming Compliance**: Check naming convention adherence
+- **Content Separation**: Verify proper content separation
+- **Documentation**: Ensure documentation is up-to-date
+
+---
+
+## 🏆 **SUCCESS METRICS**
+
+### **📊 Compliance Targets**
+- **Structure Compliance**: 100%
+- **Naming Compliance**: 100%
+- **Content Separation**: 100%
+- **Documentation Accuracy**: 100%
+- **Functionality Maintenance**: 100%
+
+### **🎯 Quality Indicators**
+- **Professional Appearance**: Clean, organized structure
+- **Easy Navigation**: Logical file placement
+- **Maintainable Codebase**: Scalable organization
+- **Clear Separation**: Proper content separation
+- **Consistent Standards**: Uniform naming and structure
+
+---
+
+## 🚀 **QUICK COMMANDS**
+
+### **📁 Navigation**
+```bash
+# Core algorithms
+cd algorithms/
+
+# Technical documentation
+cd docs/
+
+# Success reports
+cd reports/
+
+# Example scripts
+cd scripts/examples/
+
+# Test scripts
+cd scripts/tests/
+
+# Temporary files
+cd temp/
+```
+
+### **🔧 Execution**
+```bash
+# Main search engines
+go run interactive_search_engine.go
+go run quick_search.go
+go run smart_search.go
+
+# Example scripts
+go run scripts/examples/enhanced_features_demo.go
+go run scripts/examples/simple_search_demo.go
+
+# Test scripts
+go run scripts/tests/test_real_vault.go
+go run scripts/tests/test_interactive_engine.go
+```
+
+### **📚 Documentation**
+```bash
+# Technical documentation
+cat docs/README.md
+cat docs/API_REFERENCE.md
+
+# Success reports
+cat reports/COMPLETE_IMPROVEMENTS_REPORT.md
+cat reports/ENHANCED_FEATURES_COMPARISON_REPORT.md
+```
+
+---
+
+## 🎉 **RULE COMPLIANCE**
+
+### **✅ Current Status**
+- **Project Organization**: ✅ **COMPLIANT**
+- **Documentation Standards**: ✅ **COMPLIANT**
+- **Script Organization**: ✅ **COMPLIANT**
+- **Overall Structure**: ✅ **PROFESSIONAL**
+
+### **🚀 Benefits Achieved**
+- **Professional Organization**: Clean, organized structure
+- **Easy Navigation**: Logical file placement
+- **Maintainable Codebase**: Scalable organization
+- **Clear Separation**: Proper content separation
+- **Consistent Standards**: Uniform naming and structure
+
+---
+
+## 🎯 **NEXT STEPS**
+
+### **✅ Completed**
+1. ✅ **Project Organization Rules** - Comprehensive folder structure rules
+2. ✅ **Documentation Standards Rules** - Documentation organization rules
+3. ✅ **Script Organization Rules** - Script management rules
+4. ✅ **Main Rules File** - Centralized rule reference
+
+### **🚀 Recommended**
+1. **Regular Compliance Checks** - Monitor rule adherence
+2. **Rule Updates** - Update rules as project evolves
+3. **Team Training** - Ensure team understands rules
+4. **Automation** - Consider automated compliance checking
+
+---
+
+**CENTRALIZED REPORTS & CHANGELOG SYSTEM COMPLETE!**

@@ -1,0 +1,40 @@
+{
+  "model": "ollama:deepseek-r1:8b",
+  "provider": "ollama",
+  "ollama_base_url": "http://localhost:11434",
+  "mcpServers": {
+    "obsidian": {
+      "type": "local",
+      "command": ["go", "run", "./cmd/server/main.go"],
+      "environment": {
+        "OBSIDIAN_API_KEY": "b26efa44ceb0bd4e1fae338cede5384237bbab8624c61927986aa3f06c2f5a70",
+        "OBSIDIAN_BASE_URL": "http://127.0.0.1:27124",
+        "OBSIDIAN_VAULT_PATH": "D:\\Nomade Milionario",
+        "MCP_SERVER_PORT": "3010",
+        "LOG_LEVEL": "info"
+      }
+    }
+  },
+  "settings": {
+    "max_tokens": 4096,
+    "temperature": 0.7,
+    "timeout": 300,
+    "retry_attempts": 3,
+    "enable_caching": true,
+    "cache_ttl": "5m"
+  },
+  "security": {
+    "require_auth": true,
+    "allowed_origins": ["http://localhost:3010", "http://127.0.0.1:3010"],
+    "rate_limit": {
+      "requests_per_minute": 60,
+      "burst_size": 10
+    }
+  },
+  "monitoring": {
+    "enable_metrics": true,
+    "log_level": "info",
+    "health_check_interval": "30s"
+  }
+}
+

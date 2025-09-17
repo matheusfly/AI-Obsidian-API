@@ -1,0 +1,85 @@
+{
+  "prompts": [
+    {
+      "id": "search_prompt",
+      "name": "Search Results Context",
+      "description": "Prompt template for presenting search results with context",
+      "text": "Based on the following search results from your Obsidian vault, please provide a comprehensive answer to the query: \"{query}\"\n\n## Search Results Context:\n{context}\n\n## Instructions:\n- Analyze the provided context carefully\n- Synthesize information from multiple sources when relevant\n- Cite specific sources using the provenance information\n- Provide actionable insights when applicable\n- If the context is insufficient, suggest additional search terms\n\n## Response Format:\nProvide a clear, well-structured response that directly addresses the query while leveraging the vault's knowledge base.",
+      "variables": ["query", "context"],
+      "max_tokens": 2000,
+      "temperature": 0.7
+    },
+    {
+      "id": "analysis_prompt",
+      "name": "Content Analysis",
+      "description": "Prompt template for analyzing vault content",
+      "text": "Please analyze the following content from your Obsidian vault:\n\n## Content:\n{content}\n\n## Analysis Request:\n{analysis_type}\n\n## Instructions:\n- Provide a detailed analysis based on the requested type\n- Identify key themes, patterns, or insights\n- Suggest improvements or connections to other content\n- Maintain objectivity and provide evidence-based conclusions\n\n## Response Format:\nStructure your analysis with clear sections and actionable recommendations.",
+      "variables": ["content", "analysis_type"],
+      "max_tokens": 1500,
+      "temperature": 0.5
+    },
+    {
+      "id": "synthesis_prompt",
+      "name": "Knowledge Synthesis",
+      "description": "Prompt template for synthesizing knowledge from multiple sources",
+      "text": "Please synthesize knowledge from the following sources in your Obsidian vault:\n\n## Sources:\n{sources}\n\n## Synthesis Goal:\n{synthesis_goal}\n\n## Instructions:\n- Identify common themes and patterns across sources\n- Highlight unique insights from each source\n- Create connections between different pieces of information\n- Develop a coherent understanding of the topic\n- Suggest areas for further exploration\n\n## Response Format:\nProvide a comprehensive synthesis that integrates insights from all sources into a unified understanding.",
+      "variables": ["sources", "synthesis_goal"],
+      "max_tokens": 2500,
+      "temperature": 0.6
+    },
+    {
+      "id": "summary_prompt",
+      "name": "Content Summary",
+      "description": "Prompt template for summarizing vault content",
+      "text": "Please provide a comprehensive summary of the following content:\n\n## Content:\n{content}\n\n## Summary Requirements:\n- Length: {summary_length}\n- Focus: {summary_focus}\n- Audience: {audience}\n\n## Instructions:\n- Capture the essential information and key points\n- Maintain the original meaning and context\n- Use clear, concise language appropriate for the audience\n- Include important details while avoiding unnecessary information\n- Structure the summary logically\n\n## Response Format:\nProvide a well-structured summary that meets the specified requirements.",
+      "variables": ["content", "summary_length", "summary_focus", "audience"],
+      "max_tokens": 1000,
+      "temperature": 0.3
+    },
+    {
+      "id": "recommendation_prompt",
+      "name": "Content Recommendations",
+      "description": "Prompt template for generating content recommendations",
+      "text": "Based on your current knowledge base and the following context, please provide recommendations:\n\n## Current Context:\n{context}\n\n## Recommendation Type:\n{recommendation_type}\n\n## User Profile:\n{user_profile}\n\n## Instructions:\n- Analyze the current context and user profile\n- Generate relevant and actionable recommendations\n- Prioritize recommendations based on importance and feasibility\n- Provide clear reasoning for each recommendation\n- Suggest specific next steps when applicable\n\n## Response Format:\nPresent recommendations in a prioritized list with clear explanations and actionable steps.",
+      "variables": ["context", "recommendation_type", "user_profile"],
+      "max_tokens": 1500,
+      "temperature": 0.7
+    },
+    {
+      "id": "question_answering_prompt",
+      "name": "Question Answering",
+      "description": "Prompt template for answering questions using vault knowledge",
+      "text": "Please answer the following question using your Obsidian vault knowledge:\n\n## Question:\n{question}\n\n## Relevant Context:\n{context}\n\n## Answer Requirements:\n- Accuracy: Provide factually correct information\n- Completeness: Address all aspects of the question\n- Clarity: Use clear and understandable language\n- Sources: Reference specific sources when possible\n- Confidence: Indicate confidence level in your answer\n\n## Instructions:\n- Use the provided context to formulate your answer\n- If the context is insufficient, clearly state what additional information is needed\n- Provide specific examples or evidence when available\n- Structure your answer logically\n\n## Response Format:\nProvide a direct answer followed by supporting details and source references.",
+      "variables": ["question", "context"],
+      "max_tokens": 2000,
+      "temperature": 0.4
+    },
+    {
+      "id": "creative_writing_prompt",
+      "name": "Creative Writing",
+      "description": "Prompt template for creative writing based on vault content",
+      "text": "Please create a creative piece based on the following inspiration from your Obsidian vault:\n\n## Inspiration Source:\n{inspiration}\n\n## Writing Requirements:\n- Genre: {genre}\n- Length: {length}\n- Style: {style}\n- Audience: {audience}\n\n## Instructions:\n- Use the inspiration source as a foundation for your creative work\n- Maintain consistency with the established style and tone\n- Develop characters, plot, or themes as appropriate for the genre\n- Ensure the piece is engaging and well-structured\n- Incorporate elements from your knowledge base when relevant\n\n## Response Format:\nPresent your creative work in the appropriate format for the specified genre and length.",
+      "variables": ["inspiration", "genre", "length", "style", "audience"],
+      "max_tokens": 3000,
+      "temperature": 0.8
+    },
+    {
+      "id": "research_prompt",
+      "name": "Research Planning",
+      "description": "Prompt template for planning research based on vault content",
+      "text": "Please help plan research on the following topic using your Obsidian vault knowledge:\n\n## Research Topic:\n{topic}\n\n## Current Knowledge:\n{current_knowledge}\n\n## Research Goals:\n{research_goals}\n\n## Instructions:\n- Assess the current state of knowledge on the topic\n- Identify knowledge gaps and research opportunities\n- Suggest specific research questions and methodologies\n- Recommend sources and resources for further investigation\n- Create a structured research plan with timelines\n\n## Response Format:\nProvide a comprehensive research plan with clear objectives, methods, and next steps.",
+      "variables": ["topic", "current_knowledge", "research_goals"],
+      "max_tokens": 2000,
+      "temperature": 0.5
+    }
+  ],
+  "prompt_config": {
+    "default_temperature": 0.6,
+    "default_max_tokens": 2000,
+    "variable_delimiter": "{}",
+    "escape_character": "\\",
+    "validation_enabled": true,
+    "cache_enabled": true,
+    "cache_ttl": 3600
+  }
+}

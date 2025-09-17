@@ -1,0 +1,111 @@
+{
+  "resources": [
+    {
+      "endpoint": "/vault/",
+      "method": "GET",
+      "description": "List all files in the vault",
+      "cache_ttl": 300,
+      "rate_limit": "10/min",
+      "timeout": "5s",
+      "retry_policy": {
+        "max_retries": 3,
+        "backoff": "exponential",
+        "retry_conditions": ["5xx", "timeout"]
+      }
+    },
+    {
+      "endpoint": "/vault/{path}",
+      "method": "GET",
+      "description": "Get content of a specific file",
+      "cache_ttl": 60,
+      "rate_limit": "100/min",
+      "timeout": "1s",
+      "retry_policy": {
+        "max_retries": 2,
+        "backoff": "linear",
+        "retry_conditions": ["5xx", "timeout"]
+      }
+    },
+    {
+      "endpoint": "/vault/{path}",
+      "method": "PUT",
+      "description": "Update content of a specific file",
+      "cache_ttl": 0,
+      "rate_limit": "20/min",
+      "timeout": "10s",
+      "retry_policy": {
+        "max_retries": 3,
+        "backoff": "exponential",
+        "retry_conditions": ["5xx", "timeout"]
+      }
+    },
+    {
+      "endpoint": "/vault/{path}",
+      "method": "DELETE",
+      "description": "Delete a specific file",
+      "cache_ttl": 0,
+      "rate_limit": "20/min",
+      "timeout": "5s",
+      "retry_policy": {
+        "max_retries": 2,
+        "backoff": "linear",
+        "retry_conditions": ["5xx", "timeout"]
+      }
+    },
+    {
+      "endpoint": "/",
+      "method": "GET",
+      "description": "Get API information and status",
+      "cache_ttl": 600,
+      "rate_limit": "100/min",
+      "timeout": "1s",
+      "retry_policy": {
+        "max_retries": 2,
+        "backoff": "linear",
+        "retry_conditions": ["5xx", "timeout"]
+      }
+    },
+    {
+      "endpoint": "/commands/",
+      "method": "GET",
+      "description": "List available commands",
+      "cache_ttl": 300,
+      "rate_limit": "50/min",
+      "timeout": "5s",
+      "retry_policy": {
+        "max_retries": 2,
+        "backoff": "linear",
+        "retry_conditions": ["5xx", "timeout"]
+      }
+    },
+    {
+      "endpoint": "/commands/{id}",
+      "method": "POST",
+      "description": "Execute a specific command",
+      "cache_ttl": 0,
+      "rate_limit": "10/min",
+      "timeout": "30s",
+      "retry_policy": {
+        "max_retries": 3,
+        "backoff": "exponential",
+        "retry_conditions": ["5xx", "timeout"]
+      }
+    }
+  ],
+  "circuit_breaker": {
+    "enabled": true,
+    "max_requests": 5,
+    "interval": "10s",
+    "timeout": "30s",
+    "failure_threshold": 5
+  },
+  "global_config": {
+    "base_url": "https://127.0.0.1:27124",
+    "api_key_header": "Authorization",
+    "api_key_prefix": "Bearer",
+    "ssl_verify": false,
+    "user_agent": "API-MCP-Simbiosis/1.0",
+    "default_timeout": "10s",
+    "max_concurrent_requests": 10
+  }
+}

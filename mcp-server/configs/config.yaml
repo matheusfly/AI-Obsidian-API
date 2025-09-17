@@ -1,0 +1,23 @@
+# MCP Server Configuration for DeepSeek-R1:8B Integration
+api:
+  base_url: "https://localhost:27124"  # User's Obsidian API port (HTTPS)
+  token: "b26efa44ceb0bd4e1fae338cede5384237bbab8624c61927986aa3f06c2f5a70"  # User's API token
+
+server:
+  port: "3010"  # MCP Server port (changed from 8080)
+  auth: "local-token"
+
+retrieval:
+  chunk_size: 1024
+  embedding_model: "deepseek-r1:8b"  # Updated to DeepSeek model
+  vector_db: "in-memory"
+
+ollama:
+  host: "http://localhost:11434"
+  model: "deepseek-r1:8b"  # Updated to DeepSeek-R1:8B
+
+# User's vault configuration
+vault:
+  path: "D:\\Nomade Milionario"  # User's vault path
+  enable_cache: true
+  cache_ttl: "5m"
