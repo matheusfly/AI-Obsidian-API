@@ -12,27 +12,32 @@
 ```bash
 cd api-mcp-simbiosis && go run interactive_search_engine.go
 ```
+*Script: [interactive_search_engine.go](../interactive_search_engine.go)*
 
 ### **🏆 PRODUCTION SEARCH (Best Results)**
 ```bash
 cd local-rest-api && python main.py search "query" --engine ultra
 ```
+*Script: [main.py](../../local-rest-api/main.py) | Engine: [ultra_search_engine.py](../../local-rest-api/src/engines/ultra_search_engine.py)*
 
 ### **⚡ FASTEST SEARCH (Best Performance)**
 ```bash
 cd local-rest-api && python main.py search "query" --engine hybrid
 ```
+*Script: [main.py](../../local-rest-api/main.py) | Engine: [hybrid_search_engine.py](../../local-rest-api/src/engines/hybrid_search_engine.py)*
 
 ### **🧠 AI-POWERED SEARCH (Smart)**
 ```bash
 cd local-rest-api && python main.py search "query" --engine smart
 ```
+*Script: [main.py](../../local-rest-api/main.py) | Engine: [smart_search_engine.py](../../local-rest-api/src/engines/smart_search_engine.py)*
 
 ### **🔧 BASIC SEARCH (Simple)**
 ```bash
 go run quick_search.go
 go run smart_search.go
 ```
+*Scripts: [quick_search.go](../quick_search.go) | [smart_search.go](../smart_search.go)*
 
 ---
 
@@ -55,6 +60,7 @@ cd api-mcp-simbiosis && go run algorithms/metadata_boost.go
 # Deduplicator
 cd api-mcp-simbiosis && go run algorithms/deduplicator.go
 ```
+*Scripts: [query_composer.go](../algorithms/query_composer.go) | [bm25_tfidf.go](../algorithms/bm25_tfidf.go) | [candidate_aggregator.go](../algorithms/candidate_aggregator.go) | [metadata_boost.go](../algorithms/metadata_boost.go) | [deduplicator.go](../algorithms/deduplicator.go)*
 
 ### **Advanced Techniques:**
 ```bash
@@ -73,6 +79,7 @@ cd api-mcp-simbiosis && go run algorithms/query_rewriter.go
 # Local Indexer
 cd api-mcp-simbiosis && go run algorithms/local_indexer.go
 ```
+*Scripts: [autocomplete_suggester.go](../algorithms/autocomplete_suggester.go) | [proximity_matcher.go](../algorithms/proximity_matcher.go) | [batch_parallel_fetcher.go](../algorithms/batch_parallel_fetcher.go) | [query_rewriter.go](../algorithms/query_rewriter.go) | [local_indexer.go](../algorithms/local_indexer.go)*
 
 ### **Python Search Engines:**
 ```bash
@@ -88,6 +95,7 @@ cd local-rest-api && python src/engines/smart_search_engine.py
 # Improved Search Engine
 cd local-rest-api && python src/engines/improved_search_engine.py
 ```
+*Scripts: [ultra_search_engine.py](../../local-rest-api/src/engines/ultra_search_engine.py) | [hybrid_search_engine.py](../../local-rest-api/src/engines/hybrid_search_engine.py) | [smart_search_engine.py](../../local-rest-api/src/engines/smart_search_engine.py) | [improved_search_engine.py](../../local-rest-api/src/engines/improved_search_engine.py)*
 
 ---
 

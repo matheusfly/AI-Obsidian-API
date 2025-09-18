@@ -33,26 +33,26 @@ The MCP Local Server implementation has **COMPLETELY FAILED** to deliver on its 
 
 | **Feature** | **Status** | **Reality** | **Limitations** |
 |-------------|------------|-------------|-----------------|
-| **File Listing** | ✅ Working | Lists 72 files from vault | Static list, no real-time updates |
-| **File Reading** | ✅ Working | Can read individual files | Basic text reading only |
-| **File Creation** | ✅ Working | Can create new files | Simple file creation only |
-| **Filename Search** | ✅ Working | String matching in filenames | No semantic search, no AI |
-| **HTTP API Connection** | ✅ Working | Connects to Obsidian API | Basic HTTP only, no MCP |
+| **File Listing** | ✅ Working | Lists 72 files from vault | Static list, no real-time updates - See: [SIMPLE_WORKING_CHAT.go](../scripts/examples/SIMPLE_WORKING_CHAT.go) |
+| **File Reading** | ✅ Working | Can read individual files | Basic text reading only - See: [WORKING_CLI_CHAT.go](../scripts/examples/WORKING_CLI_CHAT.go) |
+| **File Creation** | ✅ Working | Can create new files | Simple file creation only - See: [FINAL_WORKING_CHAT.go](../scripts/examples/FINAL_WORKING_CHAT.go) |
+| **Filename Search** | ✅ Working | String matching in filenames | No semantic search, no AI - See: [SIMPLE_WORKING_CHAT.go](../scripts/examples/SIMPLE_WORKING_CHAT.go) |
+| **HTTP API Connection** | ✅ Working | Connects to Obsidian API | Basic HTTP only, no MCP - See: [http_client.go](../client/http_client.go) |
 
 ### **❌ WHAT DOESN'T EXIST (80% of promised features)**
 
 | **Feature** | **Status** | **Reality** | **Missing Components** |
 |-------------|------------|-------------|----------------------|
 | **MCP Server** | ❌ **NOT IMPLEMENTED** | No MCP server exists | No protocol, no tools, no compliance |
-| **AI Integration** | ❌ **NOT IMPLEMENTED** | No AI exists | No models, no processing, no intelligence |
-| **Real-time Sync** | ❌ **NOT IMPLEMENTED** | No real-time features | No monitoring, no updates, no sync |
-| **Semantic Search** | ❌ **NOT IMPLEMENTED** | No semantic search | No embeddings, no vectors, no AI |
-| **Workflow Automation** | ❌ **NOT IMPLEMENTED** | No automation | No workflows, no triggers, no actions |
-| **Monitoring Dashboard** | ❌ **NOT IMPLEMENTED** | No dashboard | No web interface, no metrics, no monitoring |
-| **Bulk Operations** | ❌ **NOT IMPLEMENTED** | No bulk features | No batch processing, no automation |
+| **AI Integration** | ❌ **NOT IMPLEMENTED** | No AI exists | No models, no processing, no intelligence - See: [AI_POWERED_FEATURES.go](../scripts/examples/AI_POWERED_FEATURES.go) |
+| **Real-time Sync** | ❌ **NOT IMPLEMENTED** | No real-time features | No monitoring, no updates, no sync - See: [REAL_TIME_VAULT_SYNC.go](../scripts/examples/REAL_TIME_VAULT_SYNC.go) |
+| **Semantic Search** | ❌ **NOT IMPLEMENTED** | No semantic search | No embeddings, no vectors, no AI - See: [advanced_semantic_search.go](../scripts/examples/advanced_semantic_search.go) |
+| **Workflow Automation** | ❌ **NOT IMPLEMENTED** | No automation | No workflows, no triggers, no actions - See: [WORKFLOW_AUTOMATION_SYSTEM.go](../scripts/examples/WORKFLOW_AUTOMATION_SYSTEM.go) |
+| **Monitoring Dashboard** | ❌ **NOT IMPLEMENTED** | No dashboard | No web interface, no metrics, no monitoring - See: [web_interface.go](../scripts/examples/web_interface.go) |
+| **Bulk Operations** | ❌ **NOT IMPLEMENTED** | No bulk features | No batch processing, no automation - See: [BULK_OPERATIONS_SYSTEM.go](../scripts/examples/BULK_OPERATIONS_SYSTEM.go) |
 | **WebSocket Support** | ❌ **NOT IMPLEMENTED** | No WebSocket | HTTP only, no real-time communication |
-| **Vector Database** | ❌ **NOT IMPLEMENTED** | No vector DB | No embeddings, no semantic search |
-| **Advanced Search** | ❌ **NOT IMPLEMENTED** | No advanced search | No algorithms, no ranking, no intelligence |
+| **Vector Database** | ❌ **NOT IMPLEMENTED** | No vector DB | No embeddings, no semantic search - See: [ADVANCED_SMART_SEARCH_ENGINE.go](../scripts/examples/ADVANCED_SMART_SEARCH_ENGINE.go) |
+| **Advanced Search** | ❌ **NOT IMPLEMENTED** | No advanced search | No algorithms, no ranking, no intelligence - See: [algorithms/](../algorithms/) directory |
 
 ---
 

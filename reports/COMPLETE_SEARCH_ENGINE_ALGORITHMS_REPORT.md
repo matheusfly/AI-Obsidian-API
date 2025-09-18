@@ -126,26 +126,31 @@ I've identified **15+ distinct search engine implementations** across the codeba
 ```bash
 cd api-mcp-simbiosis && go run interactive_search_engine.go
 ```
+*Script: [interactive_search_engine.go](../interactive_search_engine.go)*
 
 #### **2. Local REST API Search (Python)**
 ```bash
 cd local-rest-api && python main.py search "query"
 ```
+*Script: [main.py](../../local-rest-api/main.py)*
 
 #### **3. Ultra Search Engine (Best Results)**
 ```bash
 cd local-rest-api && python src/engines/ultra_search_engine.py
 ```
+*Script: [ultra_search_engine.py](../../local-rest-api/src/engines/ultra_search_engine.py)*
 
 #### **4. Hybrid Search Engine (Fastest)**
 ```bash
 cd local-rest-api && python src/engines/hybrid_search_engine.py
 ```
+*Script: [hybrid_search_engine.py](../../local-rest-api/src/engines/hybrid_search_engine.py)*
 
 #### **5. Smart Search Engine (AI-Powered)**
 ```bash
 cd local-rest-api && python src/engines/smart_search_engine.py
 ```
+*Script: [smart_search_engine.py](../../local-rest-api/src/engines/smart_search_engine.py)*
 
 #### **6. Root Level Search (Go)**
 ```bash
@@ -153,6 +158,7 @@ go run interactive_search_engine.go
 go run quick_search.go
 go run smart_search.go
 ```
+*Scripts: [interactive_search_engine.go](../interactive_search_engine.go) | [quick_search.go](../quick_search.go) | [smart_search.go](../smart_search.go)*
 
 ### **🔧 ALGORITHM-SPECIFIC COMMANDS**
 
@@ -162,6 +168,7 @@ cd api-mcp-simbiosis && go run algorithms/query_composer.go
 cd api-mcp-simbiosis && go run algorithms/bm25_tfidf.go
 cd api-mcp-simbiosis && go run algorithms/candidate_aggregator.go
 ```
+*Scripts: [query_composer.go](../algorithms/query_composer.go) | [bm25_tfidf.go](../algorithms/bm25_tfidf.go) | [candidate_aggregator.go](../algorithms/candidate_aggregator.go)*
 
 #### **Test Advanced Techniques:**
 ```bash
@@ -169,6 +176,7 @@ cd api-mcp-simbiosis && go run algorithms/autocomplete_suggester.go
 cd api-mcp-simbiosis && go run algorithms/proximity_matcher.go
 cd api-mcp-simbiosis && go run algorithms/batch_parallel_fetcher.go
 ```
+*Scripts: [autocomplete_suggester.go](../algorithms/autocomplete_suggester.go) | [proximity_matcher.go](../algorithms/proximity_matcher.go) | [batch_parallel_fetcher.go](../algorithms/batch_parallel_fetcher.go)*
 
 #### **Test Python Engines:**
 ```bash
@@ -176,6 +184,7 @@ cd local-rest-api && python src/engines/ultra_search_engine.py
 cd local-rest-api && python src/engines/hybrid_search_engine.py
 cd local-rest-api && python src/engines/smart_search_engine.py
 ```
+*Scripts: [ultra_search_engine.py](../../local-rest-api/src/engines/ultra_search_engine.py) | [hybrid_search_engine.py](../../local-rest-api/src/engines/hybrid_search_engine.py) | [smart_search_engine.py](../../local-rest-api/src/engines/smart_search_engine.py)*
 
 ---
 

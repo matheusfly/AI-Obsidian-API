@@ -33,11 +33,11 @@ The MCP Local Server implementation has **COMPLETELY FAILED** to deliver on its 
 
 | **Feature** | **Status** | **Reality** | **Limitations** |
 |-------------|------------|-------------|-----------------|
-| **File Listing** | ✅ Working | Lists 72 files from vault | Static list, no real-time updates |
-| **File Reading** | ✅ Working | Can read individual files | Basic text reading only |
-| **File Creation** | ✅ Working | Can create new files | Simple file creation only |
-| **Filename Search** | ✅ Working | String matching in filenames | No semantic search, no AI |
-| **HTTP API Connection** | ✅ Working | Connects to Obsidian API | Basic HTTP only, no MCP |
+| **File Listing** | ✅ Working | Lists 72 files from vault | Static list, no real-time updates - See: [SIMPLE_WORKING_CHAT.go](../scripts/examples/SIMPLE_WORKING_CHAT.go) |
+| **File Reading** | ✅ Working | Can read individual files | Basic text reading only - See: [WORKING_CLI_CHAT.go](../scripts/examples/WORKING_CLI_CHAT.go) |
+| **File Creation** | ✅ Working | Can create new files | Simple file creation only - See: [FINAL_WORKING_CHAT.go](../scripts/examples/FINAL_WORKING_CHAT.go) |
+| **Filename Search** | ✅ Working | String matching in filenames | No semantic search, no AI - See: [SIMPLE_WORKING_CHAT.go](../scripts/examples/SIMPLE_WORKING_CHAT.go) |
+| **HTTP API Connection** | ✅ Working | Connects to Obsidian API | Basic HTTP only, no MCP - See: [http_client.go](../client/http_client.go) |
 
 ### **❌ WHAT DOESN'T EXIST (80% of promised features)**
 
