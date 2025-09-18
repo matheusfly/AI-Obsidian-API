@@ -140,6 +140,9 @@ mcp-server/
 | [🤖 Interactive CLI](./docs/INTERACTIVE_CLI.md) | Interactive CLI usage and examples | Command reference, natural language interface |
 | [⚡ Scripts & Automation](./docs/SCRIPTS_AUTOMATION.md) | Automation scripts and workflows | Quick start scripts, development tools |
 | [🚨 Troubleshooting](./docs/TROUBLESHOOTING.md) | Troubleshooting guide and FAQ | Common issues, solutions, debugging |
+| [🏗️ Project Structure Analysis](../reports/COMPLETE_PROJECT_STRUCTURE_ANALYSIS.md) | **NEW!** Complete analysis of all folders and evolution | Folder analysis, performance comparisons, deployment recommendations |
+| [📈 Project Evolution Timeline](../reports/PROJECT_EVOLUTION_TIMELINE.md) | **NEW!** History from failed trials to production success | Evolution phases, performance improvements, lessons learned |
+| [📁 Folder Purpose & State](../reports/FOLDER_PURPOSE_AND_CURRENT_STATE.md) | **NEW!** Detailed analysis of each folder's purpose and current state | Folder purposes, current states, relationships, recommendations |
 
 ---
 
