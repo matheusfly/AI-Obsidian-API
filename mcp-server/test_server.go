@@ -2,33 +2,55 @@ package main
 
 import (
 	"fmt"
-	"log"
 	"net/http"
 	"time"
 )
 
 func main() {
-	fmt.Println("Testing MCP Server startup...")
-	
-	// Test if the server can start
-	go func() {
-		// This would normally be the server startup code
-		fmt.Println("Server would start here...")
-	}()
-	
-	// Give it a moment
-	time.Sleep(1 * time.Second)
-	
-	// Test HTTP client
-	client := &http.Client{Timeout: 5 * time.Second}
-	resp, err := client.Get("http://localhost:8080/health")
-	if err != nil {
-		fmt.Printf("Expected: Server not running yet - %v\n", err)
-	} else {
-		fmt.Printf("Server responded: %s\n", resp.Status)
-		resp.Body.Close()
-	}
-	
-	fmt.Println("✅ Test completed successfully!")
-}
+	fmt.Println("🚀 Starting MCP Test Server...")
 
+	// Health endpoint
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprintf(w, `{"status":"healthy","timestamp":"%s","version":"1.0.0"}`, time.Now().Format(time.RFC3339))
+		fmt.Println("✅ Health check requested")
+	})
+
+	// Tools list endpoint
+	http.HandleFunc("/tools/list", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprintf(w, `[{"name":"search_notes","description":"Search notes in vault"},{"name":"get_note","description":"Get a specific note"},{"name":"list_files","description":"List files in vault"}]`)
+		fmt.Println("✅ Tools list requested")
+	})
+
+	// MCP tools endpoint
+	http.HandleFunc("/mcp/tools", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		fmt.Fprintf(w, `[{"name":"search_notes","description":"Search notes in vault"},{"name":"get_note","description":"Get a specific note"},{"name":"list_files","description":"List files in vault"}]`)
+		fmt.Println("✅ MCP tools requested")
+	})
+
+	// Tool execution endpoint
+	http.HandleFunc("/tools/execute", func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Content-Type", "application/json")
+		if r.Method == "POST" {
+			fmt.Fprintf(w, `{"success":true,"message":"Tool executed successfully","data":{"result":"Test execution completed"}}`)
+			fmt.Println("✅ Tool execution requested")
+		} else {
+			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+		}
+	})
+
+	fmt.Println("🌐 Server starting on :3010")
+	fmt.Println("📋 Available endpoints:")
+	fmt.Println("  - GET  /health")
+	fmt.Println("  - GET  /tools/list")
+	fmt.Println("  - GET  /mcp/tools")
+	fmt.Println("  - POST /tools/execute")
+	fmt.Println("")
+	fmt.Println("🚀 Server is running! Press Ctrl+C to stop")
+
+	if err := http.ListenAndServe(":3010", nil); err != nil {
+		fmt.Printf("❌ Server failed: %v\n", err)
+	}
+}

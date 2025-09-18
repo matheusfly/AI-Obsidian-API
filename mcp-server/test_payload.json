@@ -1,7 +1,0 @@
-{
-  "tool": "search_vault",
-  "params": {
-    "query": "test search query",
-    "limit": 10
-  }
-}
